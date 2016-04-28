@@ -1,9 +1,11 @@
-package com.vishnus1224.marvelcharacters;
+package com.vishnus1224.marvelcharacters.ui.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class CharacterListActivity extends AppCompatActivity {
+import com.vishnus1224.marvelcharacters.R;
+
+public class CharacterListActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
