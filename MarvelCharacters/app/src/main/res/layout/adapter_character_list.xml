@@ -5,8 +5,9 @@
 
     <ImageView
         android:id="@+id/adapterCharacterImage"
+        android:scaleType="fitXY"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="@dimen/value_200dp" />
 
     <TextView
         android:id="@+id/adapterCharacterName"
