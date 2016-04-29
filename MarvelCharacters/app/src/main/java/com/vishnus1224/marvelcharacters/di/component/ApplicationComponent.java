@@ -3,6 +3,7 @@ package com.vishnus1224.marvelcharacters.di.component;
 import com.vishnus1224.marvelcharacters.MarvelCharacters;
 import com.vishnus1224.marvelcharacters.di.module.ApplicationModule;
 import com.vishnus1224.marvelcharacters.di.module.NetModule;
+import com.vishnus1224.marvelcharacters.webservice.MarvelWebService;
 
 import javax.inject.Singleton;
 
@@ -14,6 +15,9 @@ import dagger.Component;
 @Singleton
 @Component(modules = {ApplicationModule.class, NetModule.class})
 public interface ApplicationComponent {
+
+    //exposed to dependent components.
+    MarvelWebService marvelWebService();
 
     /**
      * Inject dependencies in the MarvelCharacters class.
