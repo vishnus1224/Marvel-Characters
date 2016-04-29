@@ -106,6 +106,8 @@ public class CharacterListActivity extends BaseActivity implements CharacterView
 
     private void fetchCharacters() {
 
+        showProgressBar();
+
         characterListPresenter.fetchCharacters();
 
     }

@@ -61,11 +61,14 @@ public class CharacterListPresenter {
             @Override
             public void onCompleted() {
 
+                characterView.hideProgressBar();
 
             }
 
             @Override
             public void onError(Throwable e) {
+
+                characterView.hideProgressBar();
 
                 characterView.showError(e.getMessage());
 
