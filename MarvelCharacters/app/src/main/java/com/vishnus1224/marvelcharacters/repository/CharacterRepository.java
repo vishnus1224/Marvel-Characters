@@ -13,7 +13,7 @@ public interface CharacterRepository {
 
     /**
      * Fetch a list of marvel characters from the data store.
-     * @return Observable emitting a list of MarvelCharacter objects.
+     * @return Observable that emits CharacterDataWrapper items.
      */
     Observable<List<MarvelCharacter>> fetchMarvelCharacters();
 }
