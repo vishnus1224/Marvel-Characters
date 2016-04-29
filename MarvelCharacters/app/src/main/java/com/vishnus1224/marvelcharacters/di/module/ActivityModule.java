@@ -5,6 +5,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 
 import com.vishnus1224.marvelcharacters.di.scope.PerActivity;
+import com.vishnus1224.marvelcharacters.repository.CharacterRepository;
+import com.vishnus1224.marvelcharacters.repository.CharacterRepositoryImpl;
 import com.vishnus1224.marvelcharacters.usecase.CharacterListUseCase;
 import com.vishnus1224.marvelcharacters.usecase.UseCase;
 
@@ -55,5 +57,15 @@ public class ActivityModule {
     @Provides @PerActivity @Named("CharacterList")
     UseCase provideCharacterListUseCase(CharacterListUseCase characterListUseCase){
         return characterListUseCase;
+    }
+
+    /**
+     * Provide character repository.
+     * @param characterRepositoryImpl Instance of CharacterRepositoryImpl.
+     * @return Instance of CharacterRepositoryImpl.
+     */
+    @Provides @PerActivity
+    CharacterRepository provideCharacterRepository(CharacterRepositoryImpl characterRepositoryImpl){
+        return characterRepositoryImpl;
     }
 }
