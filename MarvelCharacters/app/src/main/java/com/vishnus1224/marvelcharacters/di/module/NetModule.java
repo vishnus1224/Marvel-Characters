@@ -1,11 +1,13 @@
 package com.vishnus1224.marvelcharacters.di.module;
 
 import com.vishnus1224.marvelcharacters.webservice.MarvelWebService;
+import com.vishnus1224.marvelcharacters.webservice.interceptor.AuthorizationInterceptor;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import retrofit2.CallAdapter;
 import retrofit2.Converter;
@@ -30,12 +32,22 @@ public class NetModule {
     }
 
     /**
+     * Provide interceptor and adding authorization parameters to the web service request.
+     * @param authorizationInterceptor AuthorizationInterceptor instance.
+     * @return AuthorizationInterceptor instance.
+     */
+    @Provides @Singleton
+    Interceptor provideAuthorizationInterceptor(AuthorizationInterceptor authorizationInterceptor){
+        return authorizationInterceptor;
+    }
+
+    /**
      * Provides a single instance of OkHttpClient throughout the application.
      * @return Instance of OkHttpClient.
      */
     @Provides @Singleton
-    OkHttpClient provideOkHttpClient(){
-        return new OkHttpClient.Builder().build();
+    OkHttpClient provideOkHttpClient(Interceptor authorizationInterceptor){
+        return new OkHttpClient.Builder().addInterceptor(authorizationInterceptor).build();
     }
 
     /**
