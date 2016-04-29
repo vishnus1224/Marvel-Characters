@@ -5,6 +5,10 @@ import android.content.Context;
 import android.view.LayoutInflater;
 
 import com.vishnus1224.marvelcharacters.di.scope.PerActivity;
+import com.vishnus1224.marvelcharacters.usecase.CharacterListUseCase;
+import com.vishnus1224.marvelcharacters.usecase.UseCase;
+
+import javax.inject.Named;
 
 import dagger.Module;
 import dagger.Provides;
@@ -41,5 +45,15 @@ public class ActivityModule {
     @Provides @PerActivity
     LayoutInflater provideLayoutInflater(Activity activity){
         return (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
+
+    /**
+     * Provide a named use case.
+     * @param characterListUseCase CharacterListUseCase instance.
+     * @return CharacterListUseCase instance.
+     */
+    @Provides @PerActivity @Named("CharacterList")
+    UseCase provideCharacterListUseCase(CharacterListUseCase characterListUseCase){
+        return characterListUseCase;
     }
 }
