@@ -1,10 +1,19 @@
 package com.vishnus1224.marvelcharacters.ui.activity;
 
+import android.app.SearchManager;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.vishnus1224.marvelcharacters.R;
@@ -31,6 +40,8 @@ public class CharacterListActivity extends BaseActivity implements CharacterView
 
     private View listViewFooter;
     private ProgressBar footerProgressBar;
+
+    private SearchView searchView;
 
     //******************************************************************************
     // View definition end.
@@ -82,6 +93,52 @@ public class CharacterListActivity extends BaseActivity implements CharacterView
 
         setListViewScrollDelegate();
 
+    }
+
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+
+        handleSearchIntent(intent);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater menuInflater = getMenuInflater();
+
+        menuInflater.inflate(R.menu.character_search_menu, menu);
+
+        //Associate the searchable info with the search view.
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+
+        searchView = (SearchView) menu.findItem(R.id.characterSearch).getActionView();
+
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+
+        //add expand and collapse listener to the search view.
+        MenuItemCompat.setOnActionExpandListener(menu.findItem(R.id.characterSearch), new MenuItemCompat.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+
+                //show the keyboard when search icon is clicked.
+                searchView.setIconified(false);
+
+                return true;
+            }
+
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+
+                //hide the keyboard.
+                hideSoftKeyboard();
+
+                return true;
+            }
+        });
+
+        return true;
     }
 
 
@@ -149,6 +206,26 @@ public class CharacterListActivity extends BaseActivity implements CharacterView
         listViewScrollDelegate = new ListViewScrollDelegate(this);
 
         characterListView.setOnScrollListener(listViewScrollDelegate);
+
+    }
+
+    private void handleSearchIntent(Intent intent) {
+
+        //check to see if the search button was clicked.
+        if(Intent.ACTION_SEARCH.equals(intent.getAction())){
+
+            //get the keyword entered by the user.
+            String keyword = intent.getStringExtra(SearchManager.QUERY);
+
+
+        }
+
+    }
+
+    private void hideSoftKeyboard(){
+
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(searchView.getWindowToken(), 0);
 
     }
 
