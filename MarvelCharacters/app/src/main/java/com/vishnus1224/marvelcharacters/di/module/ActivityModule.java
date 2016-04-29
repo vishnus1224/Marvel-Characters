@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 
+import com.vishnus1224.marvelcharacters.datastore.CharacterDataStore;
+import com.vishnus1224.marvelcharacters.datastore.CloudCharacterDataStore;
 import com.vishnus1224.marvelcharacters.di.scope.PerActivity;
 import com.vishnus1224.marvelcharacters.repository.CharacterRepository;
 import com.vishnus1224.marvelcharacters.repository.CharacterRepositoryImpl;
@@ -67,5 +69,15 @@ public class ActivityModule {
     @Provides @PerActivity
     CharacterRepository provideCharacterRepository(CharacterRepositoryImpl characterRepositoryImpl){
         return characterRepositoryImpl;
+    }
+
+    /**
+     * Provide a cloud data store for fetching character data.
+     * @param cloudCharacterDataStore CloudCharacterDataStore instance.
+     * @return CloudCharacterDataStore instance.
+     */
+    @Provides @PerActivity @Named("Cloud")
+    CharacterDataStore provideCharacterDataStore(CloudCharacterDataStore cloudCharacterDataStore){
+        return cloudCharacterDataStore;
     }
 }
