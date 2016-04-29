@@ -1,6 +1,7 @@
 package com.vishnus1224.marvelcharacters.ui.presenter;
 
 import com.vishnus1224.marvelcharacters.di.scope.PerActivity;
+import com.vishnus1224.marvelcharacters.manager.CharacterDataOffsetManager;
 import com.vishnus1224.marvelcharacters.model.MarvelCharacter;
 import com.vishnus1224.marvelcharacters.ui.view.CharacterView;
 import com.vishnus1224.marvelcharacters.usecase.UseCase;
@@ -18,6 +19,12 @@ import rx.Subscriber;
 @PerActivity
 public class CharacterListPresenter {
 
+
+    /**
+     * Manages the offset for fetching new data.
+     */
+    private CharacterDataOffsetManager characterDataOffsetManager;
+
     /**
      * Reference to the character for passing UI events.
      */
@@ -29,9 +36,11 @@ public class CharacterListPresenter {
     private UseCase characterListUseCase;
 
     @Inject
-    public CharacterListPresenter(@Named("CharacterList") UseCase characterListUseCase){
+    public CharacterListPresenter(@Named("CharacterList") UseCase characterListUseCase, CharacterDataOffsetManager characterDataOffsetManager){
 
         this.characterListUseCase = characterListUseCase;
+
+        this.characterDataOffsetManager = characterDataOffsetManager;
 
     }
 
@@ -56,8 +65,8 @@ public class CharacterListPresenter {
 
     public void fetchCharacters(){
 
-        characterListUseCase.execute(new Subscriber<List<MarvelCharacter>>(){
-
+        //get the offset from the manager and pass it to the use case.
+        characterListUseCase.execute(characterDataOffsetManager.getResultOffset(), new Subscriber<List<MarvelCharacter>>() {
             @Override
             public void onCompleted() {
 
@@ -71,7 +80,6 @@ public class CharacterListPresenter {
                 characterView.hideProgressBar();
 
                 characterView.showError(e.getMessage());
-
             }
 
             @Override
@@ -79,6 +87,8 @@ public class CharacterListPresenter {
 
                 characterView.showCharacterList(marvelCharacters);
 
+                //update the offset manager's data.
+                characterDataOffsetManager.updateTotalAndOffset(marvelCharacters.size());
             }
         });
 
