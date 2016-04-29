@@ -30,6 +30,6 @@ public class CloudCharacterDataStore implements CharacterDataStore {
 
     @Override
     public Observable<List<MarvelCharacter>> fetchMarvelCharacters() {
-        return null;
+        return marvelWebService.fetchMarvelCharacters();
     }
 }
