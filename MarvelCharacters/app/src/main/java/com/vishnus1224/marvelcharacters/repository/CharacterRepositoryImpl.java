@@ -6,6 +6,7 @@ import com.vishnus1224.marvelcharacters.model.MarvelCharacter;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import rx.Observable;
 
@@ -21,7 +22,7 @@ public class CharacterRepositoryImpl implements CharacterRepository {
     private CharacterDataStore characterDataStore;
 
     @Inject
-    public CharacterRepositoryImpl(CharacterDataStore characterDataStore){
+    public CharacterRepositoryImpl(@Named("Cloud") CharacterDataStore characterDataStore){
 
         this.characterDataStore = characterDataStore;
 
@@ -29,6 +30,6 @@ public class CharacterRepositoryImpl implements CharacterRepository {
 
     @Override
     public Observable<List<MarvelCharacter>> fetchMarvelCharacters() {
-        return null;
+        return characterDataStore.fetchMarvelCharacters();
     }
 }
