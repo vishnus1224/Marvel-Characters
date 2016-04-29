@@ -10,8 +10,8 @@ import com.vishnus1224.marvelcharacters.di.component.ActivityComponent;
 import com.vishnus1224.marvelcharacters.di.component.DaggerActivityComponent;
 import com.vishnus1224.marvelcharacters.di.module.ActivityModule;
 import com.vishnus1224.marvelcharacters.model.MarvelCharacter;
-import com.vishnus1224.marvelcharacters.presenter.CharacterListPresenter;
 import com.vishnus1224.marvelcharacters.ui.adapter.CharacterListAdapter;
+import com.vishnus1224.marvelcharacters.ui.presenter.CharacterListPresenter;
 import com.vishnus1224.marvelcharacters.ui.view.CharacterView;
 
 import java.util.List;
@@ -76,6 +76,8 @@ public class CharacterListActivity extends BaseActivity implements CharacterView
                 .applicationComponent(getApplicationComponent())
                 .activityModule(new ActivityModule(this))
                 .build();
+
+        activityComponent.inject(this);
 
     }
 
