@@ -62,6 +62,13 @@ public class CharacterListActivity extends BaseActivity implements CharacterView
         setListViewAdapter();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        characterListPresenter.destroy();
+    }
+
     private void setupViews() {
 
         characterListView = (ListView) findViewById(R.id.characterListView);
