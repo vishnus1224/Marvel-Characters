@@ -1,10 +1,16 @@
 package com.vishnus1224.marvelcharacters.webservice.interceptor;
 
+import com.vishnus1224.marvelcharacters.exception.MarvelApiException;
+import com.vishnus1224.marvelcharacters.util.Constants;
+import com.vishnus1224.marvelcharacters.util.HashGenerator;
+
 import java.io.IOException;
 
 import javax.inject.Inject;
 
+import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
+import okhttp3.Request;
 import okhttp3.Response;
 
 /**
@@ -13,13 +19,48 @@ import okhttp3.Response;
  */
 public class AuthorizationInterceptor implements Interceptor {
 
-    @Inject
-    public AuthorizationInterceptor(){
+    private static final String KEY_TIMESTAMP = "ts";
+    private static final String KEY_HASH = "hash";
+    private static final String KEY_APIKEY = "apikey";
 
+    private HashGenerator hashGenerator;
+
+    @Inject
+    public AuthorizationInterceptor(HashGenerator hashGenerator){
+
+        this.hashGenerator = hashGenerator;
     }
 
     @Override
     public Response intercept(Chain chain) throws IOException {
-        return null;
+
+        //Get the current system time and convert it to a string.
+        String timestamp = String.valueOf(System.currentTimeMillis());
+
+        String hash = null;
+        try {
+            //generate the hash using the hash generator.
+            hash = hashGenerator.generateHash(Constants.ZZY, Constants.ZZX, timestamp);
+        } catch (MarvelApiException e) {
+            e.printStackTrace();
+        }
+
+        //get the original request.
+        Request request = chain.request();
+
+        //add query parameters to the request for authorization.
+        HttpUrl url = request.url()
+                .newBuilder()
+                .addQueryParameter(KEY_TIMESTAMP, timestamp)
+                .addQueryParameter(KEY_APIKEY, Constants.ZZX)
+                .addQueryParameter(KEY_HASH, hash)
+                .build();
+
+        //build a new request.
+        request = request.newBuilder().url(url).build();
+
+        //proceed with the new request.
+        return chain.proceed(request);
+
     }
 }
