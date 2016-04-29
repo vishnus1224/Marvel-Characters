@@ -13,7 +13,8 @@ public interface CharacterRepository {
 
     /**
      * Fetch a list of marvel characters from the data store.
+     * @param offset Number of results that the result set should be offset.
      * @return Observable that emits CharacterDataWrapper items.
      */
-    Observable<List<MarvelCharacter>> fetchMarvelCharacters();
+    Observable<List<MarvelCharacter>> fetchMarvelCharacters(int offset);
 }

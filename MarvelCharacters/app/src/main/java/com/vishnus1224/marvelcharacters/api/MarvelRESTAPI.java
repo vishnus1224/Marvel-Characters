@@ -20,7 +20,7 @@ public class MarvelRESTAPI implements RESTAPI {
     }
 
     @Override
-    public Observable<CharacterDataWrapper> fetchMarvelCharacters() {
-        return marvelWebService.fetchMarvelCharacters();
+    public Observable<CharacterDataWrapper> fetchMarvelCharacters(int offset) {
+        return marvelWebService.fetchMarvelCharacters(offset);
     }
 }

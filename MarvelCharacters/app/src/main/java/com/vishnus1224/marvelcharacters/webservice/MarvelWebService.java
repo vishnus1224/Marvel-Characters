@@ -5,6 +5,7 @@ import com.vishnus1224.marvelcharacters.model.CharacterDataWrapper;
 import java.util.List;
 
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 import rx.Observable;
 
 /**
@@ -15,5 +16,5 @@ public interface MarvelWebService {
     String BASE_URL = "https://gateway.marvel.com/";
 
     @GET("v1/public/characters")
-    Observable<CharacterDataWrapper> fetchMarvelCharacters();
+    Observable<CharacterDataWrapper> fetchMarvelCharacters(@Query("offset") int offset);
 }

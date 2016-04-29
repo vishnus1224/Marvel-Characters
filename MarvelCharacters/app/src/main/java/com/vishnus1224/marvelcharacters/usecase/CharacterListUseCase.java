@@ -29,6 +29,6 @@ public class CharacterListUseCase extends UseCase {
      */
     @Override
     protected Observable buildUseCase() {
-        return characterRepository.fetchMarvelCharacters();
+        return characterRepository.fetchMarvelCharacters(offset);
     }
 }

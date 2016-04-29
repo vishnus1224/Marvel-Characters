@@ -11,8 +11,10 @@ import rx.Observable;
 public interface RESTAPI {
 
     /**
+     *
      * Fetch marvel characters using the REST API.
+     * @param offset Number of results that the result set should be offset.
      * @return Observable that emits CharacterDataWrapper items.
      */
-    Observable<CharacterDataWrapper> fetchMarvelCharacters();
+    Observable<CharacterDataWrapper> fetchMarvelCharacters(int offset);
 }

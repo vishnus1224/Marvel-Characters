@@ -27,7 +27,8 @@ public class CloudCharacterDataStore implements CharacterDataStore {
 
 
     @Override
-    public Observable<CharacterDataWrapper> fetchMarvelCharacters() {
-        return restApi.fetchMarvelCharacters();
+    public Observable<CharacterDataWrapper> fetchMarvelCharacters(int offset) {
+        return restApi.fetchMarvelCharacters(offset);
     }
+
 }

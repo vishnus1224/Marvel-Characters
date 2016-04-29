@@ -14,6 +14,8 @@ import rx.subscriptions.Subscriptions;
  */
 public abstract class UseCase {
 
+    protected int offset;
+
     /**
      * Reference to the subscription. Empty by default.
      */
@@ -27,8 +29,12 @@ public abstract class UseCase {
 
     /**
      * Executes the use case on an IO thread and returns the result on the main thread.
+     * @param offset The number of results to offset.
+     * @param subscriber Subscriber listening to the Observable.
      */
-    public void execute(Subscriber subscriber){
+    public void execute(int offset, Subscriber subscriber){
+
+        this.offset = offset;
 
         subscription = buildUseCase()
                 .subscribeOn(Schedulers.io())

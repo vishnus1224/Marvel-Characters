@@ -43,8 +43,8 @@ public class CharacterRepositoryImpl implements CharacterRepository {
      * @return List of marvel characters.
      */
     @Override
-    public Observable<List<MarvelCharacter>> fetchMarvelCharacters() {
-        return characterDataStore.fetchMarvelCharacters()
+    public Observable<List<MarvelCharacter>> fetchMarvelCharacters(int offset) {
+        return characterDataStore.fetchMarvelCharacters(offset)
                 .map(new Func1<CharacterDataWrapper, List<MarvelCharacter>>() {
                     @Override
                     public List<MarvelCharacter> call(CharacterDataWrapper characterDataWrapper) {
@@ -54,4 +54,5 @@ public class CharacterRepositoryImpl implements CharacterRepository {
                     }
                 });
     }
+
 }
