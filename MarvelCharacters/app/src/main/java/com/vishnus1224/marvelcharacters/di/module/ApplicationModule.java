@@ -2,6 +2,10 @@ package com.vishnus1224.marvelcharacters.di.module;
 
 import android.app.Application;
 
+import com.squareup.picasso.Picasso;
+import com.vishnus1224.marvelcharacters.imageloader.ImageDownloader;
+import com.vishnus1224.marvelcharacters.imageloader.PicassoImageDownloader;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -30,5 +34,25 @@ public class ApplicationModule {
     @Provides @Singleton
     Application provideApplication(){
         return application;
+    }
+
+    /**
+     * Provides a single picasso instance to be used throughout the application.
+     * @param application Current application instance.
+     * @return Instance of Picasso.
+     */
+    @Provides @Singleton
+    Picasso providePicasso(Application application){
+        return Picasso.with(application);
+    }
+
+    /**
+     * Provides a single image downloader instance.
+     * @param picassoImageDownloader PicassoImageDownloader instance.
+     * @return PicassoImageDownloader instance.
+     */
+    @Provides @Singleton
+    ImageDownloader imageDownloader(PicassoImageDownloader picassoImageDownloader){
+        return picassoImageDownloader;
     }
 }

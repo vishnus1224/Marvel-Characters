@@ -4,6 +4,7 @@ import com.vishnus1224.marvelcharacters.MarvelCharacters;
 import com.vishnus1224.marvelcharacters.api.RESTAPI;
 import com.vishnus1224.marvelcharacters.di.module.ApplicationModule;
 import com.vishnus1224.marvelcharacters.di.module.NetModule;
+import com.vishnus1224.marvelcharacters.imageloader.ImageDownloader;
 import com.vishnus1224.marvelcharacters.webservice.MarvelWebService;
 
 import javax.inject.Singleton;
@@ -20,6 +21,7 @@ public interface ApplicationComponent {
     //exposed to dependent components.
     MarvelWebService marvelWebService();
     RESTAPI restApi();
+    ImageDownloader imageDownloader();
 
     /**
      * Inject dependencies in the MarvelCharacters class.
