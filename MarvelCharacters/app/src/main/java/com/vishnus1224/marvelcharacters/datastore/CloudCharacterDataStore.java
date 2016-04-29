@@ -1,9 +1,7 @@
 package com.vishnus1224.marvelcharacters.datastore;
 
+import com.vishnus1224.marvelcharacters.api.RESTAPI;
 import com.vishnus1224.marvelcharacters.model.CharacterDataWrapper;
-import com.vishnus1224.marvelcharacters.webservice.MarvelWebService;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -16,20 +14,20 @@ import rx.Observable;
 public class CloudCharacterDataStore implements CharacterDataStore {
 
     /**
-     * Reference to the marvel web service for fetching data from the rest API.
+     * Reference to the rest api for fetching data.
      */
-    private MarvelWebService marvelWebService;
+    private RESTAPI restApi;
 
     @Inject
-    public CloudCharacterDataStore(MarvelWebService marvelWebService){
+    public CloudCharacterDataStore(RESTAPI restApi){
 
-        this.marvelWebService = marvelWebService;
+        this.restApi = restApi;
 
     }
 
 
     @Override
     public Observable<CharacterDataWrapper> fetchMarvelCharacters() {
-        return marvelWebService.fetchMarvelCharacters();
+        return restApi.fetchMarvelCharacters();
     }
 }

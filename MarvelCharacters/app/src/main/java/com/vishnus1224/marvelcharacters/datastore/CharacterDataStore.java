@@ -14,7 +14,7 @@ public interface CharacterDataStore {
 
     /**
      * Fetches a list of marvel characters from the data store.
-     * @return Observable that emits a list of marvel characters.
+     * @return Observable that emits CharacterDataWrapper items.
      */
     Observable<CharacterDataWrapper> fetchMarvelCharacters();
 }
