@@ -230,7 +230,7 @@ public class CharacterListActivity extends BaseActivity implements CharacterView
 
         showFooterProgress();
 
-        Toast.makeText(CharacterListActivity.this, "Bottom", Toast.LENGTH_SHORT).show();
+        characterListPresenter.fetchCharacters();
 
     }
 
