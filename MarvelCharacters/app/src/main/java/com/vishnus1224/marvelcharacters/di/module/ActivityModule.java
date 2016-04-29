@@ -2,6 +2,8 @@ package com.vishnus1224.marvelcharacters.di.module;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 
 import com.vishnus1224.marvelcharacters.datastore.CharacterDataStore;
@@ -79,5 +81,26 @@ public class ActivityModule {
     @Provides @PerActivity @Named("Cloud")
     CharacterDataStore provideCharacterDataStore(CloudCharacterDataStore cloudCharacterDataStore){
         return cloudCharacterDataStore;
+    }
+
+
+    /**
+     * Provide an instance of the resources.
+     * @param activity The current activity.
+     * @return Resources instance.
+     */
+    @Provides @PerActivity
+    Resources provideResources(Activity activity){
+        return activity.getResources();
+    }
+
+    /**
+     * Provide the display metrics associated with the current display.
+     * @param resources The resources instance.
+     * @return DisplayMetrics instance.
+     */
+    @Provides @PerActivity
+    DisplayMetrics provideDisplayMetrics(Resources resources){
+        return resources.getDisplayMetrics();
     }
 }
