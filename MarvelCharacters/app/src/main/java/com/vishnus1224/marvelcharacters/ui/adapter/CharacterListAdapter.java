@@ -67,9 +67,6 @@ public class CharacterListAdapter extends BaseAdapter {
      */
     public void updateDataSet(List<MarvelCharacter> marvelCharacters){
 
-        //clear the list.
-        this.marvelCharacters.clear();
-
         //add new elements to the list.
         this.marvelCharacters.addAll(marvelCharacters);
 
