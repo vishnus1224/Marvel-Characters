@@ -19,13 +19,13 @@ public class ComicContainer {
      * List of comics.
      */
     @SerializedName("items")
-    private List<Comic> comicList;
+    private List<ComicSummary> comicSummaryList;
 
     public int getAvailable() {
         return available;
     }
 
-    public List<Comic> getComicList() {
-        return comicList;
+    public List<ComicSummary> getComicSummaryList() {
+        return comicSummaryList;
     }
 }

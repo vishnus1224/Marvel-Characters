@@ -4,28 +4,35 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
+ * Base class for summary objects.
  * Created by Vishnu on 4/29/2016.
  */
-public class Comic implements Parcelable {
+public class Summary implements Parcelable{
 
+    /**
+     * ResourceURI of the summary.
+     */
     private String resourceURI;
 
+    /**
+     * Summary name.
+     */
     private String name;
 
-    protected Comic(Parcel in) {
+    protected Summary(Parcel in) {
         resourceURI = in.readString();
         name = in.readString();
     }
 
-    public static final Creator<Comic> CREATOR = new Creator<Comic>() {
+    public static final Creator<Summary> CREATOR = new Creator<Summary>() {
         @Override
-        public Comic createFromParcel(Parcel in) {
-            return new Comic(in);
+        public Summary createFromParcel(Parcel in) {
+            return new Summary(in);
         }
 
         @Override
-        public Comic[] newArray(int size) {
-            return new Comic[size];
+        public Summary[] newArray(int size) {
+            return new Summary[size];
         }
     };
 
