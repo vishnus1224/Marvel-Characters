@@ -113,12 +113,14 @@ public class CharacterListActivity extends BaseActivity implements CharacterView
         //Associate the searchable info with the search view.
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
 
-        searchView = (SearchView) menu.findItem(R.id.characterSearch).getActionView();
+        MenuItem searchItem = menu.findItem(R.id.characterSearch);
+
+        searchView = (SearchView) searchItem.getActionView();
 
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
 
         //add expand and collapse listener to the search view.
-        MenuItemCompat.setOnActionExpandListener(menu.findItem(R.id.characterSearch), new MenuItemCompat.OnActionExpandListener() {
+        MenuItemCompat.setOnActionExpandListener(searchItem, new MenuItemCompat.OnActionExpandListener() {
             @Override
             public boolean onMenuItemActionExpand(MenuItem item) {
 
