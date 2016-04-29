@@ -1,4 +1,4 @@
-package com.vishnus1224.marvelcharacters.presenter;
+package com.vishnus1224.marvelcharacters.ui.presenter;
 
 import com.vishnus1224.marvelcharacters.di.scope.PerActivity;
 import com.vishnus1224.marvelcharacters.ui.view.CharacterView;
