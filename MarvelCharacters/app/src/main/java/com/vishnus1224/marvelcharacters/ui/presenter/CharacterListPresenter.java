@@ -1,11 +1,16 @@
 package com.vishnus1224.marvelcharacters.ui.presenter;
 
 import com.vishnus1224.marvelcharacters.di.scope.PerActivity;
+import com.vishnus1224.marvelcharacters.model.MarvelCharacter;
 import com.vishnus1224.marvelcharacters.ui.view.CharacterView;
 import com.vishnus1224.marvelcharacters.usecase.UseCase;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Named;
+
+import rx.Subscriber;
 
 /**
  * Created by Vishnu on 4/29/2016.
@@ -47,4 +52,32 @@ public class CharacterListPresenter {
         characterListUseCase.unSubscribe();
 
     }
+
+
+    public void fetchCharacters(){
+
+        characterListUseCase.execute(new Subscriber<List<MarvelCharacter>>(){
+
+            @Override
+            public void onCompleted() {
+
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+                characterView.showError(e.getMessage());
+
+            }
+
+            @Override
+            public void onNext(List<MarvelCharacter> marvelCharacters) {
+
+
+            }
+        });
+
+    }
+
 }
