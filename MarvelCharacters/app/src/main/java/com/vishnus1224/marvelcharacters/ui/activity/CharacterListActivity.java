@@ -172,6 +172,9 @@ public class CharacterListActivity extends BaseActivity implements CharacterView
     @Override
     public void showCharacterList(List<MarvelCharacter> marvelCharacters) {
 
+        //update total item count in the scroll delegate.
+        listViewScrollDelegate.addToTotalItemCount(marvelCharacters.size());
+
         characterListAdapter.updateDataSet(marvelCharacters);
 
     }
