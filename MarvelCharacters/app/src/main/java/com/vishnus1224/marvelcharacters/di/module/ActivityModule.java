@@ -1,6 +1,8 @@
 package com.vishnus1224.marvelcharacters.di.module;
 
 import android.app.Activity;
+import android.content.Context;
+import android.view.LayoutInflater;
 
 import com.vishnus1224.marvelcharacters.di.scope.PerActivity;
 
@@ -29,5 +31,15 @@ public class ActivityModule {
     @Provides @PerActivity
     Activity provideActivity(){
         return activity;
+    }
+
+    /**
+     * Provide a layout inflater instance per activity.
+     * @param activity The context.
+     * @return Layout inflater instance.
+     */
+    @Provides @PerActivity
+    LayoutInflater provideLayoutInflater(Activity activity){
+        return (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 }
