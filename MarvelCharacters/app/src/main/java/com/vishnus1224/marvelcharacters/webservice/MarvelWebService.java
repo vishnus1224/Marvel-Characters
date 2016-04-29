@@ -1,6 +1,6 @@
 package com.vishnus1224.marvelcharacters.webservice;
 
-import com.vishnus1224.marvelcharacters.model.MarvelCharacter;
+import com.vishnus1224.marvelcharacters.model.CharacterDataWrapper;
 
 import java.util.List;
 
@@ -15,5 +15,5 @@ public interface MarvelWebService {
     String BASE_URL = "https://gateway.marvel.com/";
 
     @GET("v1/public/characters")
-    Observable<List<MarvelCharacter>> fetchMarvelCharacters();
+    Observable<CharacterDataWrapper> fetchMarvelCharacters();
 }

@@ -1,6 +1,6 @@
 package com.vishnus1224.marvelcharacters.datastore;
 
-import com.vishnus1224.marvelcharacters.model.MarvelCharacter;
+import com.vishnus1224.marvelcharacters.model.CharacterDataWrapper;
 import com.vishnus1224.marvelcharacters.webservice.MarvelWebService;
 
 import java.util.List;
@@ -29,7 +29,7 @@ public class CloudCharacterDataStore implements CharacterDataStore {
 
 
     @Override
-    public Observable<List<MarvelCharacter>> fetchMarvelCharacters() {
+    public Observable<CharacterDataWrapper> fetchMarvelCharacters() {
         return marvelWebService.fetchMarvelCharacters();
     }
 }

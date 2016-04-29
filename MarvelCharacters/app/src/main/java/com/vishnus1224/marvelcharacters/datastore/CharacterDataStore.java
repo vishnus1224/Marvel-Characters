@@ -1,6 +1,6 @@
 package com.vishnus1224.marvelcharacters.datastore;
 
-import com.vishnus1224.marvelcharacters.model.MarvelCharacter;
+import com.vishnus1224.marvelcharacters.model.CharacterDataWrapper;
 
 import java.util.List;
 
@@ -16,5 +16,5 @@ public interface CharacterDataStore {
      * Fetches a list of marvel characters from the data store.
      * @return Observable that emits a list of marvel characters.
      */
-    Observable<List<MarvelCharacter>> fetchMarvelCharacters();
+    Observable<CharacterDataWrapper> fetchMarvelCharacters();
 }
