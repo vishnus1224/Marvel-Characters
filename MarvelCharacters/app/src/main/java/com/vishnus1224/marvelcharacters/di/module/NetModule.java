@@ -1,5 +1,7 @@
 package com.vishnus1224.marvelcharacters.di.module;
 
+import com.vishnus1224.marvelcharacters.api.MarvelRESTAPI;
+import com.vishnus1224.marvelcharacters.api.RESTAPI;
 import com.vishnus1224.marvelcharacters.webservice.MarvelWebService;
 import com.vishnus1224.marvelcharacters.webservice.interceptor.AuthorizationInterceptor;
 
@@ -93,5 +95,10 @@ public class NetModule {
     @Provides @Singleton
     MarvelWebService provideMarvelWebService(Retrofit retrofit){
         return retrofit.create(MarvelWebService.class);
+    }
+
+    @Provides @Singleton
+    RESTAPI provideMarvelRESTAPI(MarvelRESTAPI marvelRESTAPI){
+        return marvelRESTAPI;
     }
 }
