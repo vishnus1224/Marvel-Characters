@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.vishnus1224.marvelcharacters.R;
 import com.vishnus1224.marvelcharacters.di.component.ActivityComponent;
@@ -20,16 +21,14 @@ import javax.inject.Inject;
 
 public class CharacterListActivity extends BaseActivity implements CharacterView{
 
-    /**
-     * *******************************************************************************
-     * View definitions.
-     */
+
+    // *******************************************************************************
+    // View definitions.
     private ListView characterListView;
     private ProgressBar progressBar;
 
-    /**
-     * ******************************************************************************
-     */
+    //******************************************************************************
+    // View definition end.
 
     /**
      * Adapter for displaying a list of characters.
@@ -60,6 +59,8 @@ public class CharacterListActivity extends BaseActivity implements CharacterView
         initializePresenter();
 
         setListViewAdapter();
+
+        fetchCharacters();
     }
 
     @Override
@@ -102,6 +103,16 @@ public class CharacterListActivity extends BaseActivity implements CharacterView
 
     }
 
+
+    private void fetchCharacters() {
+
+        characterListPresenter.fetchCharacters();
+
+    }
+
+    // View Methods.
+    //===========================================================================================
+
     @Override
     public void showProgressBar() {
 
@@ -126,5 +137,10 @@ public class CharacterListActivity extends BaseActivity implements CharacterView
     @Override
     public void showError(String message) {
 
+        Toast.makeText(CharacterListActivity.this, message, Toast.LENGTH_SHORT).show();
+
     }
+
+    //View Method End.
+    //==============================================================================================
 }
