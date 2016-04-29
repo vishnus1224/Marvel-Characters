@@ -19,6 +19,11 @@ public class MarvelCharacterThumbnail implements Parcelable{
      */
     private String extension;
 
+    /**
+     * String builder instance for generating final image path.
+     */
+    private static StringBuilder stringBuilder = new StringBuilder();
+
     protected MarvelCharacterThumbnail(Parcel in) {
         path = in.readString();
         extension = in.readString();
@@ -50,6 +55,21 @@ public class MarvelCharacterThumbnail implements Parcelable{
 
     public void setExtension(String extension) {
         this.extension = extension;
+    }
+
+    /**
+     * Combines the path and extension of the thumbnail.
+     * @return Final path of the image.
+     */
+    public String getFinalPath() {
+
+        //reset the contents of the string builder.
+        stringBuilder.setLength(0);
+
+        return stringBuilder.append(path)
+                .append(".")
+                .append(extension)
+                .toString();
     }
 
     @Override
