@@ -37,6 +37,22 @@ public class CharacterListAdapter extends BaseAdapter {
 
     }
 
+    /**
+     * Update the data in the adapter with the new elements.
+     * @param marvelCharacters List of MarvelCharacters.
+     */
+    public void updateDataSet(List<MarvelCharacter> marvelCharacters){
+
+        //clear the list.
+        this.marvelCharacters.clear();
+
+        //add new elements to the list.
+        this.marvelCharacters.addAll(marvelCharacters);
+
+        //notify the adapter.
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getCount() {
         return marvelCharacters.size();
