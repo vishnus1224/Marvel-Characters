@@ -31,4 +31,24 @@ public interface CharacterView {
      * @param message Error message.
      */
     void showError(String message);
+
+    /**
+     * Add a footer to the ListView.
+     */
+    void addListViewFooter();
+
+    /**
+     * Remove footer from the ListView.
+     */
+    void removeListViewFooter();
+
+    /**
+     * Show progress bar in the footer view.
+     */
+    void showFooterProgress();
+
+    /**
+     * Hide progress bar in the footer view.
+     */
+    void hideFooterProgress();
 }
