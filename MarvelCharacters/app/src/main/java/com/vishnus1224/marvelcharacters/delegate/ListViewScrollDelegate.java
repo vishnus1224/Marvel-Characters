@@ -16,6 +16,11 @@ public class ListViewScrollDelegate implements AbsListView.OnScrollListener {
     private int lastItemPosition;
 
     /**
+     * Total items displayed by the ListView's adapter.
+     */
+    private int totalItemCount;
+
+    /**
      * The offset from the last item at which the onBottomHit method will fire.
      * The onBottomHit method will be called when the list view has scrolled past the third last item.
      */
@@ -37,6 +42,16 @@ public class ListViewScrollDelegate implements AbsListView.OnScrollListener {
 
     }
 
+    /**
+     * Add count to the totalItemCount.
+     * @param count Count value.
+     */
+    public void addToTotalItemCount(int count){
+
+        totalItemCount += count;
+
+    }
+
     @Override
     public void onScrollStateChanged(AbsListView absListView, int scrollState) {
 
@@ -48,7 +63,9 @@ public class ListViewScrollDelegate implements AbsListView.OnScrollListener {
         int currentPosition = firstVisibleItem + visibleItemCount;
 
         //calculate the offset position from the specified offset.
-        int offsetPosition = totalItemCount - lastItemOffset;
+        //using member variable instead of local totalItemCount as the local increases
+        //by 1 when footer gets added.
+        int offsetPosition = this.totalItemCount - lastItemOffset;
 
         if(currentPosition == offsetPosition && totalItemCount > 0){
 
