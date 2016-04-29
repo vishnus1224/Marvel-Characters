@@ -17,9 +17,9 @@ public abstract class UseCase {
     protected int offset;
 
     /**
-     * Reference to the subscription. Empty by default.
+     * Reference to the subscription.
      */
-    private Subscription subscription = Subscriptions.empty();
+    private Subscription subscription;
 
     /**
      * Subclasses should provide a concrete implementation for this method.
@@ -36,6 +36,9 @@ public abstract class UseCase {
 
         this.offset = offset;
 
+        //un subscribe the current subscription if one exists.
+        unSubscribe();
+
         subscription = buildUseCase()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -48,7 +51,7 @@ public abstract class UseCase {
      */
     public void unSubscribe(){
 
-        if(!subscription.isUnsubscribed()){
+        if(subscription != null && !subscription.isUnsubscribed()){
 
             subscription.unsubscribe();
         }
