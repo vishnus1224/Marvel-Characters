@@ -74,6 +74,7 @@ public class CharacterListPresenter {
             @Override
             public void onNext(List<MarvelCharacter> marvelCharacters) {
 
+                characterView.showCharacterList(marvelCharacters);
 
             }
         });
