@@ -7,6 +7,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.vishnus1224.marvelcharacters.R;
+import com.vishnus1224.marvelcharacters.delegate.ListViewScrollDelegate;
 import com.vishnus1224.marvelcharacters.di.component.ActivityComponent;
 import com.vishnus1224.marvelcharacters.di.component.DaggerActivityComponent;
 import com.vishnus1224.marvelcharacters.di.module.ActivityModule;
@@ -19,7 +20,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class CharacterListActivity extends BaseActivity implements CharacterView{
+public class CharacterListActivity extends BaseActivity implements CharacterView, ListViewScrollDelegate.BottomHitListener{
 
 
     // *******************************************************************************
@@ -47,6 +48,11 @@ public class CharacterListActivity extends BaseActivity implements CharacterView
      */
     private ActivityComponent activityComponent;
 
+    /**
+     * ListView scroll delegate instance.
+     */
+    private ListViewScrollDelegate listViewScrollDelegate;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +67,10 @@ public class CharacterListActivity extends BaseActivity implements CharacterView
         setListViewAdapter();
 
         fetchCharacters();
+
+        setListViewScrollDelegate();
     }
+
 
     @Override
     protected void onDestroy() {
@@ -112,6 +121,15 @@ public class CharacterListActivity extends BaseActivity implements CharacterView
 
     }
 
+
+    private void setListViewScrollDelegate() {
+
+        listViewScrollDelegate = new ListViewScrollDelegate(this);
+
+        characterListView.setOnScrollListener(listViewScrollDelegate);
+
+    }
+
     // View Methods.
     //===========================================================================================
 
@@ -145,4 +163,14 @@ public class CharacterListActivity extends BaseActivity implements CharacterView
 
     //View Method End.
     //==============================================================================================
+
+
+    //ListView scroll delegate method.
+    @Override
+    public void onBottomHit() {
+
+        Toast.makeText(CharacterListActivity.this, "Bottom", Toast.LENGTH_SHORT).show();
+
+    }
+
 }
