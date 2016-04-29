@@ -1,6 +1,7 @@
 package com.vishnus1224.marvelcharacters.ui.activity;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -28,8 +29,17 @@ public class CharacterListActivity extends BaseActivity implements CharacterView
     private ListView characterListView;
     private ProgressBar progressBar;
 
+    private View listViewFooter;
+    private ProgressBar footerProgressBar;
+
     //******************************************************************************
     // View definition end.
+
+    /**
+     * Inject layout inflater for inflating the list view footer.
+     */
+    @Inject
+    LayoutInflater layoutInflater;
 
     /**
      * Adapter for displaying a list of characters.
@@ -62,6 +72,8 @@ public class CharacterListActivity extends BaseActivity implements CharacterView
 
         injectActivityComponent();
 
+        setupListViewFooter();
+
         initializePresenter();
 
         setListViewAdapter();
@@ -69,6 +81,7 @@ public class CharacterListActivity extends BaseActivity implements CharacterView
         fetchCharacters();
 
         setListViewScrollDelegate();
+
     }
 
 
@@ -84,6 +97,15 @@ public class CharacterListActivity extends BaseActivity implements CharacterView
         characterListView = (ListView) findViewById(R.id.characterListView);
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
+    }
+
+
+    private void setupListViewFooter() {
+
+        listViewFooter = layoutInflater.inflate(R.layout.character_listview_footer, characterListView, false);
+
+        footerProgressBar = (ProgressBar) listViewFooter.findViewById(R.id.progressBar);
+
     }
 
 
@@ -161,6 +183,41 @@ public class CharacterListActivity extends BaseActivity implements CharacterView
 
     }
 
+    @Override
+    public void addListViewFooter() {
+
+        //Add footer view if one does not already exist.
+        if(characterListView.getFooterViewsCount() == 0) {
+            characterListView.addFooterView(listViewFooter);
+        }
+
+    }
+
+    @Override
+    public void removeListViewFooter() {
+
+        if(listViewFooter != null && characterListView.getFooterViewsCount() > 0){
+
+            characterListView.removeFooterView(listViewFooter);
+
+        }
+
+    }
+
+    @Override
+    public void showFooterProgress() {
+
+        footerProgressBar.setVisibility(View.VISIBLE);
+
+    }
+
+    @Override
+    public void hideFooterProgress() {
+
+        footerProgressBar.setVisibility(View.INVISIBLE);
+
+    }
+
     //View Method End.
     //==============================================================================================
 
@@ -168,6 +225,10 @@ public class CharacterListActivity extends BaseActivity implements CharacterView
     //ListView scroll delegate method.
     @Override
     public void onBottomHit() {
+
+        addListViewFooter();
+
+        showFooterProgress();
 
         Toast.makeText(CharacterListActivity.this, "Bottom", Toast.LENGTH_SHORT).show();
 
