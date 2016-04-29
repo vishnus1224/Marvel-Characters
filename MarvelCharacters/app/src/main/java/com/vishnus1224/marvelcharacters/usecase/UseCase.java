@@ -36,9 +36,6 @@ public abstract class UseCase {
 
         this.offset = offset;
 
-        //un subscribe the current subscription if one exists.
-        unSubscribe();
-
         subscription = buildUseCase()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
