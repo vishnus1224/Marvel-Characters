@@ -1,6 +1,6 @@
 package com.vishnus1224.marvelcharacters.webservice.interceptor;
 
-import com.vishnus1224.marvelcharacters.exception.MarvelApiException;
+import com.vishnus1224.marvelcharacters.exception.HashGenerationException;
 import com.vishnus1224.marvelcharacters.util.Constants;
 import com.vishnus1224.marvelcharacters.util.HashGenerator;
 
@@ -41,7 +41,7 @@ public class AuthorizationInterceptor implements Interceptor {
         try {
             //generate the hash using the hash generator.
             hash = hashGenerator.generateHash(Constants.ZZY, Constants.ZZX, timestamp);
-        } catch (MarvelApiException e) {
+        } catch (HashGenerationException e) {
             e.printStackTrace();
         }
 

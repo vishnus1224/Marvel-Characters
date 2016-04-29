@@ -1,6 +1,6 @@
 package com.vishnus1224.marvelcharacters.util;
 
-import com.vishnus1224.marvelcharacters.exception.MarvelApiException;
+import com.vishnus1224.marvelcharacters.exception.HashGenerationException;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -26,9 +26,9 @@ public class HashGenerator {
      * @param publicKey Marvel API public key.
      * @param timestamp Timestamp.
      * @return String representation of the hash.
-     * @throws MarvelApiException Thrown if hash could not be generated.
+     * @throws HashGenerationException Thrown if hash could not be generated.
      */
-    public String generateHash(String privateKey, String publicKey, String timestamp) throws MarvelApiException {
+    public String generateHash(String privateKey, String publicKey, String timestamp) throws HashGenerationException {
 
         try {
 
@@ -45,7 +45,7 @@ public class HashGenerator {
             return md5.toString();
 
         }catch (NoSuchAlgorithmException e) {
-            throw new MarvelApiException("cannot generate the hash", e);
+            throw new HashGenerationException("cannot generate the hash", e);
 
         }
     }
