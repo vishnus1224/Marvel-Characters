@@ -8,7 +8,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.vishnus1224.marvelcharacters.R;
+import com.vishnus1224.marvelcharacters.imageloader.ImageDownloader;
 import com.vishnus1224.marvelcharacters.model.MarvelCharacter;
+import com.vishnus1224.marvelcharacters.model.MarvelCharacterThumbnail;
+import com.vishnus1224.marvelcharacters.util.ScreenSizeConversionUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,10 +33,31 @@ public class CharacterListAdapter extends BaseAdapter {
      */
     private LayoutInflater layoutInflater;
 
+    /**
+     * ImageDownloader for downloading images from the server.
+     */
+    private ImageDownloader imageDownloader;
+
+    /**
+     * Used for converting image dimensions.
+     */
+    private ScreenSizeConversionUtil screenSizeConversionUtil;
+
+    /**
+     * Final dimension of the image in pixels.
+     */
+    private int imageDimension;
+
     @Inject
-    public CharacterListAdapter(LayoutInflater layoutInflater){
+    public CharacterListAdapter(LayoutInflater layoutInflater, ImageDownloader imageDownloader, ScreenSizeConversionUtil screenSizeConversionUtil){
 
         this.layoutInflater = layoutInflater;
+
+        this.imageDownloader = imageDownloader;
+
+        this.screenSizeConversionUtil = screenSizeConversionUtil;
+
+        imageDimension = (int) screenSizeConversionUtil.convertDpToPixels(200f);
 
     }
 
@@ -83,6 +107,11 @@ public class CharacterListAdapter extends BaseAdapter {
 
         //Get the character associated with the row.
         MarvelCharacter marvelCharacter = (MarvelCharacter) getItem(i);
+
+        MarvelCharacterThumbnail thumbnail = marvelCharacter.getThumbnail();
+
+        //download the image and set it on the image view.
+        imageDownloader.downloadImage(thumbnail.getFinalPath(), imageDimension, imageDimension, characterImageView);
 
         characterNameTextView.setText(marvelCharacter.getName());
 
