@@ -72,12 +72,20 @@ public class CharacterListPresenter {
 
                 characterView.hideProgressBar();
 
+                characterView.hideFooterProgress();
+
+                characterView.removeListViewFooter();
+
             }
 
             @Override
             public void onError(Throwable e) {
 
                 characterView.hideProgressBar();
+
+                characterView.hideFooterProgress();
+
+                characterView.removeListViewFooter();
 
                 characterView.showError(e.getMessage());
             }
