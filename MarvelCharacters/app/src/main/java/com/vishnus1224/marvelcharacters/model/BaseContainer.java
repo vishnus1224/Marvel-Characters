@@ -21,7 +21,7 @@ public class BaseContainer<T> {
     /**
      * The collection URI.
      */
-    private int collectionURI;
+    private String collectionURI;
 
     /**
      * List of items.
@@ -44,11 +44,11 @@ public class BaseContainer<T> {
         this.returned = returned;
     }
 
-    public int getCollectionURI() {
+    public String getCollectionURI() {
         return collectionURI;
     }
 
-    public void setCollectionURI(int collectionURI) {
+    public void setCollectionURI(String collectionURI) {
         this.collectionURI = collectionURI;
     }
 
