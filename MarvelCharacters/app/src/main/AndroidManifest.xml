@@ -32,6 +32,9 @@
                 android:resource="@xml/searchable" />
 
         </activity>
+
+        <activity android:name=".ui.activity.CharacterDetailActivity"/>
+
     </application>
 
 </manifest>
