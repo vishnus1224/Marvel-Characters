@@ -44,9 +44,14 @@ public class CharacterListAdapter extends BaseAdapter {
     private ScreenSizeConversionUtil screenSizeConversionUtil;
 
     /**
-     * Final dimension of the image in pixels.
+     * Final width of the image in pixels.
      */
-    private int imageDimension;
+    private int imageWidth;
+
+    /**
+     * Final height of the image in pixels.
+     */
+    private int imageHeight;
 
     @Inject
     public CharacterListAdapter(LayoutInflater layoutInflater, ImageDownloader imageDownloader, ScreenSizeConversionUtil screenSizeConversionUtil){
@@ -57,7 +62,9 @@ public class CharacterListAdapter extends BaseAdapter {
 
         this.screenSizeConversionUtil = screenSizeConversionUtil;
 
-        imageDimension = (int) screenSizeConversionUtil.convertDpToPixels(200f);
+        imageWidth = (int) screenSizeConversionUtil.convertDpToPixels(500f);
+
+        imageHeight = (int) screenSizeConversionUtil.convertDpToPixels(200f);
 
     }
 
@@ -108,7 +115,7 @@ public class CharacterListAdapter extends BaseAdapter {
         MarvelCharacterThumbnail thumbnail = marvelCharacter.getThumbnail();
 
         //download the image and set it on the image view.
-        imageDownloader.downloadImage(thumbnail.getFinalPath(), imageDimension, imageDimension, characterImageView);
+        imageDownloader.downloadImage(thumbnail.getFinalPath(), imageWidth, imageHeight, characterImageView);
 
         characterNameTextView.setText(marvelCharacter.getName());
 
