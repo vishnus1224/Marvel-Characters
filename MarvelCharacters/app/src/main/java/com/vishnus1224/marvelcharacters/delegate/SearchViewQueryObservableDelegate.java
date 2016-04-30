@@ -1,5 +1,6 @@
 package com.vishnus1224.marvelcharacters.delegate;
 
+import android.text.TextUtils;
 import android.widget.SearchView;
 
 import java.util.concurrent.TimeUnit;
@@ -9,6 +10,7 @@ import javax.inject.Inject;
 import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
+import rx.functions.Func1;
 
 /**
  * Delegate to notify the calling class when the query in the search view is changed.
@@ -52,6 +54,12 @@ public class SearchViewQueryObservableDelegate {
 
             }
         }).debounce(delayInMillis, TimeUnit.MILLISECONDS)
+                .filter(new Func1<String, Boolean>() {
+                    @Override
+                    public Boolean call(String s) {
+                        return !TextUtils.isEmpty(s);
+                    }
+                })
                 .subscribe(subscriber);
     }
 
