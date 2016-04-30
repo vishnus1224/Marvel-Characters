@@ -132,8 +132,8 @@ public class CharacterListActivity extends BaseActivity implements CharacterView
         MenuItemCompat.setOnActionExpandListener(searchItem, this);
 
         //set the subscriber to listen for query change event.
-        //subscriber's onNext event will be called when query does not change for 500 milliseconds.
-        searchViewQueryObservableDelegate.queryTextChangeObservable(searchView, 500L, queryChangeSubscriber);
+        //subscriber's onNext event will be called when query does not change for 1000 milliseconds.
+        searchViewQueryObservableDelegate.queryTextChangeObservable(searchView, 1000L, queryChangeSubscriber);
 
 
         return true;
