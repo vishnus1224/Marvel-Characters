@@ -2,6 +2,7 @@ package com.vishnus1224.marvelcharacters.ui.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 
 import com.vishnus1224.marvelcharacters.R;
 import com.vishnus1224.marvelcharacters.model.MarvelCharacter;
+import com.vishnus1224.marvelcharacters.ui.adapter.CharacterComicsAdapter;
 import com.vishnus1224.marvelcharacters.util.Constants;
 
 /**
@@ -43,7 +45,6 @@ public class CharacterDetailActivity extends BaseActivity {
     private RecyclerView.Adapter storiesAdapter;
     private RecyclerView.Adapter eventsAdapter;
 
-
     private MarvelCharacter marvelCharacter;
 
     @Override
@@ -56,6 +57,10 @@ public class CharacterDetailActivity extends BaseActivity {
         Bundle extras = getIntent().getExtras();
 
         getCharacterFromBundle(extras);
+
+        setupLayoutManager();
+
+        setupAdapters();
     }
 
     private void setupViews() {
@@ -72,7 +77,7 @@ public class CharacterDetailActivity extends BaseActivity {
 
         LinearLayout storiesLayout = (LinearLayout) findViewById(R.id.characterStoriesLayout);
         storiesTitleTextView = (TextView) storiesLayout.findViewById(R.id.textViewLayoutTitle);
-        seriesRecyclerView = (RecyclerView) storiesLayout.findViewById(R.id.recyclerViewItems);
+        storiesRecyclerView = (RecyclerView) storiesLayout.findViewById(R.id.recyclerViewItems);
 
         LinearLayout eventsLayout = (LinearLayout) findViewById(R.id.characterEventsLayout);
         eventsTitleTextView = (TextView) eventsLayout.findViewById(R.id.textViewLayoutTitle);
@@ -80,6 +85,38 @@ public class CharacterDetailActivity extends BaseActivity {
 
         LinearLayout relatedLinksLayout = (LinearLayout) findViewById(R.id.characterRelatedLinksLayout);
         relatedLinksListView = (ListView) relatedLinksLayout.findViewById(R.id.listViewRelatedLinks);
+
+    }
+
+
+    private void setupLayoutManager() {
+
+        layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+
+        comicsRecyclerView.setLayoutManager(layoutManager);
+
+        layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        seriesRecyclerView.setLayoutManager(layoutManager);
+
+        layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        storiesRecyclerView.setLayoutManager(layoutManager);
+
+        layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        eventsRecyclerView.setLayoutManager(layoutManager);
+
+    }
+
+
+
+    private void setupAdapters() {
+
+        //set the adapters if the character is not null.
+        if(marvelCharacter != null) {
+
+            comicsAdapter = new CharacterComicsAdapter(marvelCharacter.getComicContainer().getItems());
+            comicsRecyclerView.setAdapter(comicsAdapter);
+
+        }
 
     }
 
