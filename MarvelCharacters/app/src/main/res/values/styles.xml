@@ -8,4 +8,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="CharacterDetailTextViewStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">@dimen/value_10dp</item>
+        <item name="android:layout_marginTop">@dimen/value_10dp</item>
+    </style>
+
 </resources>
