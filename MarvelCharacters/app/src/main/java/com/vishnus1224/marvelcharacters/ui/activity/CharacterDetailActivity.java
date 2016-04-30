@@ -20,6 +20,7 @@ import com.vishnus1224.marvelcharacters.ui.adapter.CharacterComicsAdapter;
 import com.vishnus1224.marvelcharacters.ui.adapter.CharacterEventsAdapter;
 import com.vishnus1224.marvelcharacters.ui.adapter.CharacterSeriesAdapter;
 import com.vishnus1224.marvelcharacters.ui.adapter.CharacterStoriesAdapter;
+import com.vishnus1224.marvelcharacters.ui.adapter.RelatedLinksAdapter;
 import com.vishnus1224.marvelcharacters.util.Constants;
 import com.vishnus1224.marvelcharacters.util.ScreenSizeConversionUtil;
 
@@ -58,6 +59,8 @@ public class CharacterDetailActivity extends BaseActivity {
     private RecyclerView.Adapter seriesAdapter;
     private RecyclerView.Adapter storiesAdapter;
     private RecyclerView.Adapter eventsAdapter;
+
+    private RelatedLinksAdapter relatedLinksAdapter;
 
     private MarvelCharacter marvelCharacter;
 
@@ -201,6 +204,9 @@ public class CharacterDetailActivity extends BaseActivity {
 
         eventsRecyclerView.setAdapter(eventsAdapter);
 
+        relatedLinksAdapter = new RelatedLinksAdapter(getLayoutInflater(), resources.getStringArray(R.array.related_links_array));
+
+        relatedLinksListView.setAdapter(relatedLinksAdapter);
     }
 
 
