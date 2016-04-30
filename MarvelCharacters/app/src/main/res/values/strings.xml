@@ -4,4 +4,8 @@
     <string name="action_search">Search character</string>
     <string name="description_title">Description</string>
     <string name="related_links">Related Links</string>
+    <string name="comics_title">Comics</string>
+    <string name="series_title">Series</string>
+    <string name="events_title">Events</string>
+    <string name="stories_title">Stories</string>
 </resources>
