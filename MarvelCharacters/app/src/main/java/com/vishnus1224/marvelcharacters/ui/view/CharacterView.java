@@ -1,5 +1,7 @@
 package com.vishnus1224.marvelcharacters.ui.view;
 
+import android.database.Cursor;
+
 import com.vishnus1224.marvelcharacters.model.MarvelCharacter;
 
 import java.util.List;
@@ -51,4 +53,10 @@ public interface CharacterView {
      * Hide progress bar in the footer view.
      */
     void hideFooterProgress();
+
+    /**
+     * Show search suggestions to the user.
+     * @param cursor Cursor containing the data.
+     */
+    void setSuggestionsAdapter(Cursor cursor);
 }
