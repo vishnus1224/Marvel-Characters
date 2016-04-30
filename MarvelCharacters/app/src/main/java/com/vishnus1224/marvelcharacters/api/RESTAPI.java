@@ -17,4 +17,11 @@ public interface RESTAPI {
      * @return Observable that emits CharacterDataWrapper items.
      */
     Observable<CharacterDataWrapper> fetchMarvelCharacters(int offset);
+
+    /**
+     * Searches for characters and wraps them in a data wrapper.
+     * @param characterName Name of the character to search.
+     * @return Observable data wrapper containing list of characters.
+     */
+    Observable<CharacterDataWrapper> searchMarvelCharacters(String characterName);
 }

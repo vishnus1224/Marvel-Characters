@@ -17,4 +17,11 @@ public interface CharacterRepository {
      * @return Observable that emits CharacterDataWrapper items.
      */
     Observable<List<MarvelCharacter>> fetchMarvelCharacters(int offset);
+
+    /**
+     * Search for marvel characters.
+     * @param characterName Name of the character to search for.
+     * @return Observable that emits a list of marvel characters which match the provided name.
+     */
+    Observable<List<MarvelCharacter>> searchMarvelCharacters(String characterName);
 }

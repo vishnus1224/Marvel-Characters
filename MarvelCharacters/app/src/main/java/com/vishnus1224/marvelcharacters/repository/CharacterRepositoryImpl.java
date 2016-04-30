@@ -55,4 +55,16 @@ public class CharacterRepositoryImpl implements CharacterRepository {
                 });
     }
 
+    @Override
+    public Observable<List<MarvelCharacter>> searchMarvelCharacters(String characterName) {
+        return characterDataStore.searchMarvelCharacters(characterName)
+                .map(new Func1<CharacterDataWrapper, List<MarvelCharacter>>() {
+                    @Override
+                    public List<MarvelCharacter> call(CharacterDataWrapper characterDataWrapper) {
+
+                        return characterDataMapper.unwrapMarvelCharacters(characterDataWrapper);
+                    }
+                });
+    }
+
 }
