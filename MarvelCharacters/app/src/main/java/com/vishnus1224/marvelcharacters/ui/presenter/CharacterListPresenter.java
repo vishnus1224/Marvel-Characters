@@ -4,6 +4,7 @@ import com.vishnus1224.marvelcharacters.di.scope.PerActivity;
 import com.vishnus1224.marvelcharacters.manager.CharacterDataOffsetManager;
 import com.vishnus1224.marvelcharacters.model.MarvelCharacter;
 import com.vishnus1224.marvelcharacters.ui.view.CharacterView;
+import com.vishnus1224.marvelcharacters.usecase.CharacterSearchUseCase;
 import com.vishnus1224.marvelcharacters.usecase.UseCase;
 
 import java.util.List;
@@ -35,10 +36,18 @@ public class CharacterListPresenter {
      */
     private UseCase characterListUseCase;
 
+    /**
+     * Used for searching a character by name.
+     */
+    private UseCase characterSearchUseCase;
+
     @Inject
-    public CharacterListPresenter(@Named("CharacterList") UseCase characterListUseCase, CharacterDataOffsetManager characterDataOffsetManager){
+    public CharacterListPresenter(@Named("CharacterList") UseCase characterListUseCase, @Named("CharacterSearch") UseCase characterSearchUseCase,
+                    CharacterDataOffsetManager characterDataOffsetManager){
 
         this.characterListUseCase = characterListUseCase;
+
+        this.characterSearchUseCase = characterSearchUseCase;
 
         this.characterDataOffsetManager = characterDataOffsetManager;
 
@@ -97,6 +106,31 @@ public class CharacterListPresenter {
 
                 //update the offset manager's data.
                 characterDataOffsetManager.updateTotalAndOffset(marvelCharacters.size());
+            }
+        });
+
+    }
+
+    public void searchCharactersByName(String characterName){
+
+        ((CharacterSearchUseCase)characterSearchUseCase).setCharacterName(characterName);
+
+        characterSearchUseCase.execute(0, new Subscriber<List<MarvelCharacter>>() {
+
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(List<MarvelCharacter> marvelCharacters) {
+
+
             }
         });
 
