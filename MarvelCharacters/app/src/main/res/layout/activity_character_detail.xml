@@ -17,6 +17,8 @@
                 android:id="@+id/characterDetailImage"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/value_300dp"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:scaleType="fitXY" />
 
             <TextView
