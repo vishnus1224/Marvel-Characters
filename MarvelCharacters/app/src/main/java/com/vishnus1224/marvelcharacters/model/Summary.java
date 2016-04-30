@@ -12,12 +12,12 @@ public class Summary implements Parcelable{
     /**
      * ResourceURI of the summary.
      */
-    private String resourceURI;
+    protected String resourceURI;
 
     /**
      * Summary name.
      */
-    private String name;
+    protected String name;
 
     protected Summary(Parcel in) {
         resourceURI = in.readString();

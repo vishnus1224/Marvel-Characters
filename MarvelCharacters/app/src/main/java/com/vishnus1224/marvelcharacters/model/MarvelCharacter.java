@@ -1,11 +1,14 @@
 package com.vishnus1224.marvelcharacters.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by Vishnu on 4/29/2016.
  */
-public class MarvelCharacter {
+public class MarvelCharacter implements Parcelable{
 
     /**
      * Character id.
@@ -39,6 +42,29 @@ public class MarvelCharacter {
     @SerializedName("series")
     private SeriesContainer seriesContainer;
 
+    protected MarvelCharacter(Parcel in) {
+        id = in.readInt();
+        name = in.readString();
+        description = in.readString();
+        thumbnail = in.readParcelable(MarvelCharacterThumbnail.class.getClassLoader());
+        comicContainer = in.readParcelable(ComicContainer.class.getClassLoader());
+        storyContainer = in.readParcelable(StoryContainer.class.getClassLoader());
+        eventContainer = in.readParcelable(EventContainer.class.getClassLoader());
+        seriesContainer = in.readParcelable(SeriesContainer.class.getClassLoader());
+    }
+
+    public static final Creator<MarvelCharacter> CREATOR = new Creator<MarvelCharacter>() {
+        @Override
+        public MarvelCharacter createFromParcel(Parcel in) {
+            return new MarvelCharacter(in);
+        }
+
+        @Override
+        public MarvelCharacter[] newArray(int size) {
+            return new MarvelCharacter[size];
+        }
+    };
+
     public int getId() {
         return id;
     }
@@ -69,5 +95,22 @@ public class MarvelCharacter {
 
     public SeriesContainer getSeriesContainer() {
         return seriesContainer;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
+        parcel.writeString(name);
+        parcel.writeString(description);
+        parcel.writeParcelable(thumbnail, i);
+        parcel.writeParcelable(comicContainer, i);
+        parcel.writeParcelable(storyContainer, i);
+        parcel.writeParcelable(eventContainer, i);
+        parcel.writeParcelable(seriesContainer, i);
     }
 }

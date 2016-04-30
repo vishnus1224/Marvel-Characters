@@ -2,8 +2,10 @@ package com.vishnus1224.marvelcharacters.ui.activity;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.view.MenuItemCompat;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -409,7 +411,13 @@ public class CharacterListActivity extends BaseActivity implements CharacterView
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-        
+        MarvelCharacter selectedCharacter = (MarvelCharacter) characterListAdapter.getItem(i);
+
+        Intent detailActivityIntent = new Intent(this, CharacterDetailActivity.class);
+
+        detailActivityIntent.putExtra(Constants.KEY_CHARACTER, (Parcelable) selectedCharacter);
+
+        startActivity(detailActivityIntent);
 
     }
 
