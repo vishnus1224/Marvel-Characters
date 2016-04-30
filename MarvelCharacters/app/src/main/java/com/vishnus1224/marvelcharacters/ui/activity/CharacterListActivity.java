@@ -3,6 +3,7 @@ package com.vishnus1224.marvelcharacters.ui.activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.view.LayoutInflater;
@@ -22,12 +23,14 @@ import com.vishnus1224.marvelcharacters.delegate.SearchViewQueryObservableDelega
 import com.vishnus1224.marvelcharacters.di.component.ActivityComponent;
 import com.vishnus1224.marvelcharacters.di.component.DaggerActivityComponent;
 import com.vishnus1224.marvelcharacters.di.module.ActivityModule;
+import com.vishnus1224.marvelcharacters.imageloader.ImageDownloader;
 import com.vishnus1224.marvelcharacters.model.MarvelCharacter;
 import com.vishnus1224.marvelcharacters.ui.adapter.CharacterListAdapter;
 import com.vishnus1224.marvelcharacters.ui.adapter.CharacterSearchSuggestionsAdapter;
 import com.vishnus1224.marvelcharacters.ui.presenter.CharacterListPresenter;
 import com.vishnus1224.marvelcharacters.ui.view.CharacterView;
 import com.vishnus1224.marvelcharacters.util.Constants;
+import com.vishnus1224.marvelcharacters.util.ScreenSizeConversionUtil;
 
 import java.util.List;
 
@@ -50,6 +53,18 @@ public class CharacterListActivity extends BaseActivity implements CharacterView
 
     //******************************************************************************
     // View definition end.
+
+    /**
+     * Inject imageDownloader for passing to the suggestions adapter.
+     */
+    @Inject
+    ImageDownloader imageDownloader;
+
+    /**
+     * Inject conversion util for passing to the suggestions adapter.
+     */
+    @Inject
+    ScreenSizeConversionUtil screenSizeConversionUtil;
 
     /**
      * Inject layout inflater for inflating the list view footer.
@@ -139,12 +154,12 @@ public class CharacterListActivity extends BaseActivity implements CharacterView
         MenuItemCompat.setOnActionExpandListener(searchItem, this);
 
         //set the subscriber to listen for query change event.
-        //subscriber's onNext event will be called when query does not change for 1000 milliseconds.
-        searchViewQueryObservableDelegate.queryTextChangeObservable(searchView, 1000L, queryChangeSubscriber);
+        //subscriber's onNext event will be called when query does not change for 500 milliseconds.
+        searchViewQueryObservableDelegate.queryTextChangeObservable(searchView, 500L, queryChangeSubscriber);
 
         //create the suggestions adapter and set it on the search view.
         characterSearchSuggestionsAdapter = new CharacterSearchSuggestionsAdapter(this, R.layout.adapter_character_search, null,
-                Constants.SUGGESTIONS_ADAPTER_COLUMNS, null, 0);
+                Constants.SUGGESTIONS_ADAPTER_COLUMNS, null, 0, imageDownloader, screenSizeConversionUtil);
 
         searchView.setSuggestionsAdapter(characterSearchSuggestionsAdapter);
 
@@ -308,6 +323,13 @@ public class CharacterListActivity extends BaseActivity implements CharacterView
     public void hideFooterProgress() {
 
         footerProgressBar.setVisibility(View.INVISIBLE);
+
+    }
+
+    @Override
+    public void setSuggestionsAdapter(Cursor cursor) {
+
+        characterSearchSuggestionsAdapter.changeCursor(cursor);
 
     }
 

@@ -1,5 +1,7 @@
 package com.vishnus1224.marvelcharacters.ui.presenter;
 
+import android.database.Cursor;
+
 import com.vishnus1224.marvelcharacters.di.scope.PerActivity;
 import com.vishnus1224.marvelcharacters.manager.CharacterDataOffsetManager;
 import com.vishnus1224.marvelcharacters.model.MarvelCharacter;
@@ -119,7 +121,7 @@ public class CharacterListPresenter {
 
         ((CharacterSearchUseCase)characterSearchUseCase).setCharacterName(characterName);
 
-        characterSearchUseCase.execute(new Subscriber<List<MarvelCharacter>>() {
+        characterSearchUseCase.execute(new Subscriber<Cursor>() {
 
             @Override
             public void onCompleted() {
@@ -132,8 +134,9 @@ public class CharacterListPresenter {
             }
 
             @Override
-            public void onNext(List<MarvelCharacter> marvelCharacters) {
+            public void onNext(Cursor cursor) {
 
+                characterView.setSuggestionsAdapter(cursor);
 
             }
         });
