@@ -11,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
@@ -37,7 +38,8 @@ import javax.inject.Inject;
 
 import rx.Subscriber;
 
-public class CharacterListActivity extends BaseActivity implements CharacterView, ListViewScrollDelegate.BottomHitListener, MenuItemCompat.OnActionExpandListener, SearchView.OnSuggestionListener {
+public class CharacterListActivity extends BaseActivity implements CharacterView, ListViewScrollDelegate.BottomHitListener,
+        MenuItemCompat.OnActionExpandListener, SearchView.OnSuggestionListener, AdapterView.OnItemClickListener {
 
 
     // *******************************************************************************
@@ -118,6 +120,8 @@ public class CharacterListActivity extends BaseActivity implements CharacterView
         initializePresenter();
 
         setListViewAdapter();
+
+        setListItemClickListener();
 
         fetchCharacters();
 
@@ -204,6 +208,14 @@ public class CharacterListActivity extends BaseActivity implements CharacterView
         characterListView.setAdapter(characterListAdapter);
         
     }
+
+
+    private void setListItemClickListener() {
+
+        characterListView.setOnItemClickListener(this);
+
+    }
+
 
 
     private void initializePresenter() {
@@ -389,6 +401,17 @@ public class CharacterListActivity extends BaseActivity implements CharacterView
         return true;
     }
 
-
     //Suggestion listener event end.
+
+
+    //List item click listener event.
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+        
+
+    }
+
+    //List item click listener event end.
 }
