@@ -12,6 +12,11 @@ import rx.Observable;
 public class CharacterListUseCase extends UseCase {
 
     /**
+     * Number or results to offset.
+     */
+    private int resultOffset;
+
+    /**
      * Reference to the character repository.
      */
     private CharacterRepository characterRepository;
@@ -23,12 +28,18 @@ public class CharacterListUseCase extends UseCase {
 
     }
 
+    public void setResultOffset(int resultOffset){
+
+        this.resultOffset = resultOffset;
+
+    }
+
     /**
      * Fetch a list of characters from the repository.
      * @return Observable emitting a list of characters.
      */
     @Override
     protected Observable buildUseCase() {
-        return characterRepository.fetchMarvelCharacters(offset);
+        return characterRepository.fetchMarvelCharacters(resultOffset);
     }
 }

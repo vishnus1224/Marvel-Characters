@@ -4,6 +4,7 @@ import com.vishnus1224.marvelcharacters.di.scope.PerActivity;
 import com.vishnus1224.marvelcharacters.manager.CharacterDataOffsetManager;
 import com.vishnus1224.marvelcharacters.model.MarvelCharacter;
 import com.vishnus1224.marvelcharacters.ui.view.CharacterView;
+import com.vishnus1224.marvelcharacters.usecase.CharacterListUseCase;
 import com.vishnus1224.marvelcharacters.usecase.CharacterSearchUseCase;
 import com.vishnus1224.marvelcharacters.usecase.UseCase;
 
@@ -74,8 +75,11 @@ public class CharacterListPresenter {
 
     public void fetchCharacters(){
 
+        //set the number of values that the result should be offset.
+        ((CharacterListUseCase)characterListUseCase).setResultOffset(characterDataOffsetManager.getResultOffset());
+
         //get the offset from the manager and pass it to the use case.
-        characterListUseCase.execute(characterDataOffsetManager.getResultOffset(), new Subscriber<List<MarvelCharacter>>() {
+        characterListUseCase.execute(new Subscriber<List<MarvelCharacter>>() {
             @Override
             public void onCompleted() {
 
@@ -115,7 +119,7 @@ public class CharacterListPresenter {
 
         ((CharacterSearchUseCase)characterSearchUseCase).setCharacterName(characterName);
 
-        characterSearchUseCase.execute(0, new Subscriber<List<MarvelCharacter>>() {
+        characterSearchUseCase.execute(new Subscriber<List<MarvelCharacter>>() {
 
             @Override
             public void onCompleted() {
