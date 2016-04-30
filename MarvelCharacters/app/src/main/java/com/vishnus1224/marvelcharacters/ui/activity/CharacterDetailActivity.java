@@ -17,6 +17,9 @@ import com.vishnus1224.marvelcharacters.di.module.ActivityModule;
 import com.vishnus1224.marvelcharacters.imageloader.ImageDownloader;
 import com.vishnus1224.marvelcharacters.model.MarvelCharacter;
 import com.vishnus1224.marvelcharacters.ui.adapter.CharacterComicsAdapter;
+import com.vishnus1224.marvelcharacters.ui.adapter.CharacterEventsAdapter;
+import com.vishnus1224.marvelcharacters.ui.adapter.CharacterSeriesAdapter;
+import com.vishnus1224.marvelcharacters.ui.adapter.CharacterStoriesAdapter;
 import com.vishnus1224.marvelcharacters.util.Constants;
 import com.vishnus1224.marvelcharacters.util.ScreenSizeConversionUtil;
 
@@ -182,6 +185,18 @@ public class CharacterDetailActivity extends BaseActivity {
         comicsAdapter = new CharacterComicsAdapter(marvelCharacter.getComicContainer().getItems(), imageDownloader, screenSizeConversionUtil);
 
         comicsRecyclerView.setAdapter(comicsAdapter);
+
+        seriesAdapter = new CharacterSeriesAdapter(marvelCharacter.getSeriesContainer().getItems(), imageDownloader, screenSizeConversionUtil);
+
+        seriesRecyclerView.setAdapter(seriesAdapter);
+
+        storiesAdapter = new CharacterStoriesAdapter(marvelCharacter.getStoryContainer().getItems(), imageDownloader, screenSizeConversionUtil);
+
+        storiesRecyclerView.setAdapter(storiesAdapter);
+
+        eventsAdapter = new CharacterEventsAdapter(marvelCharacter.getEventContainer().getItems(), imageDownloader, screenSizeConversionUtil);
+
+        eventsRecyclerView.setAdapter(eventsAdapter);
 
     }
 

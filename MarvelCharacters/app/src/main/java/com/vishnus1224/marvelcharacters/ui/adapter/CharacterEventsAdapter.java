@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.vishnus1224.marvelcharacters.R;
 import com.vishnus1224.marvelcharacters.imageloader.ImageDownloader;
-import com.vishnus1224.marvelcharacters.model.ComicSummary;
+import com.vishnus1224.marvelcharacters.model.EventSummary;
 import com.vishnus1224.marvelcharacters.util.ScreenSizeConversionUtil;
 
 import java.util.List;
@@ -17,9 +17,9 @@ import java.util.List;
 /**
  * Created by Vishnu on 4/30/2016.
  */
-public class CharacterComicsAdapter extends RecyclerView.Adapter<CharacterComicsAdapter.ComicsViewHolder> {
+public class CharacterEventsAdapter extends RecyclerView.Adapter<CharacterEventsAdapter.EventsViewHolder> {
 
-    private List<ComicSummary> comicSummaryList;
+    private List<EventSummary> eventSummaryList;
 
     private ImageDownloader imageDownloader;
 
@@ -27,9 +27,9 @@ public class CharacterComicsAdapter extends RecyclerView.Adapter<CharacterComics
 
     private int imageWidth;
 
-    public CharacterComicsAdapter(List<ComicSummary> comicSummaryList, ImageDownloader imageDownloader, ScreenSizeConversionUtil screenSizeConversionUtil){
+    public CharacterEventsAdapter(List<EventSummary> eventSummaryList, ImageDownloader imageDownloader, ScreenSizeConversionUtil screenSizeConversionUtil){
 
-        this.comicSummaryList = comicSummaryList;
+        this.eventSummaryList = eventSummaryList;
 
         this.imageDownloader = imageDownloader;
 
@@ -39,39 +39,36 @@ public class CharacterComicsAdapter extends RecyclerView.Adapter<CharacterComics
     }
 
     @Override
-    public ComicsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public EventsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_character_details, parent, false);
 
-        return new ComicsViewHolder(view);
+        return new EventsViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(ComicsViewHolder holder, int position) {
+    public void onBindViewHolder(EventsViewHolder holder, int position) {
 
-        ComicSummary comicSummary = comicSummaryList.get(position);
+        EventSummary eventSummary = eventSummaryList.get(position);
 
-        holder.titleTextView.setText(comicSummary.getName());
-
-
+        holder.titleTextView.setText(eventSummary.getName());
     }
 
     @Override
     public int getItemCount() {
-        return comicSummaryList.size();
+        return eventSummaryList.size();
     }
 
-    public static class ComicsViewHolder extends RecyclerView.ViewHolder {
+    public static class EventsViewHolder extends RecyclerView.ViewHolder{
 
         public TextView titleTextView;
         public ImageView iconImageView;
 
-        public ComicsViewHolder(View view) {
+        public EventsViewHolder(View view) {
             super(view);
 
             titleTextView = (TextView) view.findViewById(R.id.adapterCharacterDetailTitle);
             iconImageView = (ImageView) view.findViewById(R.id.adapterCharacterDetailImage);
         }
     }
-
 }

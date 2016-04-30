@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.vishnus1224.marvelcharacters.R;
 import com.vishnus1224.marvelcharacters.imageloader.ImageDownloader;
-import com.vishnus1224.marvelcharacters.model.ComicSummary;
+import com.vishnus1224.marvelcharacters.model.SeriesSummary;
 import com.vishnus1224.marvelcharacters.util.ScreenSizeConversionUtil;
 
 import java.util.List;
@@ -17,9 +17,9 @@ import java.util.List;
 /**
  * Created by Vishnu on 4/30/2016.
  */
-public class CharacterComicsAdapter extends RecyclerView.Adapter<CharacterComicsAdapter.ComicsViewHolder> {
+public class CharacterSeriesAdapter extends RecyclerView.Adapter<CharacterSeriesAdapter.SeriesViewHolder>{
 
-    private List<ComicSummary> comicSummaryList;
+    private List<SeriesSummary> seriesSummaryList;
 
     private ImageDownloader imageDownloader;
 
@@ -27,9 +27,9 @@ public class CharacterComicsAdapter extends RecyclerView.Adapter<CharacterComics
 
     private int imageWidth;
 
-    public CharacterComicsAdapter(List<ComicSummary> comicSummaryList, ImageDownloader imageDownloader, ScreenSizeConversionUtil screenSizeConversionUtil){
+    public CharacterSeriesAdapter(List<SeriesSummary> seriesSummaryList, ImageDownloader imageDownloader, ScreenSizeConversionUtil screenSizeConversionUtil){
 
-        this.comicSummaryList = comicSummaryList;
+        this.seriesSummaryList = seriesSummaryList;
 
         this.imageDownloader = imageDownloader;
 
@@ -39,39 +39,36 @@ public class CharacterComicsAdapter extends RecyclerView.Adapter<CharacterComics
     }
 
     @Override
-    public ComicsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public SeriesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_character_details, parent, false);
 
-        return new ComicsViewHolder(view);
+        return new SeriesViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(ComicsViewHolder holder, int position) {
+    public void onBindViewHolder(SeriesViewHolder holder, int position) {
 
-        ComicSummary comicSummary = comicSummaryList.get(position);
+        SeriesSummary seriesSummary = seriesSummaryList.get(position);
 
-        holder.titleTextView.setText(comicSummary.getName());
-
-
+        holder.titleTextView.setText(seriesSummary.getName());
     }
 
     @Override
     public int getItemCount() {
-        return comicSummaryList.size();
+        return seriesSummaryList.size();
     }
 
-    public static class ComicsViewHolder extends RecyclerView.ViewHolder {
+    public static class SeriesViewHolder extends CharacterComicsAdapter.ComicsViewHolder {
 
         public TextView titleTextView;
         public ImageView iconImageView;
 
-        public ComicsViewHolder(View view) {
+        public SeriesViewHolder(View view) {
             super(view);
 
             titleTextView = (TextView) view.findViewById(R.id.adapterCharacterDetailTitle);
             iconImageView = (ImageView) view.findViewById(R.id.adapterCharacterDetailImage);
         }
     }
-
 }
