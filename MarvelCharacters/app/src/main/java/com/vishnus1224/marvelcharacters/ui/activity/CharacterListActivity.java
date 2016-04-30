@@ -2,7 +2,6 @@ package com.vishnus1224.marvelcharacters.ui.activity;
 
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
@@ -126,14 +125,6 @@ public class CharacterListActivity extends BaseActivity implements CharacterView
 
     }
 
-
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-
-        handleSearchIntent(intent);
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -162,7 +153,6 @@ public class CharacterListActivity extends BaseActivity implements CharacterView
                 Constants.SUGGESTIONS_ADAPTER_COLUMNS, null, 0, imageDownloader, screenSizeConversionUtil);
 
         searchView.setSuggestionsAdapter(characterSearchSuggestionsAdapter);
-
 
         return true;
     }
@@ -234,19 +224,6 @@ public class CharacterListActivity extends BaseActivity implements CharacterView
         listViewScrollDelegate = new ListViewScrollDelegate(this);
 
         characterListView.setOnScrollListener(listViewScrollDelegate);
-
-    }
-
-    private void handleSearchIntent(Intent intent) {
-
-        //check to see if the search button was clicked.
-        if(Intent.ACTION_SEARCH.equals(intent.getAction())){
-
-            //get the keyword entered by the user.
-            String keyword = intent.getStringExtra(SearchManager.QUERY);
-
-
-        }
 
     }
 
