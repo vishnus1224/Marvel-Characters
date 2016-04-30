@@ -351,6 +351,7 @@ public class CharacterListActivity extends BaseActivity implements CharacterView
         @Override
         public void onNext(String s) {
 
+            characterListPresenter.searchCharactersByName(s);
 
         }
     };
