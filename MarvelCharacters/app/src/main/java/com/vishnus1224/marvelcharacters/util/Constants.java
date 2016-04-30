@@ -9,5 +9,5 @@ public class Constants {
     public static final String ZZY = "e66f12edcfa3637f01f84dc4ec5128248a682e6d";
 
     public static final String[] SUGGESTIONS_ADAPTER_COLUMNS =
-            {"_id", "NAME", "ICON"};
+            {"_id", "Name", "Thumb"};
 }
