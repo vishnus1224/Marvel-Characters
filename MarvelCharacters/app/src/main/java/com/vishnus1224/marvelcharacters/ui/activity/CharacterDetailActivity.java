@@ -1,5 +1,6 @@
 package com.vishnus1224.marvelcharacters.ui.activity;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,9 +10,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.vishnus1224.marvelcharacters.R;
+import com.vishnus1224.marvelcharacters.di.component.ActivityComponent;
+import com.vishnus1224.marvelcharacters.di.component.DaggerActivityComponent;
+import com.vishnus1224.marvelcharacters.di.module.ActivityModule;
 import com.vishnus1224.marvelcharacters.model.MarvelCharacter;
 import com.vishnus1224.marvelcharacters.ui.adapter.CharacterComicsAdapter;
 import com.vishnus1224.marvelcharacters.util.Constants;
+
+import javax.inject.Inject;
 
 /**
  * Activity for displaying character details.
@@ -47,6 +53,11 @@ public class CharacterDetailActivity extends BaseActivity {
 
     private MarvelCharacter marvelCharacter;
 
+    private ActivityComponent activityComponent;
+
+    @Inject
+    Resources resources;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,13 +65,21 @@ public class CharacterDetailActivity extends BaseActivity {
 
         setupViews();
 
+        injectActivityComponent();
+
         Bundle extras = getIntent().getExtras();
 
         getCharacterFromBundle(extras);
 
-        setupLayoutManager();
+        if (marvelCharacter != null) {
 
-        setupAdapters();
+            setDataToViews();
+
+            setupLayoutManager();
+
+            setupAdapters();
+
+        }
     }
 
     private void setupViews() {
@@ -89,6 +108,41 @@ public class CharacterDetailActivity extends BaseActivity {
     }
 
 
+    private void injectActivityComponent() {
+
+        activityComponent = DaggerActivityComponent.builder()
+                .applicationComponent(getApplicationComponent())
+                .activityModule(new ActivityModule(this))
+                .build();
+
+        activityComponent.inject(this);
+    }
+
+
+    private void getCharacterFromBundle(Bundle extras) {
+
+        //check if bundle is not null and it contains the character key.
+        if (extras != null && extras.containsKey(Constants.KEY_CHARACTER)) {
+
+            marvelCharacter = extras.getParcelable(Constants.KEY_CHARACTER);
+
+        }
+
+    }
+
+
+    private void setDataToViews() {
+
+        characterDescriptionTextView.setText(marvelCharacter.getDescription());
+
+        comicsTitleTextView.setText(resources.getString(R.string.comics_title));
+        seriesTitleTextView.setText(resources.getString(R.string.series_title));
+        storiesTitleTextView.setText(resources.getString(R.string.stories_title));
+        eventsTitleTextView.setText(resources.getString(R.string.events_title));
+
+    }
+
+
     private void setupLayoutManager() {
 
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
@@ -107,29 +161,13 @@ public class CharacterDetailActivity extends BaseActivity {
     }
 
 
-
     private void setupAdapters() {
 
-        //set the adapters if the character is not null.
-        if(marvelCharacter != null) {
-
-            comicsAdapter = new CharacterComicsAdapter(marvelCharacter.getComicContainer().getItems());
-            comicsRecyclerView.setAdapter(comicsAdapter);
-
-        }
+        comicsAdapter = new CharacterComicsAdapter(marvelCharacter.getComicContainer().getItems());
+        comicsRecyclerView.setAdapter(comicsAdapter);
 
     }
 
-    private void getCharacterFromBundle(Bundle extras) {
-
-        //check if bundle is not null and it contains the character key.
-        if(extras != null && extras.containsKey(Constants.KEY_CHARACTER)){
-
-            marvelCharacter = extras.getParcelable(Constants.KEY_CHARACTER);
-
-        }
-
-    }
 
     @Override
     public void onBackPressed() {
