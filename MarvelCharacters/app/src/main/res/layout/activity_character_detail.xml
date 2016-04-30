@@ -9,11 +9,26 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/characterDetailImage"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/value_300dp"
-            android:scaleType="fitXY"/>
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/characterDetailImage"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/value_300dp"
+                android:scaleType="fitXY" />
+
+            <TextView
+                android:id="@+id/characterDetailName"
+                android:layout_alignParentBottom="true"
+                android:paddingBottom="@dimen/value_10dp"
+                style="@style/CharacterDetailTextViewStyle"
+                android:textColor="@android:color/white"/>
+            
+            <include layout="@layout/layout_back_button" />
+
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/characterDescriptionTitle"
