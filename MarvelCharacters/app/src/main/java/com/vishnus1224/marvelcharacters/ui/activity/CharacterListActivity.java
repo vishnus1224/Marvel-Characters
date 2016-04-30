@@ -37,7 +37,7 @@ import javax.inject.Inject;
 
 import rx.Subscriber;
 
-public class CharacterListActivity extends BaseActivity implements CharacterView, ListViewScrollDelegate.BottomHitListener, MenuItemCompat.OnActionExpandListener{
+public class CharacterListActivity extends BaseActivity implements CharacterView, ListViewScrollDelegate.BottomHitListener, MenuItemCompat.OnActionExpandListener, SearchView.OnSuggestionListener {
 
 
     // *******************************************************************************
@@ -153,6 +153,9 @@ public class CharacterListActivity extends BaseActivity implements CharacterView
                 Constants.SUGGESTIONS_ADAPTER_COLUMNS, null, 0, imageDownloader, screenSizeConversionUtil);
 
         searchView.setSuggestionsAdapter(characterSearchSuggestionsAdapter);
+
+        //set listener on search view to detect click on suggestions.
+        searchView.setOnSuggestionListener(this);
 
         return true;
     }
@@ -369,4 +372,23 @@ public class CharacterListActivity extends BaseActivity implements CharacterView
 
         }
     };
+
+
+    //Suggestion listener events.
+
+    @Override
+    public boolean onSuggestionSelect(int i) {
+
+        return false;
+    }
+
+    @Override
+    public boolean onSuggestionClick(int i) {
+
+
+        return true;
+    }
+
+
+    //Suggestion listener event end.
 }
