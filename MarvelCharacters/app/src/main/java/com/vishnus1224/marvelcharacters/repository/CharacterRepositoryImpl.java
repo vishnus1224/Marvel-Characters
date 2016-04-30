@@ -1,5 +1,7 @@
 package com.vishnus1224.marvelcharacters.repository;
 
+import android.database.Cursor;
+
 import com.vishnus1224.marvelcharacters.datastore.CharacterDataStore;
 import com.vishnus1224.marvelcharacters.mapper.CharacterDataMapper;
 import com.vishnus1224.marvelcharacters.model.CharacterDataWrapper;
@@ -56,13 +58,14 @@ public class CharacterRepositoryImpl implements CharacterRepository {
     }
 
     @Override
-    public Observable<List<MarvelCharacter>> searchMarvelCharacters(String characterName) {
+    public Observable<Cursor> searchMarvelCharacters(String characterName) {
         return characterDataStore.searchMarvelCharacters(characterName)
-                .map(new Func1<CharacterDataWrapper, List<MarvelCharacter>>() {
+                .map(new Func1<CharacterDataWrapper, Cursor>() {
                     @Override
-                    public List<MarvelCharacter> call(CharacterDataWrapper characterDataWrapper) {
+                    public Cursor call(CharacterDataWrapper characterDataWrapper) {
 
-                        return characterDataMapper.unwrapMarvelCharacters(characterDataWrapper);
+                        return characterDataMapper.transformToCursor(characterDataWrapper);
+
                     }
                 });
     }
