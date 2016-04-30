@@ -7,7 +7,7 @@ android {
 
     defaultConfig {
         applicationId "com.vishnus1224.marvelcharacters"
-        minSdkVersion 11
+        minSdkVersion 14
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -40,4 +40,5 @@ dependencies {
 
     //picasso dependency
     compile 'com.squareup.picasso:picasso:2.5.2'
+
 }
