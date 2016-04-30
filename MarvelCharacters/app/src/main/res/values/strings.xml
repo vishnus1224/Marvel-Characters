@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">MarvelCharacters</string>
-    <string name="action_search_hint">Enter character name</string>
+    <string name="action_search_hint">Search...</string>
     <string name="action_search">Search character</string>
 </resources>
