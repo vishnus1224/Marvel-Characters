@@ -7,4 +7,7 @@ public class Constants {
 
     public static final String ZZX = "f511715ab63c4c5720d33417f6c20282";
     public static final String ZZY = "e66f12edcfa3637f01f84dc4ec5128248a682e6d";
+
+    public static final String[] SUGGESTIONS_ADAPTER_COLUMNS =
+            {"_id", "NAME", "ICON"};
 }
