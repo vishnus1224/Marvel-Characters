@@ -13,6 +13,8 @@
     <TextView
         android:id="@+id/adapterSearchCharacterName"
         android:layout_marginLeft="@dimen/value_10dp"
+        android:textAllCaps="true"
+        android:maxLines="1"
         android:textColor="@android:color/white"
         android:layout_gravity="center_vertical"
         android:layout_width="match_parent"
