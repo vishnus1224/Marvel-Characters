@@ -5,13 +5,14 @@
 
     <ImageView
         android:id="@+id/adapterCharacterDetailImage"
-        android:layout_width="@dimen/value_100dp"
+        android:layout_width="@dimen/value_200dp"
         android:layout_height="@dimen/value_150dp" />
 
     <TextView
         android:id="@+id/adapterCharacterDetailTitle"
-        style="@style/CharacterDetailTextViewStyle"
-        android:layout_gravity="center_horizontal"
+        android:layout_width="@dimen/value_200dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
         android:maxLines="2"
         android:textColor="@android:color/white"/>
 
