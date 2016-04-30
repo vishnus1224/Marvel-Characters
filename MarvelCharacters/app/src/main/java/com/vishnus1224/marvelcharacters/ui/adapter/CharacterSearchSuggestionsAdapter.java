@@ -8,27 +8,24 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 import com.vishnus1224.marvelcharacters.R;
-import com.vishnus1224.marvelcharacters.imageloader.PicassoImageDownloader;
+import com.vishnus1224.marvelcharacters.imageloader.ImageDownloader;
 import com.vishnus1224.marvelcharacters.util.Constants;
 import com.vishnus1224.marvelcharacters.util.ScreenSizeConversionUtil;
-
-import javax.inject.Inject;
 
 /**
  * Created by Vishnu on 4/30/2016.
  */
 public class CharacterSearchSuggestionsAdapter extends SimpleCursorAdapter{
 
-    @Inject
-    PicassoImageDownloader picassoImageDownloader;
-
-    @Inject
-    ScreenSizeConversionUtil screenSizeConversionUtil;
+    private ImageDownloader imageDownloader;
 
     private int imageDimension;
 
-    public CharacterSearchSuggestionsAdapter(Context context, int layout, Cursor c, String[] from, int[] to, int flags) {
+    public CharacterSearchSuggestionsAdapter(Context context, int layout, Cursor c, String[] from, int[] to, int flags, ImageDownloader imageDownloader
+                                ,ScreenSizeConversionUtil screenSizeConversionUtil) {
         super(context, layout, c, from, to, flags);
+
+        this.imageDownloader = imageDownloader;
 
         imageDimension = (int) screenSizeConversionUtil.convertDpToPixels(50f);
     }
@@ -46,7 +43,7 @@ public class CharacterSearchSuggestionsAdapter extends SimpleCursorAdapter{
 
         characterNameTextView.setText(characterName);
 
-        picassoImageDownloader.downloadImage(characterIconURL, imageDimension, imageDimension, characterImageView);
+        imageDownloader.downloadImage(characterIconURL, imageDimension, imageDimension, characterImageView);
 
     }
 }
