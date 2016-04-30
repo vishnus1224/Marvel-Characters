@@ -8,4 +8,5 @@
     <string name="series_title">Series</string>
     <string name="events_title">Events</string>
     <string name="stories_title">Stories</string>
+    <string name="no_description_available">No description available</string>
 </resources>

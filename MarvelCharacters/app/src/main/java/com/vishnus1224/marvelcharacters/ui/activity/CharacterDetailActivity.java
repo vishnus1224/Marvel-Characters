@@ -149,7 +149,10 @@ public class CharacterDetailActivity extends BaseActivity {
 
     private void setDataToViews() {
 
-        characterDescriptionTextView.setText(marvelCharacter.getDescription());
+        //if description is not available then show no description available text.
+        String description = marvelCharacter.getDescription().equals("") ? resources.getString(R.string.no_description_available) : marvelCharacter.getDescription();
+
+        characterDescriptionTextView.setText(description);
 
         comicsTitleTextView.setText(resources.getString(R.string.comics_title));
         seriesTitleTextView.setText(resources.getString(R.string.series_title));
