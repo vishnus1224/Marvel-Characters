@@ -334,6 +334,8 @@ public class CharacterListActivity extends BaseActivity implements CharacterView
 
         return true;
     }
+    //Search view action callback method end.
+
 
     private final Subscriber<String> queryChangeSubscriber = new Subscriber<String>() {
 
