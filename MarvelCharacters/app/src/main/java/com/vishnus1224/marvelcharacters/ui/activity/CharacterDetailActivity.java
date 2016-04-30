@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -30,11 +32,13 @@ import javax.inject.Inject;
  * Activity for displaying character details.
  * Created by Vishnu on 4/30/2016.
  */
-public class CharacterDetailActivity extends BaseActivity {
+public class CharacterDetailActivity extends BaseActivity implements View.OnClickListener {
 
     //View declaration.
     //=========================================
     private ImageView characterImageView;
+
+    private TextView characterDetailNameTextView;
 
     private TextView characterDescriptionTextView;
 
@@ -49,6 +53,8 @@ public class CharacterDetailActivity extends BaseActivity {
     private RecyclerView eventsRecyclerView;
 
     private ListView relatedLinksListView;
+
+    private ImageButton backButton;
 
     //=========================================
     //View declaration end.
@@ -103,6 +109,8 @@ public class CharacterDetailActivity extends BaseActivity {
 
         characterImageView = (ImageView) findViewById(R.id.characterDetailImage);
 
+        characterDetailNameTextView = (TextView) findViewById(R.id.characterDetailName);
+
         characterDescriptionTextView = (TextView) findViewById(R.id.characterDescription);
 
         LinearLayout comicsLayout = (LinearLayout) findViewById(R.id.characterComicsLayout);
@@ -123,6 +131,9 @@ public class CharacterDetailActivity extends BaseActivity {
 
         LinearLayout relatedLinksLayout = (LinearLayout) findViewById(R.id.characterRelatedLinksLayout);
         relatedLinksListView = (ListView) relatedLinksLayout.findViewById(R.id.listViewRelatedLinks);
+
+        backButton = (ImageButton) findViewById(R.id.backButton);
+        backButton.setOnClickListener(this);
 
     }
 
@@ -151,6 +162,8 @@ public class CharacterDetailActivity extends BaseActivity {
 
 
     private void setDataToViews() {
+
+        characterDetailNameTextView.setText(marvelCharacter.getName());
 
         //if description is not available then show no description available text.
         String description = marvelCharacter.getDescription().equals("") ? resources.getString(R.string.no_description_available) : marvelCharacter.getDescription();
@@ -215,6 +228,26 @@ public class CharacterDetailActivity extends BaseActivity {
         super.onBackPressed();
 
         overridePendingTransition(R.anim.stay, R.anim.slide_out_left);
+
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        switch (view.getId()){
+
+            case R.id.backButton:
+
+                navigateToPreviousActivity();
+
+                break;
+        }
+
+    }
+
+    private void navigateToPreviousActivity() {
+
+        onBackPressed();
 
     }
 }
