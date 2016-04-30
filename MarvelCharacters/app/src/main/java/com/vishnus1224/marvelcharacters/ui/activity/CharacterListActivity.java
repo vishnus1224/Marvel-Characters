@@ -24,8 +24,10 @@ import com.vishnus1224.marvelcharacters.di.component.DaggerActivityComponent;
 import com.vishnus1224.marvelcharacters.di.module.ActivityModule;
 import com.vishnus1224.marvelcharacters.model.MarvelCharacter;
 import com.vishnus1224.marvelcharacters.ui.adapter.CharacterListAdapter;
+import com.vishnus1224.marvelcharacters.ui.adapter.CharacterSearchSuggestionsAdapter;
 import com.vishnus1224.marvelcharacters.ui.presenter.CharacterListPresenter;
 import com.vishnus1224.marvelcharacters.ui.view.CharacterView;
+import com.vishnus1224.marvelcharacters.util.Constants;
 
 import java.util.List;
 
@@ -83,6 +85,11 @@ public class CharacterListActivity extends BaseActivity implements CharacterView
      */
     private ListViewScrollDelegate listViewScrollDelegate;
 
+    /**
+     * Adapter for providing suggestions in the search view.
+     */
+    private CharacterSearchSuggestionsAdapter characterSearchSuggestionsAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -134,6 +141,12 @@ public class CharacterListActivity extends BaseActivity implements CharacterView
         //set the subscriber to listen for query change event.
         //subscriber's onNext event will be called when query does not change for 1000 milliseconds.
         searchViewQueryObservableDelegate.queryTextChangeObservable(searchView, 1000L, queryChangeSubscriber);
+
+        //create the suggestions adapter and set it on the search view.
+        characterSearchSuggestionsAdapter = new CharacterSearchSuggestionsAdapter(this, R.layout.adapter_character_search, null,
+                Constants.SUGGESTIONS_ADAPTER_COLUMNS, null, 0);
+
+        searchView.setSuggestionsAdapter(characterSearchSuggestionsAdapter);
 
 
         return true;
