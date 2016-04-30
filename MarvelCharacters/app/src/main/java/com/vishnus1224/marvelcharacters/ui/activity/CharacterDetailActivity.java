@@ -35,4 +35,12 @@ public class CharacterDetailActivity extends BaseActivity {
         }
 
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        overridePendingTransition(R.anim.stay, R.anim.slide_out_left);
+
+    }
 }

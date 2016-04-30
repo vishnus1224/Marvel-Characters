@@ -415,9 +415,11 @@ public class CharacterListActivity extends BaseActivity implements CharacterView
 
         Intent detailActivityIntent = new Intent(this, CharacterDetailActivity.class);
 
-        detailActivityIntent.putExtra(Constants.KEY_CHARACTER, (Parcelable) selectedCharacter);
+        detailActivityIntent.putExtra(Constants.KEY_CHARACTER, selectedCharacter);
 
         startActivity(detailActivityIntent);
+
+        overridePendingTransition(R.anim.slide_in_right, R.anim.stay);
 
     }
 
