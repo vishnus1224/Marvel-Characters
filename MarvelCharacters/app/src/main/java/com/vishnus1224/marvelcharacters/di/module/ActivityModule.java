@@ -12,6 +12,7 @@ import com.vishnus1224.marvelcharacters.di.scope.PerActivity;
 import com.vishnus1224.marvelcharacters.repository.CharacterRepository;
 import com.vishnus1224.marvelcharacters.repository.CharacterRepositoryImpl;
 import com.vishnus1224.marvelcharacters.usecase.CharacterListUseCase;
+import com.vishnus1224.marvelcharacters.usecase.CharacterSearchUseCase;
 import com.vishnus1224.marvelcharacters.usecase.UseCase;
 
 import javax.inject.Named;
@@ -54,13 +55,23 @@ public class ActivityModule {
     }
 
     /**
-     * Provide a named use case.
+     * Provide the character list use case.
      * @param characterListUseCase CharacterListUseCase instance.
      * @return CharacterListUseCase instance.
      */
     @Provides @PerActivity @Named("CharacterList")
     UseCase provideCharacterListUseCase(CharacterListUseCase characterListUseCase){
         return characterListUseCase;
+    }
+
+    /**
+     * Provide the character search use case for searching characters by name.
+     * @param characterSearchUseCase CharacterSearchUseCase instance.
+     * @return CharacterSearchUseCase instance.
+     */
+    @Provides @PerActivity @Named("CharacterSearch")
+    UseCase provideCharacterSearchUseCase(CharacterSearchUseCase characterSearchUseCase){
+        return characterSearchUseCase;
     }
 
     /**
