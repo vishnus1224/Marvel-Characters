@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -13,9 +14,11 @@ import com.vishnus1224.marvelcharacters.R;
 import com.vishnus1224.marvelcharacters.di.component.ActivityComponent;
 import com.vishnus1224.marvelcharacters.di.component.DaggerActivityComponent;
 import com.vishnus1224.marvelcharacters.di.module.ActivityModule;
+import com.vishnus1224.marvelcharacters.imageloader.ImageDownloader;
 import com.vishnus1224.marvelcharacters.model.MarvelCharacter;
 import com.vishnus1224.marvelcharacters.ui.adapter.CharacterComicsAdapter;
 import com.vishnus1224.marvelcharacters.util.Constants;
+import com.vishnus1224.marvelcharacters.util.ScreenSizeConversionUtil;
 
 import javax.inject.Inject;
 
@@ -27,6 +30,8 @@ public class CharacterDetailActivity extends BaseActivity {
 
     //View declaration.
     //=========================================
+    private ImageView characterImageView;
+
     private TextView characterDescriptionTextView;
 
     private TextView comicsTitleTextView;
@@ -58,6 +63,12 @@ public class CharacterDetailActivity extends BaseActivity {
     @Inject
     Resources resources;
 
+    @Inject
+    ImageDownloader imageDownloader;
+
+    @Inject
+    ScreenSizeConversionUtil screenSizeConversionUtil;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,11 +95,13 @@ public class CharacterDetailActivity extends BaseActivity {
 
     private void setupViews() {
 
+        characterImageView = (ImageView) findViewById(R.id.characterDetailImage);
+
         characterDescriptionTextView = (TextView) findViewById(R.id.characterDescription);
 
         LinearLayout comicsLayout = (LinearLayout) findViewById(R.id.characterComicsLayout);
         comicsTitleTextView = (TextView) comicsLayout.findViewById(R.id.textViewLayoutTitle);
-        comicsRecyclerView = (RecyclerView) comicsLayout.findViewById(R.id.recyclerViewItems);
+        comicsRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewItems);
 
         LinearLayout seriesLayout = (LinearLayout) findViewById(R.id.characterSeriesLayout);
         seriesTitleTextView = (TextView) seriesLayout.findViewById(R.id.textViewLayoutTitle);
@@ -140,6 +153,9 @@ public class CharacterDetailActivity extends BaseActivity {
         storiesTitleTextView.setText(resources.getString(R.string.stories_title));
         eventsTitleTextView.setText(resources.getString(R.string.events_title));
 
+        imageDownloader.downloadImage(marvelCharacter.getThumbnail().getFinalPath(), (int) screenSizeConversionUtil.convertDpToPixels(400),
+                (int) screenSizeConversionUtil.convertDpToPixels(300), characterImageView);
+
     }
 
 
@@ -163,7 +179,8 @@ public class CharacterDetailActivity extends BaseActivity {
 
     private void setupAdapters() {
 
-        comicsAdapter = new CharacterComicsAdapter(marvelCharacter.getComicContainer().getItems());
+        comicsAdapter = new CharacterComicsAdapter(marvelCharacter.getComicContainer().getItems(), imageDownloader, screenSizeConversionUtil);
+
         comicsRecyclerView.setAdapter(comicsAdapter);
 
     }
