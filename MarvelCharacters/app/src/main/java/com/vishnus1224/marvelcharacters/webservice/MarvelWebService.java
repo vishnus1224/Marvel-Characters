@@ -19,5 +19,5 @@ public interface MarvelWebService {
     Observable<CharacterDataWrapper> fetchMarvelCharacters(@Query("offset") int offset);
 
     @GET("v1/public/characters")
-    Observable<CharacterDataWrapper> searchMarvelCharacters(@Query("nameStartsWith") String characterName);
+    Observable<CharacterDataWrapper> searchMarvelCharacters(@Query("nameStartsWith") String characterName, @Query("limit") int limit);
 }

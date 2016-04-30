@@ -12,6 +12,8 @@ import rx.Observable;
  */
 public class MarvelRESTAPI implements RESTAPI {
 
+    private static final int SEARCH_RESULTS_LIMIT = 100;
+
     private MarvelWebService marvelWebService;
 
     @Inject
@@ -26,6 +28,6 @@ public class MarvelRESTAPI implements RESTAPI {
 
     @Override
     public Observable<CharacterDataWrapper> searchMarvelCharacters(String characterName) {
-        return marvelWebService.searchMarvelCharacters(characterName);
+        return marvelWebService.searchMarvelCharacters(characterName, SEARCH_RESULTS_LIMIT);
     }
 }
