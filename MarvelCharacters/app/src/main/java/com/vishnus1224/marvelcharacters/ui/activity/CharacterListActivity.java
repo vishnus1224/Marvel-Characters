@@ -30,7 +30,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class CharacterListActivity extends BaseActivity implements CharacterView, ListViewScrollDelegate.BottomHitListener{
+public class CharacterListActivity extends BaseActivity implements CharacterView, ListViewScrollDelegate.BottomHitListener, MenuItemCompat.OnActionExpandListener{
 
 
     // *******************************************************************************
@@ -120,25 +120,7 @@ public class CharacterListActivity extends BaseActivity implements CharacterView
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
 
         //add expand and collapse listener to the search view.
-        MenuItemCompat.setOnActionExpandListener(searchItem, new MenuItemCompat.OnActionExpandListener() {
-            @Override
-            public boolean onMenuItemActionExpand(MenuItem item) {
-
-                //show the keyboard when search icon is clicked.
-                searchView.setIconified(false);
-
-                return true;
-            }
-
-            @Override
-            public boolean onMenuItemActionCollapse(MenuItem item) {
-
-                //hide the keyboard.
-                hideSoftKeyboard();
-
-                return true;
-            }
-        });
+        MenuItemCompat.setOnActionExpandListener(searchItem, this);
 
         return true;
     }
@@ -316,4 +298,24 @@ public class CharacterListActivity extends BaseActivity implements CharacterView
 
     }
 
+    //ListView scroll delegate method end.
+
+    //Search view action callback method.
+    @Override
+    public boolean onMenuItemActionExpand(MenuItem item) {
+
+        //show the keyboard when search icon is clicked.
+        searchView.setIconified(false);
+
+        return true;
+    }
+
+    @Override
+    public boolean onMenuItemActionCollapse(MenuItem item) {
+
+        //hide the keyboard.
+        hideSoftKeyboard();
+
+        return true;
+    }
 }
