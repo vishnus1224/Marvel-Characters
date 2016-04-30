@@ -8,7 +8,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.vishnus1224.marvelcharacters.R;
-import com.vishnus1224.marvelcharacters.imageloader.ImageDownloader;
 import com.vishnus1224.marvelcharacters.model.EventSummary;
 import com.vishnus1224.marvelcharacters.util.ScreenSizeConversionUtil;
 
@@ -21,17 +20,13 @@ public class CharacterEventsAdapter extends RecyclerView.Adapter<CharacterEvents
 
     private List<EventSummary> eventSummaryList;
 
-    private ImageDownloader imageDownloader;
-
     private int imageHeight;
 
     private int imageWidth;
 
-    public CharacterEventsAdapter(List<EventSummary> eventSummaryList, ImageDownloader imageDownloader, ScreenSizeConversionUtil screenSizeConversionUtil){
+    public CharacterEventsAdapter(List<EventSummary> eventSummaryList, ScreenSizeConversionUtil screenSizeConversionUtil){
 
         this.eventSummaryList = eventSummaryList;
-
-        this.imageDownloader = imageDownloader;
 
         imageWidth = (int) screenSizeConversionUtil.convertDpToPixels(200);
 

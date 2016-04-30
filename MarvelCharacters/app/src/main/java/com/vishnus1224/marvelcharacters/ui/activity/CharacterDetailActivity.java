@@ -201,19 +201,19 @@ public class CharacterDetailActivity extends BaseActivity implements View.OnClic
 
     private void setupAdapters() {
 
-        comicsAdapter = new CharacterComicsAdapter(marvelCharacter.getComicContainer().getItems(), imageDownloader, screenSizeConversionUtil);
+        comicsAdapter = new CharacterComicsAdapter(marvelCharacter.getComicContainer().getItems(), screenSizeConversionUtil);
 
         comicsRecyclerView.setAdapter(comicsAdapter);
 
-        seriesAdapter = new CharacterSeriesAdapter(marvelCharacter.getSeriesContainer().getItems(), imageDownloader, screenSizeConversionUtil);
+        seriesAdapter = new CharacterSeriesAdapter(marvelCharacter.getSeriesContainer().getItems(), screenSizeConversionUtil);
 
         seriesRecyclerView.setAdapter(seriesAdapter);
 
-        storiesAdapter = new CharacterStoriesAdapter(marvelCharacter.getStoryContainer().getItems(), imageDownloader, screenSizeConversionUtil);
+        storiesAdapter = new CharacterStoriesAdapter(marvelCharacter.getStoryContainer().getItems(), screenSizeConversionUtil);
 
         storiesRecyclerView.setAdapter(storiesAdapter);
 
-        eventsAdapter = new CharacterEventsAdapter(marvelCharacter.getEventContainer().getItems(), imageDownloader, screenSizeConversionUtil);
+        eventsAdapter = new CharacterEventsAdapter(marvelCharacter.getEventContainer().getItems(), screenSizeConversionUtil);
 
         eventsRecyclerView.setAdapter(eventsAdapter);
 
