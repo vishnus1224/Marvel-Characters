@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.vishnus1224.marvelcharacters.R;
 import com.vishnus1224.marvelcharacters.delegate.ListViewScrollDelegate;
+import com.vishnus1224.marvelcharacters.delegate.SearchViewQueryObservableDelegate;
 import com.vishnus1224.marvelcharacters.di.component.ActivityComponent;
 import com.vishnus1224.marvelcharacters.di.component.DaggerActivityComponent;
 import com.vishnus1224.marvelcharacters.di.module.ActivityModule;
@@ -29,6 +30,8 @@ import com.vishnus1224.marvelcharacters.ui.view.CharacterView;
 import java.util.List;
 
 import javax.inject.Inject;
+
+import rx.Subscriber;
 
 public class CharacterListActivity extends BaseActivity implements CharacterView, ListViewScrollDelegate.BottomHitListener, MenuItemCompat.OnActionExpandListener{
 
@@ -63,6 +66,12 @@ public class CharacterListActivity extends BaseActivity implements CharacterView
      */
     @Inject
     CharacterListPresenter characterListPresenter;
+
+    /**
+     * Inject the observable delegate to listen for query text update.
+     */
+    @Inject
+    SearchViewQueryObservableDelegate searchViewQueryObservableDelegate;
 
     /**
      * Activity component for injecting the dependencies.
@@ -122,6 +131,11 @@ public class CharacterListActivity extends BaseActivity implements CharacterView
         //add expand and collapse listener to the search view.
         MenuItemCompat.setOnActionExpandListener(searchItem, this);
 
+        //set the subscriber to listen for query change event.
+        //subscriber's onNext event will be called when query does not change for 500 milliseconds.
+        searchViewQueryObservableDelegate.queryTextChangeObservable(searchView, 500L, queryChangeSubscriber);
+
+
         return true;
     }
 
@@ -131,6 +145,8 @@ public class CharacterListActivity extends BaseActivity implements CharacterView
         super.onDestroy();
 
         characterListPresenter.destroy();
+
+        searchViewQueryObservableDelegate.unSubscribe();
     }
 
     private void setupViews() {
@@ -318,4 +334,24 @@ public class CharacterListActivity extends BaseActivity implements CharacterView
 
         return true;
     }
+
+    private final Subscriber<String> queryChangeSubscriber = new Subscriber<String>() {
+
+        @Override
+        public void onCompleted() {
+
+
+        }
+
+        @Override
+        public void onError(Throwable e) {
+
+        }
+
+        @Override
+        public void onNext(String s) {
+
+
+        }
+    };
 }
