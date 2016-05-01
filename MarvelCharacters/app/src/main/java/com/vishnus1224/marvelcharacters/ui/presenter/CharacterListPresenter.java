@@ -7,6 +7,7 @@ import com.vishnus1224.marvelcharacters.manager.CharacterDataOffsetManager;
 import com.vishnus1224.marvelcharacters.model.MarvelCharacter;
 import com.vishnus1224.marvelcharacters.ui.view.CharacterView;
 import com.vishnus1224.marvelcharacters.usecase.CharacterListUseCase;
+import com.vishnus1224.marvelcharacters.usecase.CharacterSearchByIDUseCase;
 import com.vishnus1224.marvelcharacters.usecase.CharacterSearchUseCase;
 import com.vishnus1224.marvelcharacters.usecase.UseCase;
 
@@ -148,6 +149,31 @@ public class CharacterListPresenter {
             }
         });
 
+    }
+
+    public void searchCharacterByID(int characterID){
+
+        ((CharacterSearchByIDUseCase) characterSearchByIDUseCase).setCharacterID(characterID);
+
+        characterSearchByIDUseCase.execute(new Subscriber<MarvelCharacter>(){
+
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+                characterView.showError("Could not fetch character details");
+            }
+
+            @Override
+            public void onNext(MarvelCharacter marvelCharacter) {
+
+                characterView.showCharacterDetails(marvelCharacter);
+            }
+        });
     }
 
 }
