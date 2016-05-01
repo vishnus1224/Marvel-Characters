@@ -29,7 +29,7 @@ import javax.inject.Inject;
 /**
  * Created by Vishnu on 5/1/2016.
  */
-public class ImageGalleryActivity extends BaseActivity implements View.OnClickListener, GalleryView, ImageLoadDelegate {
+public class ImageGalleryActivity extends BaseActivity implements View.OnClickListener, GalleryView, ImageLoadDelegate, ViewPager.OnPageChangeListener {
 
     private ImageButton closeButton;
 
@@ -127,6 +127,8 @@ public class ImageGalleryActivity extends BaseActivity implements View.OnClickLi
         imageNumberTextView.setText(String.valueOf(currentPosition + 1));
 
         imageCountTextView.setText(String.valueOf(summaries.size()));
+
+        imageNameTextView.setText(summaries.get(currentPosition).getName());
     }
 
 
@@ -145,7 +147,7 @@ public class ImageGalleryActivity extends BaseActivity implements View.OnClickLi
         galleryPagerAdapter = new GalleryPagerAdapter(getLayoutInflater(), summaries, this);
 
         galleryViewPager.setAdapter(galleryPagerAdapter);
-        
+
         galleryViewPager.setCurrentItem(currentPosition);
 
     }
@@ -154,6 +156,8 @@ public class ImageGalleryActivity extends BaseActivity implements View.OnClickLi
     private void setListenerOnViews() {
 
         closeButton.setOnClickListener(this);
+
+        galleryViewPager.addOnPageChangeListener(this);
 
     }
 
@@ -203,6 +207,7 @@ public class ImageGalleryActivity extends BaseActivity implements View.OnClickLi
     //Gallery view methods end.
 
 
+    //Image load delegate method.
     @Override
     public void loadImageData(String resourceURI, ImageView imageView) {
 
@@ -210,4 +215,29 @@ public class ImageGalleryActivity extends BaseActivity implements View.OnClickLi
 
     }
 
+    //Image load delegate method end.
+
+
+    //Page change listener methods.
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+
+        currentPosition = position + 1;
+
+        imageNumberTextView.setText(String.valueOf(currentPosition));
+
+        imageNameTextView.setText(summaries.get(position).getName());
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
+    }
+
+    //Page change listener method end.
 }
