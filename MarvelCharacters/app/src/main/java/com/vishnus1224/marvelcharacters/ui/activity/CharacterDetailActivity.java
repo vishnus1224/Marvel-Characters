@@ -97,9 +97,6 @@ public class CharacterDetailActivity extends BaseActivity implements CharacterDe
     private ActivityComponent activityComponent;
 
     @Inject
-    Resources resources;
-
-    @Inject
     ImageDownloader imageDownloader;
 
     @Inject
@@ -213,14 +210,14 @@ public class CharacterDetailActivity extends BaseActivity implements CharacterDe
         characterDetailNameTextView.setText(marvelCharacter.getName());
 
         //if description is not available then show no description available text.
-        String description = marvelCharacter.getDescription().equals("") ? resources.getString(R.string.no_description_available) : marvelCharacter.getDescription();
+        String description = marvelCharacter.getDescription().equals("") ? getResources().getString(R.string.no_description_available) : marvelCharacter.getDescription();
 
         characterDescriptionTextView.setText(description);
 
-        comicsTitleTextView.setText(resources.getString(R.string.comics_title));
-        seriesTitleTextView.setText(resources.getString(R.string.series_title));
-        storiesTitleTextView.setText(resources.getString(R.string.stories_title));
-        eventsTitleTextView.setText(resources.getString(R.string.events_title));
+        comicsTitleTextView.setText(getResources().getString(R.string.comics_title));
+        seriesTitleTextView.setText(getResources().getString(R.string.series_title));
+        storiesTitleTextView.setText(getResources().getString(R.string.stories_title));
+        eventsTitleTextView.setText(getResources().getString(R.string.events_title));
 
         noComicsAvailableTextView.setText(getResources().getString(R.string.no_comics_available));
         noSeriesAvailableTextView.setText(getResources().getString(R.string.no_series_available));
@@ -336,7 +333,7 @@ public class CharacterDetailActivity extends BaseActivity implements CharacterDe
 
     private void setupRelatedLinksView() {
 
-        relatedLinksAdapter = new RelatedLinksAdapter(getLayoutInflater(), resources.getStringArray(R.array.related_links_array));
+        relatedLinksAdapter = new RelatedLinksAdapter(getLayoutInflater(), getResources().getStringArray(R.array.related_links_array));
 
         relatedLinksListView.setAdapter(relatedLinksAdapter);
 
