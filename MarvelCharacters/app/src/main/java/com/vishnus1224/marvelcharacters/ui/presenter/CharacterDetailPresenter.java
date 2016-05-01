@@ -55,7 +55,7 @@ public class CharacterDetailPresenter {
 
     }
 
-    public void fetchImageData(String resourceURI, final WeakReference<ImageView> imageViewWeakReference){
+    public void fetchImageData(final String resourceURI, final WeakReference<ImageView> imageViewWeakReference){
 
         ((ImageResourceURIUseCase)imageResourceURIUseCase).setResourceURI(urlExtractor.removeStringFromURL(resourceURI, MarvelWebService.BASE_URL));
 
@@ -69,6 +69,11 @@ public class CharacterDetailPresenter {
             @Override
             public void onError(Throwable e) {
 
+                if(imageViewWeakReference.get() != null){
+
+                    characterDetailView.showPlaceholderImage(imageViewWeakReference.get());
+
+                }
 
             }
 

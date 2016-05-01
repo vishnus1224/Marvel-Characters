@@ -19,4 +19,11 @@ public interface CharacterDetailView {
      * @param imageView ImageView to load the image into.
      */
     void loadImage(String imageURL, ImageView imageView);
+
+    /**
+     * Show a placeholder image in the image view.
+     * Will be called whenever an error occurs while fetching image URL.
+     * @param imageView The image view to set the image in.
+     */
+    void showPlaceholderImage(ImageView imageView);
 }
