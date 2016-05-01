@@ -16,6 +16,7 @@
     <string name="detail_title">Detail</string>
     <string name="wiki_title">Wiki</string>
     <string name="comic_link_title">Comiclink</string>
+    <string name="action_retry">Retry</string>
 
     <string-array name="related_links_array">
         <item>@string/detail_title</item>

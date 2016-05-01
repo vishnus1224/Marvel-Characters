@@ -65,4 +65,10 @@ public interface CharacterView {
      * @param marvelCharacter MarvelCharacter instance.
      */
     void showCharacterDetails(MarvelCharacter marvelCharacter);
+
+    /**
+     * Provide user with a retry option.
+     * @param message message to be displayed.
+     */
+    void showRetryOption(String message);
 }

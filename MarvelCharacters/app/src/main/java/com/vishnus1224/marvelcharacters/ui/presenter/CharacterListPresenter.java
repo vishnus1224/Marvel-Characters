@@ -11,6 +11,7 @@ import com.vishnus1224.marvelcharacters.usecase.CharacterSearchByIDUseCase;
 import com.vishnus1224.marvelcharacters.usecase.CharacterSearchUseCase;
 import com.vishnus1224.marvelcharacters.usecase.UseCase;
 
+import java.net.UnknownHostException;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -114,7 +115,17 @@ public class CharacterListPresenter {
 
                 characterView.removeListViewFooter();
 
-                characterView.showError(e.getMessage());
+                //show retry option if there is no internet connection.
+                
+                if(e instanceof UnknownHostException){
+
+                    characterView.showRetryOption("No internet connection");
+
+                }else {
+
+                    characterView.showError(e.getMessage());
+
+                }
             }
 
             @Override

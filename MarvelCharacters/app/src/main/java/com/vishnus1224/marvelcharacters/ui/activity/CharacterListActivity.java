@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -333,9 +334,25 @@ public class CharacterListActivity extends BaseActivity implements CharacterView
 
     }
 
+    @Override
+    public void showRetryOption(String message) {
+
+        Snackbar.make(characterListView, message, Snackbar.LENGTH_INDEFINITE)
+                .setAction(getResources().getString(R.string.action_retry), snackbarClickListener)
+                .show();
+    }
+
     //View Method End.
     //==============================================================================================
 
+
+    private View.OnClickListener snackbarClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+
+            characterListPresenter.fetchCharacters();
+        }
+    };
 
     //ListView scroll delegate method.
     @Override
