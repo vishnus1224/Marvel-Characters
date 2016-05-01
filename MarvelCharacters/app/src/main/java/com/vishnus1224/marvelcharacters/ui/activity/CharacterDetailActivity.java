@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.vishnus1224.marvelcharacters.R;
+import com.vishnus1224.marvelcharacters.delegate.ImageLoadDelegate;
 import com.vishnus1224.marvelcharacters.di.component.ActivityComponent;
 import com.vishnus1224.marvelcharacters.di.component.DaggerActivityComponent;
 import com.vishnus1224.marvelcharacters.di.module.ActivityModule;
@@ -23,6 +24,7 @@ import com.vishnus1224.marvelcharacters.ui.adapter.CharacterEventsAdapter;
 import com.vishnus1224.marvelcharacters.ui.adapter.CharacterSeriesAdapter;
 import com.vishnus1224.marvelcharacters.ui.adapter.CharacterStoriesAdapter;
 import com.vishnus1224.marvelcharacters.ui.adapter.RelatedLinksAdapter;
+import com.vishnus1224.marvelcharacters.ui.presenter.CharacterDetailPresenter;
 import com.vishnus1224.marvelcharacters.util.Constants;
 import com.vishnus1224.marvelcharacters.util.ScreenSizeConversionUtil;
 
@@ -32,7 +34,10 @@ import javax.inject.Inject;
  * Activity for displaying character details.
  * Created by Vishnu on 4/30/2016.
  */
-public class CharacterDetailActivity extends BaseActivity implements View.OnClickListener {
+public class CharacterDetailActivity extends BaseActivity implements View.OnClickListener, ImageLoadDelegate{
+
+    private static final int CHARACTER_IMAGE_WIDTH = 400;
+    private static final int CHARACTER_IMAGE_HEIGHT = 300;
 
     //View declaration.
     //=========================================
@@ -80,6 +85,9 @@ public class CharacterDetailActivity extends BaseActivity implements View.OnClic
 
     @Inject
     ScreenSizeConversionUtil screenSizeConversionUtil;
+
+    @Inject
+    CharacterDetailPresenter characterDetailPresenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -175,8 +183,8 @@ public class CharacterDetailActivity extends BaseActivity implements View.OnClic
         storiesTitleTextView.setText(resources.getString(R.string.stories_title));
         eventsTitleTextView.setText(resources.getString(R.string.events_title));
 
-        imageDownloader.downloadImage(marvelCharacter.getThumbnail().getFinalPath(), (int) screenSizeConversionUtil.convertDpToPixels(400),
-                (int) screenSizeConversionUtil.convertDpToPixels(300), characterImageView);
+        imageDownloader.downloadImage(marvelCharacter.getThumbnail().getFinalPath(), (int) screenSizeConversionUtil.convertDpToPixels(CHARACTER_IMAGE_WIDTH),
+                (int) screenSizeConversionUtil.convertDpToPixels(CHARACTER_IMAGE_HEIGHT), characterImageView);
 
     }
 
@@ -201,19 +209,19 @@ public class CharacterDetailActivity extends BaseActivity implements View.OnClic
 
     private void setupAdapters() {
 
-        comicsAdapter = new CharacterComicsAdapter(getLayoutInflater(), marvelCharacter.getComicContainer().getItems(), screenSizeConversionUtil);
+        comicsAdapter = new CharacterComicsAdapter(getLayoutInflater(), marvelCharacter.getComicContainer().getItems(), screenSizeConversionUtil, this);
 
         comicsRecyclerView.setAdapter(comicsAdapter);
 
-        seriesAdapter = new CharacterSeriesAdapter(getLayoutInflater(), marvelCharacter.getSeriesContainer().getItems(), screenSizeConversionUtil);
+        seriesAdapter = new CharacterSeriesAdapter(getLayoutInflater(), marvelCharacter.getSeriesContainer().getItems(), screenSizeConversionUtil, this);
 
         seriesRecyclerView.setAdapter(seriesAdapter);
 
-        storiesAdapter = new CharacterStoriesAdapter(getLayoutInflater(), marvelCharacter.getStoryContainer().getItems(), screenSizeConversionUtil);
+        storiesAdapter = new CharacterStoriesAdapter(getLayoutInflater(), marvelCharacter.getStoryContainer().getItems(), screenSizeConversionUtil, this);
 
         storiesRecyclerView.setAdapter(storiesAdapter);
 
-        eventsAdapter = new CharacterEventsAdapter(getLayoutInflater(), marvelCharacter.getEventContainer().getItems(), screenSizeConversionUtil);
+        eventsAdapter = new CharacterEventsAdapter(getLayoutInflater(), marvelCharacter.getEventContainer().getItems(), screenSizeConversionUtil, this);
 
         eventsRecyclerView.setAdapter(eventsAdapter);
 
@@ -250,4 +258,17 @@ public class CharacterDetailActivity extends BaseActivity implements View.OnClic
         onBackPressed();
 
     }
+
+
+    //Image load delegate method.
+    //**************************
+    @Override
+    public void loadImageData(String resourceURI, ImageView imageView) {
+
+        characterDetailPresenter.fetchImageData(resourceURI, imageView);
+
+    }
+
+    //***************************
+    //Image load delegate method end.
 }

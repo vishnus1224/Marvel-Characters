@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.vishnus1224.marvelcharacters.R;
+import com.vishnus1224.marvelcharacters.delegate.ImageLoadDelegate;
 import com.vishnus1224.marvelcharacters.model.StorySummary;
 import com.vishnus1224.marvelcharacters.util.ScreenSizeConversionUtil;
 
@@ -22,15 +23,20 @@ public class CharacterStoriesAdapter extends RecyclerView.Adapter<CharacterStori
 
     private LayoutInflater layoutInflater;
 
+    private ImageLoadDelegate imageLoadDelegate;
+
     private int imageHeight;
 
     private int imageWidth;
 
-    public CharacterStoriesAdapter(LayoutInflater layoutInflater, List<StorySummary> storiesSummaryList, ScreenSizeConversionUtil screenSizeConversionUtil){
+    public CharacterStoriesAdapter(LayoutInflater layoutInflater, List<StorySummary> storiesSummaryList,
+                                   ScreenSizeConversionUtil screenSizeConversionUtil, ImageLoadDelegate imageLoadDelegate){
 
         this.storiesSummaryList = storiesSummaryList;
 
         this.layoutInflater = layoutInflater;
+
+        this.imageLoadDelegate = imageLoadDelegate;
 
         imageWidth = (int) screenSizeConversionUtil.convertDpToPixels(200);
 
@@ -51,6 +57,8 @@ public class CharacterStoriesAdapter extends RecyclerView.Adapter<CharacterStori
         StorySummary storySummary = storiesSummaryList.get(position);
 
         holder.titleTextView.setText(storySummary.getName());
+
+        imageLoadDelegate.loadImageData(storySummary.getResourceURI(), holder.iconImageView);
     }
 
     @Override
