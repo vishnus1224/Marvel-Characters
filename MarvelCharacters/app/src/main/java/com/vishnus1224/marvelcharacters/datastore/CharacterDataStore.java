@@ -26,4 +26,11 @@ public interface CharacterDataStore {
      * @return Observable data wrapper containing list of characters.
      */
     Observable<CharacterDataWrapper> searchMarvelCharacters(String characterName);
+
+    /**
+     * Fetch marvel character by id.
+     * @param characterID character id to search for.
+     * @return Observable that emits a MarvelCharacter.
+     */
+    Observable<MarvelCharacter> fetchCharacterByID(int characterID);
 }
