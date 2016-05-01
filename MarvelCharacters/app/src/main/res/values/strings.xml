@@ -9,6 +9,10 @@
     <string name="events_title">Events</string>
     <string name="stories_title">Stories</string>
     <string name="no_description_available">No description available</string>
+    <string name="no_comics_available">No comics available</string>
+    <string name="no_series_available">No series available</string>
+    <string name="no_stories_available">No stories available</string>
+    <string name="no_events_available">No events available</string>
     <string name="detail_title">Detail</string>
     <string name="wiki_title">Wiki</string>
     <string name="comic_link_title">Comiclink</string>

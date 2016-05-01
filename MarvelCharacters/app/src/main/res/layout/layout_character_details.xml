@@ -9,6 +9,12 @@
         style="@style/CharacterDetailTextViewStyle"
         android:textColor="@android:color/holo_red_dark"/>
 
+    <TextView
+        android:id="@+id/noContentAvailableTextView"
+        style="@style/CharacterDetailTextViewStyle"
+        android:visibility="gone"
+        android:textColor="@android:color/white"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerViewItems"
         android:layout_width="match_parent"

@@ -59,6 +59,11 @@ public class CharacterDetailActivity extends BaseActivity implements CharacterDe
     private TextView storiesTitleTextView;
     private TextView eventsTitleTextView;
 
+    private TextView noComicsAvailableTextView;
+    private TextView noSeriesAvailableTextView;
+    private TextView noStoriesAvailableTextView;
+    private TextView noEventsAvailableTextView;
+
     private RecyclerView comicsRecyclerView;
     private RecyclerView seriesRecyclerView;
     private RecyclerView storiesRecyclerView;
@@ -115,9 +120,7 @@ public class CharacterDetailActivity extends BaseActivity implements CharacterDe
 
             setDataToViews();
 
-            setupLayoutManager();
-
-            setupAdapters();
+            setupLayoutManagerAndAdapters();
 
         }
     }
@@ -139,19 +142,23 @@ public class CharacterDetailActivity extends BaseActivity implements CharacterDe
 
         LinearLayout comicsLayout = (LinearLayout) findViewById(R.id.characterComicsLayout);
         comicsTitleTextView = (TextView) comicsLayout.findViewById(R.id.textViewLayoutTitle);
-        comicsRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewItems);
+        comicsRecyclerView = (RecyclerView) comicsLayout.findViewById(R.id.recyclerViewItems);
+        noComicsAvailableTextView = (TextView) comicsLayout.findViewById(R.id.noContentAvailableTextView);
 
         LinearLayout seriesLayout = (LinearLayout) findViewById(R.id.characterSeriesLayout);
         seriesTitleTextView = (TextView) seriesLayout.findViewById(R.id.textViewLayoutTitle);
         seriesRecyclerView = (RecyclerView) seriesLayout.findViewById(R.id.recyclerViewItems);
+        noSeriesAvailableTextView = (TextView) seriesLayout.findViewById(R.id.noContentAvailableTextView);
 
         LinearLayout storiesLayout = (LinearLayout) findViewById(R.id.characterStoriesLayout);
         storiesTitleTextView = (TextView) storiesLayout.findViewById(R.id.textViewLayoutTitle);
         storiesRecyclerView = (RecyclerView) storiesLayout.findViewById(R.id.recyclerViewItems);
+        noStoriesAvailableTextView = (TextView) storiesLayout.findViewById(R.id.noContentAvailableTextView);
 
         LinearLayout eventsLayout = (LinearLayout) findViewById(R.id.characterEventsLayout);
         eventsTitleTextView = (TextView) eventsLayout.findViewById(R.id.textViewLayoutTitle);
         eventsRecyclerView = (RecyclerView) eventsLayout.findViewById(R.id.recyclerViewItems);
+        noEventsAvailableTextView = (TextView) eventsLayout.findViewById(R.id.noContentAvailableTextView);
 
         LinearLayout relatedLinksLayout = (LinearLayout) findViewById(R.id.characterRelatedLinksLayout);
         relatedLinksListView = (ListView) relatedLinksLayout.findViewById(R.id.listViewRelatedLinks);
@@ -206,53 +213,126 @@ public class CharacterDetailActivity extends BaseActivity implements CharacterDe
         storiesTitleTextView.setText(resources.getString(R.string.stories_title));
         eventsTitleTextView.setText(resources.getString(R.string.events_title));
 
+        noComicsAvailableTextView.setText(getResources().getString(R.string.no_comics_available));
+        noSeriesAvailableTextView.setText(getResources().getString(R.string.no_series_available));
+        noStoriesAvailableTextView.setText(getResources().getString(R.string.no_stories_available));
+        noEventsAvailableTextView.setText(getResources().getString(R.string.no_events_available));
+
         imageDownloader.downloadImage(marvelCharacter.getThumbnail().getFinalPath(), (int) screenSizeConversionUtil.convertDpToPixels(CHARACTER_IMAGE_WIDTH),
                 (int) screenSizeConversionUtil.convertDpToPixels(CHARACTER_IMAGE_HEIGHT), characterImageView);
 
     }
 
 
-    private void setupLayoutManager() {
+    private void setupLayoutManagerAndAdapters() {
 
-        layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        setupComicsView();
 
-        comicsRecyclerView.setLayoutManager(layoutManager);
+        setupSeriesView();
 
-        layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        seriesRecyclerView.setLayoutManager(layoutManager);
+        setupStoriesView();
 
-        layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        storiesRecyclerView.setLayoutManager(layoutManager);
+        setupEventsView();
 
-        layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        eventsRecyclerView.setLayoutManager(layoutManager);
+        setupRelatedLinksView();
 
     }
 
 
-    private void setupAdapters() {
+    private void setupComicsView() {
 
-        comicsAdapter = new CharacterComicsAdapter(getLayoutInflater(), marvelCharacter.getComicContainer().getItems(), this);
+        //if comic list is not empty then set the adapter.
 
-        comicsRecyclerView.setAdapter(comicsAdapter);
+        if(!marvelCharacter.getComicContainer().getItems().isEmpty()) {
 
-        seriesAdapter = new CharacterSeriesAdapter(getLayoutInflater(), marvelCharacter.getSeriesContainer().getItems(), this);
+            layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
 
-        seriesRecyclerView.setAdapter(seriesAdapter);
+            comicsRecyclerView.setLayoutManager(layoutManager);
 
-        storiesAdapter = new CharacterStoriesAdapter(getLayoutInflater(), marvelCharacter.getStoryContainer().getItems(), this);
+            comicsAdapter = new CharacterComicsAdapter(getLayoutInflater(), marvelCharacter.getComicContainer().getItems(), this);
 
-        storiesRecyclerView.setAdapter(storiesAdapter);
+            comicsRecyclerView.setAdapter(comicsAdapter);
 
-        eventsAdapter = new CharacterEventsAdapter(getLayoutInflater(), marvelCharacter.getEventContainer().getItems(), this);
+        }else{
 
-        eventsRecyclerView.setAdapter(eventsAdapter);
+            hideView(comicsRecyclerView);
+
+            showView(noComicsAvailableTextView);
+
+        }
+    }
+
+
+    private void setupSeriesView() {
+
+        if(!marvelCharacter.getSeriesContainer().getItems().isEmpty()){
+
+            layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+            seriesRecyclerView.setLayoutManager(layoutManager);
+
+            seriesAdapter = new CharacterSeriesAdapter(getLayoutInflater(), marvelCharacter.getSeriesContainer().getItems(), this);
+
+            seriesRecyclerView.setAdapter(seriesAdapter);
+
+        }else{
+
+            hideView(seriesRecyclerView);
+
+            showView(noSeriesAvailableTextView);
+        }
+
+    }
+
+    private void setupStoriesView(){
+
+
+        if(!marvelCharacter.getStoryContainer().getItems().isEmpty()){
+
+            layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+            storiesRecyclerView.setLayoutManager(layoutManager);
+
+            storiesAdapter = new CharacterStoriesAdapter(getLayoutInflater(), marvelCharacter.getStoryContainer().getItems(), this);
+
+            storiesRecyclerView.setAdapter(storiesAdapter);
+
+        }else{
+
+            hideView(storiesRecyclerView);
+
+            showView(noStoriesAvailableTextView);
+        }
+    }
+
+    private void setupEventsView(){
+
+        if(!marvelCharacter.getEventContainer().getItems().isEmpty()){
+
+            layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+            eventsRecyclerView.setLayoutManager(layoutManager);
+
+            eventsAdapter = new CharacterEventsAdapter(getLayoutInflater(), marvelCharacter.getEventContainer().getItems(), this);
+
+            eventsRecyclerView.setAdapter(eventsAdapter);
+
+        }else{
+
+            hideView(eventsRecyclerView);
+
+            showView(noEventsAvailableTextView);
+        }
+
+
+    }
+
+
+    private void setupRelatedLinksView() {
 
         relatedLinksAdapter = new RelatedLinksAdapter(getLayoutInflater(), resources.getStringArray(R.array.related_links_array));
 
         relatedLinksListView.setAdapter(relatedLinksAdapter);
-    }
 
+
+    }
 
     @Override
     public void onBackPressed() {
@@ -297,6 +377,20 @@ public class CharacterDetailActivity extends BaseActivity implements CharacterDe
 
     //View methods.
     //***********************
+
+    @Override
+    public void showView(View view) {
+
+        view.setVisibility(View.VISIBLE);
+
+    }
+
+    @Override
+    public void hideView(View view) {
+
+        view.setVisibility(View.GONE);
+
+    }
 
     @Override
     public void showError(String message) {
