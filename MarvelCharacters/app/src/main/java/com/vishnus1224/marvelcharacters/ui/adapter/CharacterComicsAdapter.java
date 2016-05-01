@@ -9,7 +9,9 @@ import android.widget.TextView;
 
 import com.vishnus1224.marvelcharacters.R;
 import com.vishnus1224.marvelcharacters.delegate.ImageLoadDelegate;
+import com.vishnus1224.marvelcharacters.listener.OnImageClickListener;
 import com.vishnus1224.marvelcharacters.model.ComicSummary;
+import com.vishnus1224.marvelcharacters.util.ItemType;
 
 import java.util.List;
 
@@ -24,14 +26,18 @@ public class CharacterComicsAdapter extends RecyclerView.Adapter<CharacterComics
 
     private ImageLoadDelegate imageLoadDelegate;
 
+    private OnImageClickListener onImageClickListener;
 
-    public CharacterComicsAdapter(LayoutInflater layoutInflater, List<ComicSummary> comicSummaryList, ImageLoadDelegate imageLoadDelegate){
+    public CharacterComicsAdapter(LayoutInflater layoutInflater, List<ComicSummary> comicSummaryList, ImageLoadDelegate imageLoadDelegate
+                            , OnImageClickListener onImageClickListener){
 
         this.comicSummaryList = comicSummaryList;
 
         this.layoutInflater = layoutInflater;
 
         this.imageLoadDelegate = imageLoadDelegate;
+
+        this.onImageClickListener = onImageClickListener;
 
     }
 
@@ -44,15 +50,27 @@ public class CharacterComicsAdapter extends RecyclerView.Adapter<CharacterComics
     }
 
     @Override
-    public void onBindViewHolder(ComicsViewHolder holder, int position) {
+    public void onBindViewHolder(ComicsViewHolder holder, final int position) {
 
-        ComicSummary comicSummary = comicSummaryList.get(position);
+        final ComicSummary comicSummary = comicSummaryList.get(position);
 
         holder.titleTextView.setText(comicSummary.getName());
 
         //remove the bitmap from the image view to prevent wrong images from showing up
         //due to view reuse.
         holder.iconImageView.setImageBitmap(null);
+
+        holder.iconImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(onImageClickListener != null){
+
+                    onImageClickListener.onImageClick(position, ItemType.COMICS, comicSummary);
+
+                }
+            }
+        });
 
         imageLoadDelegate.loadImageData(comicSummary.getResourceURI(), holder.iconImageView);
 
@@ -75,5 +93,6 @@ public class CharacterComicsAdapter extends RecyclerView.Adapter<CharacterComics
             iconImageView = (ImageView) view.findViewById(R.id.adapterCharacterDetailImage);
         }
     }
+
 
 }
