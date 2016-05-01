@@ -13,7 +13,7 @@ import rx.Observable;
  */
 public interface MarvelWebService {
 
-    String BASE_URL = "https://gateway.marvel.com/";
+    String BASE_URL = "http://gateway.marvel.com/";
 
     @GET("v1/public/characters")
     Observable<CharacterDataWrapper> fetchMarvelCharacters(@Query("offset") int offset);
