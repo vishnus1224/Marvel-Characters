@@ -37,6 +37,10 @@
             android:configChanges="screenSize|orientation"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
 
+        <activity android:name=".ui.activity.ImageGalleryActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+
     </application>
 
 </manifest>
