@@ -26,4 +26,11 @@ public interface CharacterRepository {
      * @return Observable that emits a cursor of marvel characters list which match the provided name.
      */
     Observable<Cursor> searchMarvelCharacters(String characterName);
+
+    /**
+     * Fetch marvel character by id.
+     * @param characterID character id to search for.
+     * @return Observable that emits a MarvelCharacter.
+     */
+    Observable<MarvelCharacter> fetchCharacterByID(int characterID);
 }

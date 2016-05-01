@@ -70,4 +70,9 @@ public class CharacterRepositoryImpl implements CharacterRepository {
                 });
     }
 
+    @Override
+    public Observable<MarvelCharacter> fetchCharacterByID(int characterID) {
+        return characterDataStore.fetchCharacterByID(characterID);
+    }
+
 }
