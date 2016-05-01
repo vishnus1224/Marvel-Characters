@@ -50,7 +50,11 @@ public class GalleryPagerAdapter extends PagerAdapter {
 
         ImageView galleryImage = (ImageView) view.findViewById(R.id.adapterGalleryImage);
 
-        galleryImage.setImageResource(R.mipmap.ic_launcher);
+        Summary summary = summaries.get(position);
+
+        galleryImage.setImageBitmap(null);
+
+        imageLoadDelegate.loadImageData(summary.getResourceURI(), galleryImage);
 
         container.addView(galleryImage);
 
