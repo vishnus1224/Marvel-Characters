@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 
 import com.vishnus1224.marvelcharacters.datastore.CharacterDataStore;
 import com.vishnus1224.marvelcharacters.datastore.CloudCharacterDataStore;
+import com.vishnus1224.marvelcharacters.datastore.CloudImageResourceDataStore;
+import com.vishnus1224.marvelcharacters.datastore.ImageResourceDataStore;
 import com.vishnus1224.marvelcharacters.di.scope.PerActivity;
 import com.vishnus1224.marvelcharacters.repository.CharacterRepository;
 import com.vishnus1224.marvelcharacters.repository.CharacterRepositoryImpl;
@@ -131,5 +133,15 @@ public class ActivityModule {
     @Provides @PerActivity
     ImageResourceRepository provideImageResourceRepository(ImageResourceRepositoryImpl imageResourceRepositoryImpl){
         return imageResourceRepositoryImpl;
+    }
+
+    /**
+     * Provide image resource data store.
+     * @param cloudImageResourceDataStore CloudImageResourceDataStore instance.
+     * @return CloudImageResourceDataStore instance.
+     */
+    @Provides @PerActivity @Named("Cloud")
+    ImageResourceDataStore provideImageResourceDataStore(CloudImageResourceDataStore cloudImageResourceDataStore){
+        return cloudImageResourceDataStore;
     }
 }
