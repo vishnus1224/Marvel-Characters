@@ -3,6 +3,7 @@ package com.vishnus1224.marvelcharacters.ui.presenter;
 import android.widget.ImageView;
 
 import com.vishnus1224.marvelcharacters.di.scope.PerActivity;
+import com.vishnus1224.marvelcharacters.usecase.ImageResourceURIUseCase;
 import com.vishnus1224.marvelcharacters.usecase.UseCase;
 
 import javax.inject.Inject;
@@ -25,6 +26,7 @@ public class CharacterDetailPresenter {
 
     public void fetchImageData(String resourceURI, ImageView imageView){
 
+        ((ImageResourceURIUseCase)imageResourceURIUseCase).setResourceURI(resourceURI);
 
     }
 }
