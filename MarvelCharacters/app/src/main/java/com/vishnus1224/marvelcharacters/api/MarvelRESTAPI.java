@@ -1,6 +1,7 @@
 package com.vishnus1224.marvelcharacters.api;
 
 import com.vishnus1224.marvelcharacters.model.CharacterDataWrapper;
+import com.vishnus1224.marvelcharacters.model.ImageResourceDataWrapper;
 import com.vishnus1224.marvelcharacters.webservice.MarvelWebService;
 
 import javax.inject.Inject;
@@ -29,5 +30,10 @@ public class MarvelRESTAPI implements RESTAPI {
     @Override
     public Observable<CharacterDataWrapper> searchMarvelCharacters(String characterName) {
         return marvelWebService.searchMarvelCharacters(characterName, SEARCH_RESULTS_LIMIT);
+    }
+
+    @Override
+    public Observable<ImageResourceDataWrapper> getImageResourceData(String resourceURI) {
+        return marvelWebService.getImageResourceData(resourceURI);
     }
 }

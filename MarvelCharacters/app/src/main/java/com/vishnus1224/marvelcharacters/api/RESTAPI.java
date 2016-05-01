@@ -1,6 +1,7 @@
 package com.vishnus1224.marvelcharacters.api;
 
 import com.vishnus1224.marvelcharacters.model.CharacterDataWrapper;
+import com.vishnus1224.marvelcharacters.model.ImageResourceDataWrapper;
 
 import rx.Observable;
 
@@ -24,4 +25,11 @@ public interface RESTAPI {
      * @return Observable data wrapper containing list of characters.
      */
     Observable<CharacterDataWrapper> searchMarvelCharacters(String characterName);
+
+    /**
+     * Get image resource data.
+     * @param resourceURI resourceURI of the image.
+     * @return Observable emitting wrapper of image resource data.
+     */
+    Observable<ImageResourceDataWrapper> getImageResourceData(String resourceURI);
 }
