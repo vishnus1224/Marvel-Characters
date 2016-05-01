@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.vishnus1224.marvelcharacters.R;
 import com.vishnus1224.marvelcharacters.delegate.ImageLoadDelegate;
@@ -25,8 +26,11 @@ import com.vishnus1224.marvelcharacters.ui.adapter.CharacterSeriesAdapter;
 import com.vishnus1224.marvelcharacters.ui.adapter.CharacterStoriesAdapter;
 import com.vishnus1224.marvelcharacters.ui.adapter.RelatedLinksAdapter;
 import com.vishnus1224.marvelcharacters.ui.presenter.CharacterDetailPresenter;
+import com.vishnus1224.marvelcharacters.ui.view.CharacterDetailView;
 import com.vishnus1224.marvelcharacters.util.Constants;
 import com.vishnus1224.marvelcharacters.util.ScreenSizeConversionUtil;
+
+import java.lang.ref.WeakReference;
 
 import javax.inject.Inject;
 
@@ -34,10 +38,13 @@ import javax.inject.Inject;
  * Activity for displaying character details.
  * Created by Vishnu on 4/30/2016.
  */
-public class CharacterDetailActivity extends BaseActivity implements View.OnClickListener, ImageLoadDelegate{
+public class CharacterDetailActivity extends BaseActivity implements CharacterDetailView, View.OnClickListener, ImageLoadDelegate{
 
     private static final int CHARACTER_IMAGE_WIDTH = 400;
     private static final int CHARACTER_IMAGE_HEIGHT = 300;
+
+    private static final int RESOURCE_IMAGE_WIDTH = 150;
+    private static final int RESOURCE_IMAGE_HEIGHT = 150;
 
     //View declaration.
     //=========================================
@@ -98,6 +105,8 @@ public class CharacterDetailActivity extends BaseActivity implements View.OnClic
 
         injectActivityComponent();
 
+        initializePresenter();
+
         Bundle extras = getIntent().getExtras();
 
         getCharacterFromBundle(extras);
@@ -111,6 +120,13 @@ public class CharacterDetailActivity extends BaseActivity implements View.OnClic
             setupAdapters();
 
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        characterDetailPresenter.destroy();
     }
 
     private void setupViews() {
@@ -154,6 +170,13 @@ public class CharacterDetailActivity extends BaseActivity implements View.OnClic
                 .build();
 
         activityComponent.inject(this);
+    }
+
+
+    private void initializePresenter() {
+
+        characterDetailPresenter.init(this);
+
     }
 
 
@@ -209,19 +232,19 @@ public class CharacterDetailActivity extends BaseActivity implements View.OnClic
 
     private void setupAdapters() {
 
-        comicsAdapter = new CharacterComicsAdapter(getLayoutInflater(), marvelCharacter.getComicContainer().getItems(), screenSizeConversionUtil, this);
+        comicsAdapter = new CharacterComicsAdapter(getLayoutInflater(), marvelCharacter.getComicContainer().getItems(), this);
 
         comicsRecyclerView.setAdapter(comicsAdapter);
 
-        seriesAdapter = new CharacterSeriesAdapter(getLayoutInflater(), marvelCharacter.getSeriesContainer().getItems(), screenSizeConversionUtil, this);
+        seriesAdapter = new CharacterSeriesAdapter(getLayoutInflater(), marvelCharacter.getSeriesContainer().getItems(), this);
 
         seriesRecyclerView.setAdapter(seriesAdapter);
 
-        storiesAdapter = new CharacterStoriesAdapter(getLayoutInflater(), marvelCharacter.getStoryContainer().getItems(), screenSizeConversionUtil, this);
+        storiesAdapter = new CharacterStoriesAdapter(getLayoutInflater(), marvelCharacter.getStoryContainer().getItems(), this);
 
         storiesRecyclerView.setAdapter(storiesAdapter);
 
-        eventsAdapter = new CharacterEventsAdapter(getLayoutInflater(), marvelCharacter.getEventContainer().getItems(), screenSizeConversionUtil, this);
+        eventsAdapter = new CharacterEventsAdapter(getLayoutInflater(), marvelCharacter.getEventContainer().getItems(), this);
 
         eventsRecyclerView.setAdapter(eventsAdapter);
 
@@ -265,10 +288,39 @@ public class CharacterDetailActivity extends BaseActivity implements View.OnClic
     @Override
     public void loadImageData(String resourceURI, ImageView imageView) {
 
-        characterDetailPresenter.fetchImageData(resourceURI, imageView);
+        characterDetailPresenter.fetchImageData(resourceURI, new WeakReference<>(imageView));
 
     }
 
     //***************************
     //Image load delegate method end.
+
+    //View methods.
+    //***********************
+
+    @Override
+    public void showError(String message) {
+
+        Toast.makeText(CharacterDetailActivity.this, message, Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public void loadImage(String imageURL, ImageView imageView) {
+
+        imageDownloader.downloadImage(imageURL, (int) screenSizeConversionUtil.convertDpToPixels(RESOURCE_IMAGE_WIDTH),
+                (int) screenSizeConversionUtil.convertDpToPixels(RESOURCE_IMAGE_HEIGHT), imageView);
+
+    }
+
+    @Override
+    public void showPlaceholderImage(ImageView imageView) {
+
+        //setting the android icon as a placeholder.
+        imageView.setImageResource(R.mipmap.ic_launcher);
+
+    }
+
+    //**********************
+    //View methods end.
 }
