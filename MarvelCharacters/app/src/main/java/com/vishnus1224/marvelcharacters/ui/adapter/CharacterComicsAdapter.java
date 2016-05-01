@@ -20,13 +20,17 @@ public class CharacterComicsAdapter extends RecyclerView.Adapter<CharacterComics
 
     private List<ComicSummary> comicSummaryList;
 
+    private LayoutInflater layoutInflater;
+
     private int imageHeight;
 
     private int imageWidth;
 
-    public CharacterComicsAdapter(List<ComicSummary> comicSummaryList, ScreenSizeConversionUtil screenSizeConversionUtil){
+    public CharacterComicsAdapter(LayoutInflater layoutInflater, List<ComicSummary> comicSummaryList, ScreenSizeConversionUtil screenSizeConversionUtil){
 
         this.comicSummaryList = comicSummaryList;
+
+        this.layoutInflater = layoutInflater;
 
         imageWidth = (int) screenSizeConversionUtil.convertDpToPixels(200);
 
@@ -36,7 +40,7 @@ public class CharacterComicsAdapter extends RecyclerView.Adapter<CharacterComics
     @Override
     public ComicsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_character_details, parent, false);
+        View view = layoutInflater.inflate(R.layout.adapter_character_details, parent, false);
 
         return new ComicsViewHolder(view);
     }

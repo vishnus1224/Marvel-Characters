@@ -20,13 +20,17 @@ public class CharacterEventsAdapter extends RecyclerView.Adapter<CharacterEvents
 
     private List<EventSummary> eventSummaryList;
 
+    private LayoutInflater layoutInflater;
+
     private int imageHeight;
 
     private int imageWidth;
 
-    public CharacterEventsAdapter(List<EventSummary> eventSummaryList, ScreenSizeConversionUtil screenSizeConversionUtil){
+    public CharacterEventsAdapter(LayoutInflater layoutInflater, List<EventSummary> eventSummaryList, ScreenSizeConversionUtil screenSizeConversionUtil){
 
         this.eventSummaryList = eventSummaryList;
+
+        this.layoutInflater = layoutInflater;
 
         imageWidth = (int) screenSizeConversionUtil.convertDpToPixels(200);
 
@@ -36,7 +40,7 @@ public class CharacterEventsAdapter extends RecyclerView.Adapter<CharacterEvents
     @Override
     public EventsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_character_details, parent, false);
+        View view = layoutInflater.inflate(R.layout.adapter_character_details, parent, false);
 
         return new EventsViewHolder(view);
     }

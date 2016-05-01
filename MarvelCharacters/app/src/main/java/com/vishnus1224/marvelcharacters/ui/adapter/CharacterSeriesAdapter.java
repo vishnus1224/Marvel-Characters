@@ -20,13 +20,17 @@ public class CharacterSeriesAdapter extends RecyclerView.Adapter<CharacterSeries
 
     private List<SeriesSummary> seriesSummaryList;
 
+    private LayoutInflater layoutInflater;
+
     private int imageHeight;
 
     private int imageWidth;
 
-    public CharacterSeriesAdapter(List<SeriesSummary> seriesSummaryList, ScreenSizeConversionUtil screenSizeConversionUtil){
+    public CharacterSeriesAdapter(LayoutInflater layoutInflater, List<SeriesSummary> seriesSummaryList, ScreenSizeConversionUtil screenSizeConversionUtil){
 
         this.seriesSummaryList = seriesSummaryList;
+
+        this.layoutInflater = layoutInflater;
 
         imageWidth = (int) screenSizeConversionUtil.convertDpToPixels(200);
 
@@ -36,7 +40,7 @@ public class CharacterSeriesAdapter extends RecyclerView.Adapter<CharacterSeries
     @Override
     public SeriesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_character_details, parent, false);
+        View view = layoutInflater.inflate(R.layout.adapter_character_details, parent, false);
 
         return new SeriesViewHolder(view);
     }

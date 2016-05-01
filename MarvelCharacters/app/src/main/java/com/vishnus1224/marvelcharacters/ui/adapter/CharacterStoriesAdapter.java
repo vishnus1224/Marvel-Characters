@@ -20,13 +20,17 @@ public class CharacterStoriesAdapter extends RecyclerView.Adapter<CharacterStori
 
     private List<StorySummary> storiesSummaryList;
 
+    private LayoutInflater layoutInflater;
+
     private int imageHeight;
 
     private int imageWidth;
 
-    public CharacterStoriesAdapter(List<StorySummary> storiesSummaryList, ScreenSizeConversionUtil screenSizeConversionUtil){
+    public CharacterStoriesAdapter(LayoutInflater layoutInflater, List<StorySummary> storiesSummaryList, ScreenSizeConversionUtil screenSizeConversionUtil){
 
         this.storiesSummaryList = storiesSummaryList;
+
+        this.layoutInflater = layoutInflater;
 
         imageWidth = (int) screenSizeConversionUtil.convertDpToPixels(200);
 
@@ -36,7 +40,7 @@ public class CharacterStoriesAdapter extends RecyclerView.Adapter<CharacterStori
     @Override
     public StoriesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_character_details, parent, false);
+        View view = layoutInflater.inflate(R.layout.adapter_character_details, parent, false);
 
         return new StoriesViewHolder(view);
     }
