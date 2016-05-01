@@ -48,6 +48,10 @@ public class CharacterSeriesAdapter extends RecyclerView.Adapter<CharacterSeries
 
         holder.titleTextView.setText(seriesSummary.getName());
 
+        //remove the bitmap from the image view to prevent wrong images from showing up
+        //due to view reuse.
+        holder.iconImageView.setImageBitmap(null);
+
         imageLoadDelegate.loadImageData(seriesSummary.getResourceURI(), holder.iconImageView);
     }
 

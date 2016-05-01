@@ -50,6 +50,10 @@ public class CharacterComicsAdapter extends RecyclerView.Adapter<CharacterComics
 
         holder.titleTextView.setText(comicSummary.getName());
 
+        //remove the bitmap from the image view to prevent wrong images from showing up
+        //due to view reuse.
+        holder.iconImageView.setImageBitmap(null);
+
         imageLoadDelegate.loadImageData(comicSummary.getResourceURI(), holder.iconImageView);
 
     }

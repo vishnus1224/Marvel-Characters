@@ -48,6 +48,10 @@ public class CharacterStoriesAdapter extends RecyclerView.Adapter<CharacterStori
         StorySummary storySummary = storiesSummaryList.get(position);
 
         holder.titleTextView.setText(storySummary.getName());
+        
+        //remove the bitmap from the image view to prevent wrong images from showing up
+        //due to view reuse.
+        holder.iconImageView.setImageBitmap(null);
 
         imageLoadDelegate.loadImageData(storySummary.getResourceURI(), holder.iconImageView);
     }

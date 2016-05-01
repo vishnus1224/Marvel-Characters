@@ -49,6 +49,10 @@ public class CharacterEventsAdapter extends RecyclerView.Adapter<CharacterEvents
 
         holder.titleTextView.setText(eventSummary.getName());
 
+        //remove the bitmap from the image view to prevent wrong images from showing up
+        //due to view reuse.
+        holder.iconImageView.setImageBitmap(null);
+
         imageLoadDelegate.loadImageData(eventSummary.getResourceURI(), holder.iconImageView);
     }
 
@@ -69,4 +73,5 @@ public class CharacterEventsAdapter extends RecyclerView.Adapter<CharacterEvents
             iconImageView = (ImageView) view.findViewById(R.id.adapterCharacterDetailImage);
         }
     }
+
 }
