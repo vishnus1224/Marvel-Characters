@@ -22,5 +22,5 @@ public interface MarvelWebService {
     Observable<CharacterDataWrapper> searchMarvelCharacters(@Query("nameStartsWith") String characterName, @Query("limit") int limit);
 
     @GET("{resourceURI}")
-    Observable<ImageResourceDataWrapper> getImageResourceData(@Path("resourceURI") String resourceURI);
+    Observable<ImageResourceDataWrapper> getImageResourceData(@Path(value = "resourceURI", encoded = true) String resourceURI);
 }
