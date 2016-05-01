@@ -10,6 +10,7 @@ import com.vishnus1224.marvelcharacters.datastore.CharacterDataStore;
 import com.vishnus1224.marvelcharacters.datastore.CloudCharacterDataStore;
 import com.vishnus1224.marvelcharacters.datastore.CloudImageResourceDataStore;
 import com.vishnus1224.marvelcharacters.datastore.ImageResourceDataStore;
+import com.vishnus1224.marvelcharacters.di.component.ActivityComponent;
 import com.vishnus1224.marvelcharacters.di.scope.PerActivity;
 import com.vishnus1224.marvelcharacters.repository.CharacterRepository;
 import com.vishnus1224.marvelcharacters.repository.CharacterRepositoryImpl;
@@ -112,23 +113,13 @@ public class ActivityModule {
 
 
     /**
-     * Provide an instance of the resources.
-     * @param activity The current activity.
-     * @return Resources instance.
-     */
-    @Provides @PerActivity
-    Resources provideResources(Activity activity){
-        return activity.getResources();
-    }
-
-    /**
      * Provide the display metrics associated with the current display.
      * @param resources The resources instance.
      * @return DisplayMetrics instance.
      */
     @Provides @PerActivity
-    DisplayMetrics provideDisplayMetrics(Resources resources){
-        return resources.getDisplayMetrics();
+    DisplayMetrics provideDisplayMetrics(Activity activity){
+        return activity.getResources().getDisplayMetrics();
     }
 
     /**
