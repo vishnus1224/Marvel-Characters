@@ -10,7 +10,9 @@ public class Constants {
 
     public static final String KEY_CHARACTER = "MarvelCharacter";
     public static final String KEY_RESOURCE_URI_LIST = "ResourceURIList";
+    public static final String KEY_CURRENT_POSITION = "CurrentPosition";
 
     public static final String[] SUGGESTIONS_ADAPTER_COLUMNS =
             {"_id", "Name", "Thumb"};
+
 }
