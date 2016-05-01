@@ -59,6 +59,8 @@
         android:id="@+id/galleryViewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingLeft="@dimen/value_30dp"
+        android:paddingRight="@dimen/value_30dp"
         android:layout_above="@id/galleryImageTitle"
         android:layout_below="@id/galleryCloseButton">
 

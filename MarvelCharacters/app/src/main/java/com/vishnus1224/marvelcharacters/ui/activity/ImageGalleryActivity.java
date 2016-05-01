@@ -143,7 +143,7 @@ public class ImageGalleryActivity extends BaseActivity implements View.OnClickLi
 
         galleryViewPager.setClipToPadding(false);
 
-        galleryViewPager.setPageMargin(20);
+        galleryViewPager.setPageMargin(-10);
 
         galleryViewPager.setPageTransformer(false, new ZoomOutPageTransformer());
 
