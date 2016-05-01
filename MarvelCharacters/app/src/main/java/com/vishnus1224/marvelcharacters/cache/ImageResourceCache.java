@@ -1,6 +1,6 @@
 package com.vishnus1224.marvelcharacters.cache;
 
-import com.vishnus1224.marvelcharacters.model.CharacterResourceThumbnail;
+import com.vishnus1224.marvelcharacters.model.ImageResourceDataWrapper;
 
 /**
  * Abstraction for caching image resource data.
@@ -11,16 +11,16 @@ public interface ImageResourceCache {
     /**
      * Add an entry to the cache.
      * @param key key to identify the entry.
-     * @param characterResourceThumbnail characterResourceThumbnail instance.
+     * @param imageResourceDataWrapper imageResourceDataWrapper instance.
      */
-    void addEntry(String key, CharacterResourceThumbnail characterResourceThumbnail);
+    void addEntry(String key, ImageResourceDataWrapper imageResourceDataWrapper);
 
     /**
      * Get the value associated with the given key if it is exists in the cache.
      * If key does not exists, then value will be null.
      * @param key key stored in the cache.
      */
-    CharacterResourceThumbnail getEntry(String key);
+    ImageResourceDataWrapper getEntry(String key);
 
     /**
      * Check if the given key is present in the cache.
@@ -35,7 +35,7 @@ public interface ImageResourceCache {
      * @param key key to remove.
      * @return The removed entry.
      */
-    CharacterResourceThumbnail removeEntry(String key);
+    ImageResourceDataWrapper removeEntry(String key);
 
     /**
      * Clear the contents of the cache.

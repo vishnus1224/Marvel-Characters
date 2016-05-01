@@ -2,7 +2,7 @@ package com.vishnus1224.marvelcharacters.cache;
 
 import android.util.LruCache;
 
-import com.vishnus1224.marvelcharacters.model.CharacterResourceThumbnail;
+import com.vishnus1224.marvelcharacters.model.ImageResourceDataWrapper;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -14,7 +14,7 @@ import javax.inject.Singleton;
 @Singleton
 public class LruMemoryCharacterResourceThumbnailCache implements ImageResourceCache {
 
-    private LruCache<String, CharacterResourceThumbnail> lruCache;
+    private LruCache<String, ImageResourceDataWrapper> lruCache;
 
     /**
      * Size of the cache. i.e. the number of entries in the cache.
@@ -28,14 +28,17 @@ public class LruMemoryCharacterResourceThumbnailCache implements ImageResourceCa
     }
 
     @Override
-    public void addEntry(String key, CharacterResourceThumbnail characterResourceThumbnail) {
+    public void addEntry(String key, ImageResourceDataWrapper imageResourceDataWrapper) {
 
-        lruCache.put(key, characterResourceThumbnail);
+        //put value in the cache if it not already present.
+        if(!containsKey(key)) {
+            lruCache.put(key, imageResourceDataWrapper);
+        }
 
     }
 
     @Override
-    public CharacterResourceThumbnail getEntry(String key) {
+    public ImageResourceDataWrapper getEntry(String key) {
 
         return lruCache.get(key);
 
@@ -47,7 +50,7 @@ public class LruMemoryCharacterResourceThumbnailCache implements ImageResourceCa
     }
 
     @Override
-    public CharacterResourceThumbnail removeEntry(String key) {
+    public ImageResourceDataWrapper removeEntry(String key) {
 
         return lruCache.remove(key);
 
