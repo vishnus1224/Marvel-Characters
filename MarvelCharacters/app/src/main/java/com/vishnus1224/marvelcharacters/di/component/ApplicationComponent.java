@@ -2,6 +2,7 @@ package com.vishnus1224.marvelcharacters.di.component;
 
 import com.vishnus1224.marvelcharacters.MarvelCharacters;
 import com.vishnus1224.marvelcharacters.api.RESTAPI;
+import com.vishnus1224.marvelcharacters.cache.ImageResourceCache;
 import com.vishnus1224.marvelcharacters.di.module.ApplicationModule;
 import com.vishnus1224.marvelcharacters.di.module.NetModule;
 import com.vishnus1224.marvelcharacters.imageloader.ImageDownloader;
@@ -22,6 +23,7 @@ public interface ApplicationComponent {
     MarvelWebService marvelWebService();
     RESTAPI restApi();
     ImageDownloader imageDownloader();
+    ImageResourceCache imageResourceCache();
 
     /**
      * Inject dependencies in the MarvelCharacters class.
