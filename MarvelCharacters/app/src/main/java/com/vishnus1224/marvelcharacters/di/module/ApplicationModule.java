@@ -3,7 +3,9 @@ package com.vishnus1224.marvelcharacters.di.module;
 import android.app.Application;
 
 import com.squareup.picasso.Picasso;
+import com.vishnus1224.marvelcharacters.cache.CharacterCache;
 import com.vishnus1224.marvelcharacters.cache.ImageResourceCache;
+import com.vishnus1224.marvelcharacters.cache.LruMemoryCharacterCache;
 import com.vishnus1224.marvelcharacters.cache.LruMemoryCharacterResourceThumbnailCache;
 import com.vishnus1224.marvelcharacters.imageloader.ImageDownloader;
 import com.vishnus1224.marvelcharacters.imageloader.PicassoImageDownloader;
@@ -66,5 +68,15 @@ public class ApplicationModule {
     @Provides @Singleton
     ImageResourceCache provideImageResourceCache(LruMemoryCharacterResourceThumbnailCache lruMemoryCharacterResourceThumbnailCache){
         return lruMemoryCharacterResourceThumbnailCache;
+    }
+
+    /**
+     * Provide a cache for storing characters.
+     * @param lruMemoryCharacterCache lruMemoryCharacterCache instance.
+     * @return lruMemoryCharacterCache instance.
+     */
+    @Provides @Singleton
+    CharacterCache provideCharacterCache(LruMemoryCharacterCache lruMemoryCharacterCache){
+        return lruMemoryCharacterCache;
     }
 }
