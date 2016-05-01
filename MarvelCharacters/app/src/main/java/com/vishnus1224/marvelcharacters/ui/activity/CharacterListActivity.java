@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.view.MenuItemCompat;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -327,6 +326,13 @@ public class CharacterListActivity extends BaseActivity implements CharacterView
 
     }
 
+    @Override
+    public void showCharacterDetails(MarvelCharacter marvelCharacter) {
+
+        startCharacterDetailsActivity(marvelCharacter);
+
+    }
+
     //View Method End.
     //==============================================================================================
 
@@ -399,6 +405,11 @@ public class CharacterListActivity extends BaseActivity implements CharacterView
     @Override
     public boolean onSuggestionClick(int i) {
 
+        Cursor cursor = searchView.getSuggestionsAdapter().getCursor();
+
+        int characterID = Integer.valueOf(cursor.getString(0));
+
+        characterListPresenter.searchCharacterByID(characterID);
 
         return true;
     }
@@ -413,15 +424,21 @@ public class CharacterListActivity extends BaseActivity implements CharacterView
 
         MarvelCharacter selectedCharacter = (MarvelCharacter) characterListAdapter.getItem(i);
 
-        Intent detailActivityIntent = new Intent(this, CharacterDetailActivity.class);
-
-        detailActivityIntent.putExtra(Constants.KEY_CHARACTER, selectedCharacter);
-
-        startActivity(detailActivityIntent);
+        startCharacterDetailsActivity(selectedCharacter);
 
         overridePendingTransition(R.anim.slide_in_right, R.anim.stay);
 
     }
 
     //List item click listener event end.
+
+
+    private void startCharacterDetailsActivity(MarvelCharacter selectedCharacter) {
+
+        Intent detailActivityIntent = new Intent(this, CharacterDetailActivity.class);
+
+        detailActivityIntent.putExtra(Constants.KEY_CHARACTER, selectedCharacter);
+
+        startActivity(detailActivityIntent);
+    }
 }
