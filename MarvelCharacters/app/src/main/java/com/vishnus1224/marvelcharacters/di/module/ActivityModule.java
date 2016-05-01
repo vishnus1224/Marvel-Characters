@@ -16,6 +16,7 @@ import com.vishnus1224.marvelcharacters.repository.CharacterRepositoryImpl;
 import com.vishnus1224.marvelcharacters.repository.ImageResourceRepository;
 import com.vishnus1224.marvelcharacters.repository.ImageResourceRepositoryImpl;
 import com.vishnus1224.marvelcharacters.usecase.CharacterListUseCase;
+import com.vishnus1224.marvelcharacters.usecase.CharacterSearchByIDUseCase;
 import com.vishnus1224.marvelcharacters.usecase.CharacterSearchUseCase;
 import com.vishnus1224.marvelcharacters.usecase.ImageResourceURIUseCase;
 import com.vishnus1224.marvelcharacters.usecase.UseCase;
@@ -77,6 +78,16 @@ public class ActivityModule {
     @Provides @PerActivity @Named("CharacterSearch")
     UseCase provideCharacterSearchUseCase(CharacterSearchUseCase characterSearchUseCase){
         return characterSearchUseCase;
+    }
+
+    /**
+     * Provide an use case for searching a character by id.
+     * @param characterSearchByIDUseCase characterSearchByIDUseCase instance.
+     * @return characterSearchByIDUseCase instance.
+     */
+    @Provides @PerActivity @Named("CharacterByID")
+    UseCase provideCharacterSearchByIDUseCase(CharacterSearchByIDUseCase characterSearchByIDUseCase){
+        return characterSearchByIDUseCase;
     }
 
     /**
