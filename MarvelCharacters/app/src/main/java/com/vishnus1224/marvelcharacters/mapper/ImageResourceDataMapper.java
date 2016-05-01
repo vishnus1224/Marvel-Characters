@@ -23,7 +23,7 @@ public class ImageResourceDataMapper {
      */
     public CharacterResourceThumbnail unwrapResourceThumbnail(ImageResourceDataWrapper imageResourceDataWrapper){
 
-        return imageResourceDataWrapper.getImageResourceDataHolder().getCharacterResourceThumbnail();
+        return imageResourceDataWrapper.getImageResourceDataHolder().getCharacterImageResource().get(0).getCharacterResourceThumbnail();
 
     }
 }

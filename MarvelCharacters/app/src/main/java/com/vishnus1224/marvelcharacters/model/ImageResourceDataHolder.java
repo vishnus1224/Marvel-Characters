@@ -2,6 +2,8 @@ package com.vishnus1224.marvelcharacters.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 /**
  * Created by Vishnu on 5/1/2016.
  */
@@ -12,7 +14,7 @@ public class ImageResourceDataHolder {
     private int total;
 
     @SerializedName("results")
-    private CharacterResourceThumbnail characterResourceThumbnail;
+    private List<CharacterImageResource> characterImageResource;
 
     public int getCount() {
         return count;
@@ -22,7 +24,7 @@ public class ImageResourceDataHolder {
         return total;
     }
 
-    public CharacterResourceThumbnail getCharacterResourceThumbnail() {
-        return characterResourceThumbnail;
+    public List<CharacterImageResource> getCharacterImageResource() {
+        return characterImageResource;
     }
 }
