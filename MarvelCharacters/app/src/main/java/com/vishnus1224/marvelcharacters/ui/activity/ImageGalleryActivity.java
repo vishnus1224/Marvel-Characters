@@ -20,6 +20,7 @@ import com.vishnus1224.marvelcharacters.ui.presenter.GalleryPresenter;
 import com.vishnus1224.marvelcharacters.ui.transformer.ZoomOutPageTransformer;
 import com.vishnus1224.marvelcharacters.ui.view.GalleryView;
 import com.vishnus1224.marvelcharacters.util.Constants;
+import com.vishnus1224.marvelcharacters.util.ScreenSizeConversionUtil;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -30,6 +31,9 @@ import javax.inject.Inject;
  * Created by Vishnu on 5/1/2016.
  */
 public class ImageGalleryActivity extends BaseActivity implements View.OnClickListener, GalleryView, ImageLoadDelegate, ViewPager.OnPageChangeListener {
+
+    private static final int IMAGE_WIDTH = 600;
+    private static final int IMAGE_HEIGHT = 600;
 
     private ImageButton closeButton;
 
@@ -49,6 +53,9 @@ public class ImageGalleryActivity extends BaseActivity implements View.OnClickLi
 
     @Inject
     ImageDownloader imageDownloader;
+
+    @Inject
+    ScreenSizeConversionUtil screenSizeConversionUtil;
 
     private ActivityComponent activityComponent;
 
@@ -192,7 +199,8 @@ public class ImageGalleryActivity extends BaseActivity implements View.OnClickLi
     @Override
     public void loadImage(String imageURL, ImageView imageView) {
 
-        imageDownloader.downloadImage(imageURL, 500, 500, imageView);
+        imageDownloader.downloadImage(imageURL, (int) screenSizeConversionUtil.convertDpToPixels(IMAGE_WIDTH),
+                (int) screenSizeConversionUtil.convertDpToPixels(IMAGE_HEIGHT), imageView);
 
     }
 
