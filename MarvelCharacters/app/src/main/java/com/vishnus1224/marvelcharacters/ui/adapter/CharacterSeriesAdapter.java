@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.vishnus1224.marvelcharacters.R;
 import com.vishnus1224.marvelcharacters.delegate.ImageLoadDelegate;
 import com.vishnus1224.marvelcharacters.model.SeriesSummary;
-import com.vishnus1224.marvelcharacters.util.ScreenSizeConversionUtil;
 
 import java.util.List;
 
@@ -25,22 +24,13 @@ public class CharacterSeriesAdapter extends RecyclerView.Adapter<CharacterSeries
 
     private ImageLoadDelegate imageLoadDelegate;
 
-    private int imageHeight;
-
-    private int imageWidth;
-
-    public CharacterSeriesAdapter(LayoutInflater layoutInflater, List<SeriesSummary> seriesSummaryList,
-                                  ScreenSizeConversionUtil screenSizeConversionUtil, ImageLoadDelegate imageLoadDelegate){
+    public CharacterSeriesAdapter(LayoutInflater layoutInflater, List<SeriesSummary> seriesSummaryList, ImageLoadDelegate imageLoadDelegate){
 
         this.seriesSummaryList = seriesSummaryList;
 
         this.layoutInflater = layoutInflater;
 
         this.imageLoadDelegate = imageLoadDelegate;
-
-        imageWidth = (int) screenSizeConversionUtil.convertDpToPixels(200);
-
-        imageHeight = (int) screenSizeConversionUtil.convertDpToPixels(150);
     }
 
     @Override

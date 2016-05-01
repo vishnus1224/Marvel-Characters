@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.vishnus1224.marvelcharacters.R;
 import com.vishnus1224.marvelcharacters.delegate.ImageLoadDelegate;
 import com.vishnus1224.marvelcharacters.model.ComicSummary;
-import com.vishnus1224.marvelcharacters.util.ScreenSizeConversionUtil;
 
 import java.util.List;
 
@@ -25,12 +24,8 @@ public class CharacterComicsAdapter extends RecyclerView.Adapter<CharacterComics
 
     private ImageLoadDelegate imageLoadDelegate;
 
-    private int imageHeight;
 
-    private int imageWidth;
-
-    public CharacterComicsAdapter(LayoutInflater layoutInflater, List<ComicSummary> comicSummaryList,
-                                  ScreenSizeConversionUtil screenSizeConversionUtil, ImageLoadDelegate imageLoadDelegate){
+    public CharacterComicsAdapter(LayoutInflater layoutInflater, List<ComicSummary> comicSummaryList, ImageLoadDelegate imageLoadDelegate){
 
         this.comicSummaryList = comicSummaryList;
 
@@ -38,9 +33,6 @@ public class CharacterComicsAdapter extends RecyclerView.Adapter<CharacterComics
 
         this.imageLoadDelegate = imageLoadDelegate;
 
-        imageWidth = (int) screenSizeConversionUtil.convertDpToPixels(200);
-
-        imageHeight = (int) screenSizeConversionUtil.convertDpToPixels(150);
     }
 
     @Override
