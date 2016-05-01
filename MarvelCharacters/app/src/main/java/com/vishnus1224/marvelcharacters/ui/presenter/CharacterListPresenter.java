@@ -80,6 +80,10 @@ public class CharacterListPresenter {
 
         characterListUseCase.unSubscribe();
 
+        characterSearchUseCase.unSubscribe();
+
+        characterSearchByIDUseCase.unSubscribe();
+
     }
 
 
