@@ -4,6 +4,7 @@ import com.vishnus1224.marvelcharacters.di.module.ActivityModule;
 import com.vishnus1224.marvelcharacters.di.scope.PerActivity;
 import com.vishnus1224.marvelcharacters.ui.activity.CharacterDetailActivity;
 import com.vishnus1224.marvelcharacters.ui.activity.CharacterListActivity;
+import com.vishnus1224.marvelcharacters.ui.activity.ImageGalleryActivity;
 
 import dagger.Component;
 
@@ -18,4 +19,6 @@ public interface ActivityComponent {
     void inject(CharacterListActivity characterListActivity);
 
     void inject(CharacterDetailActivity characterDetailActivity);
+
+    void inject(ImageGalleryActivity imageGalleryActivity);
 }
