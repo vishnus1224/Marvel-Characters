@@ -1,7 +1,9 @@
 package com.vishnus1224.marvelcharacters.ui.activity;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,7 +21,9 @@ import com.vishnus1224.marvelcharacters.di.component.ActivityComponent;
 import com.vishnus1224.marvelcharacters.di.component.DaggerActivityComponent;
 import com.vishnus1224.marvelcharacters.di.module.ActivityModule;
 import com.vishnus1224.marvelcharacters.imageloader.ImageDownloader;
+import com.vishnus1224.marvelcharacters.listener.OnImageClickListener;
 import com.vishnus1224.marvelcharacters.model.MarvelCharacter;
+import com.vishnus1224.marvelcharacters.model.Summary;
 import com.vishnus1224.marvelcharacters.ui.adapter.CharacterComicsAdapter;
 import com.vishnus1224.marvelcharacters.ui.adapter.CharacterEventsAdapter;
 import com.vishnus1224.marvelcharacters.ui.adapter.CharacterSeriesAdapter;
@@ -28,9 +32,12 @@ import com.vishnus1224.marvelcharacters.ui.adapter.RelatedLinksAdapter;
 import com.vishnus1224.marvelcharacters.ui.presenter.CharacterDetailPresenter;
 import com.vishnus1224.marvelcharacters.ui.view.CharacterDetailView;
 import com.vishnus1224.marvelcharacters.util.Constants;
+import com.vishnus1224.marvelcharacters.util.ItemType;
 import com.vishnus1224.marvelcharacters.util.ScreenSizeConversionUtil;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -38,7 +45,7 @@ import javax.inject.Inject;
  * Activity for displaying character details.
  * Created by Vishnu on 4/30/2016.
  */
-public class CharacterDetailActivity extends BaseActivity implements CharacterDetailView, View.OnClickListener, ImageLoadDelegate{
+public class CharacterDetailActivity extends BaseActivity implements CharacterDetailView, View.OnClickListener, ImageLoadDelegate, OnImageClickListener {
 
     private static final int CHARACTER_IMAGE_WIDTH = 400;
     private static final int CHARACTER_IMAGE_HEIGHT = 300;
@@ -101,6 +108,7 @@ public class CharacterDetailActivity extends BaseActivity implements CharacterDe
     @Inject
     CharacterDetailPresenter characterDetailPresenter;
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -123,6 +131,7 @@ public class CharacterDetailActivity extends BaseActivity implements CharacterDe
             setupLayoutManagerAndAdapters();
 
         }
+
     }
 
     @Override
@@ -249,7 +258,7 @@ public class CharacterDetailActivity extends BaseActivity implements CharacterDe
 
             comicsRecyclerView.setLayoutManager(layoutManager);
 
-            comicsAdapter = new CharacterComicsAdapter(getLayoutInflater(), marvelCharacter.getComicContainer().getItems(), this);
+            comicsAdapter = new CharacterComicsAdapter(getLayoutInflater(), marvelCharacter.getComicContainer().getItems(), this, this);
 
             comicsRecyclerView.setAdapter(comicsAdapter);
 
@@ -334,6 +343,7 @@ public class CharacterDetailActivity extends BaseActivity implements CharacterDe
 
     }
 
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -417,4 +427,44 @@ public class CharacterDetailActivity extends BaseActivity implements CharacterDe
 
     //**********************
     //View methods end.
+
+    //Adapter image click listener method.
+    @Override
+    public void onImageClick(int position, ItemType itemType) {
+
+        switch (itemType){
+
+            case COMICS:
+
+                showComicsGallery(position);
+
+                break;
+            case SERIES:
+
+                break;
+            case STORIES:
+
+                break;
+            case EVENTS:
+
+                break;
+        }
+
+    }
+
+    //Adapter image click listener method end.
+
+    private void showComicsGallery(int position) {
+
+        showGallery(position + 1, marvelCharacter.getComicContainer().getItems());
+
+    }
+
+    private void showGallery(int position, List<? extends Summary> summaries) {
+
+        Intent intent = new Intent(this, ImageGalleryActivity.class);
+        intent.putExtra(Constants.KEY_CURRENT_POSITION, position);
+        intent.putParcelableArrayListExtra(Constants.KEY_SUMMARIES, (ArrayList<? extends Parcelable>) summaries);
+        startActivity(intent);
+    }
 }
