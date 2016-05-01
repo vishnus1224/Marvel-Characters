@@ -350,6 +350,8 @@ public class CharacterListActivity extends BaseActivity implements CharacterView
         @Override
         public void onClick(View view) {
 
+            showProgressBar();
+
             characterListPresenter.fetchCharacters();
         }
     };
