@@ -11,6 +11,8 @@ import com.vishnus1224.marvelcharacters.datastore.CloudCharacterDataStore;
 import com.vishnus1224.marvelcharacters.di.scope.PerActivity;
 import com.vishnus1224.marvelcharacters.repository.CharacterRepository;
 import com.vishnus1224.marvelcharacters.repository.CharacterRepositoryImpl;
+import com.vishnus1224.marvelcharacters.repository.ImageResourceRepository;
+import com.vishnus1224.marvelcharacters.repository.ImageResourceRepositoryImpl;
 import com.vishnus1224.marvelcharacters.usecase.CharacterListUseCase;
 import com.vishnus1224.marvelcharacters.usecase.CharacterSearchUseCase;
 import com.vishnus1224.marvelcharacters.usecase.ImageResourceURIUseCase;
@@ -124,5 +126,10 @@ public class ActivityModule {
     @Provides @PerActivity @Named("ImageResourceURI")
     UseCase provideImageResourceURIUseCase(ImageResourceURIUseCase imageResourceURIUseCase){
         return imageResourceURIUseCase;
+    }
+
+    @Provides @PerActivity
+    ImageResourceRepository provideImageResourceRepository(ImageResourceRepositoryImpl imageResourceRepositoryImpl){
+        return imageResourceRepositoryImpl;
     }
 }
