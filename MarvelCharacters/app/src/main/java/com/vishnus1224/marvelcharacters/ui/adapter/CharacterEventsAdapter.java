@@ -9,7 +9,9 @@ import android.widget.TextView;
 
 import com.vishnus1224.marvelcharacters.R;
 import com.vishnus1224.marvelcharacters.delegate.ImageLoadDelegate;
+import com.vishnus1224.marvelcharacters.listener.OnImageClickListener;
 import com.vishnus1224.marvelcharacters.model.EventSummary;
+import com.vishnus1224.marvelcharacters.util.ItemType;
 
 import java.util.List;
 
@@ -24,14 +26,18 @@ public class CharacterEventsAdapter extends RecyclerView.Adapter<CharacterEvents
 
     private ImageLoadDelegate imageLoadDelegate;
 
+    private OnImageClickListener onImageClickListener;
 
-    public CharacterEventsAdapter(LayoutInflater layoutInflater, List<EventSummary> eventSummaryList, ImageLoadDelegate imageLoadDelegate){
+    public CharacterEventsAdapter(LayoutInflater layoutInflater, List<EventSummary> eventSummaryList,
+                                  ImageLoadDelegate imageLoadDelegate, OnImageClickListener onImageClickListener){
 
         this.eventSummaryList = eventSummaryList;
 
         this.layoutInflater = layoutInflater;
 
         this.imageLoadDelegate = imageLoadDelegate;
+
+        this.onImageClickListener = onImageClickListener;
     }
 
     @Override
@@ -43,7 +49,7 @@ public class CharacterEventsAdapter extends RecyclerView.Adapter<CharacterEvents
     }
 
     @Override
-    public void onBindViewHolder(EventsViewHolder holder, int position) {
+    public void onBindViewHolder(EventsViewHolder holder, final int position) {
 
         EventSummary eventSummary = eventSummaryList.get(position);
 
@@ -54,6 +60,19 @@ public class CharacterEventsAdapter extends RecyclerView.Adapter<CharacterEvents
         holder.iconImageView.setImageBitmap(null);
 
         imageLoadDelegate.loadImageData(eventSummary.getResourceURI(), holder.iconImageView);
+
+
+        holder.iconImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(onImageClickListener != null){
+
+                    onImageClickListener.onImageClick(position, ItemType.EVENTS);
+
+                }
+            }
+        });
     }
 
     @Override

@@ -74,7 +74,7 @@ public class ImageGalleryActivity extends BaseActivity implements View.OnClickLi
 
     private void setDataToViews() {
 
-        imageNumberTextView.setText(String.valueOf(currentPosition));
+        imageNumberTextView.setText(String.valueOf(currentPosition + 1));
 
         imageCountTextView.setText(String.valueOf(summaries.size()));
     }

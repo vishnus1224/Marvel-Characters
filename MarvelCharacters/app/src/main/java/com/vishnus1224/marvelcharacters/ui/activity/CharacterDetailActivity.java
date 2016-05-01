@@ -279,7 +279,7 @@ public class CharacterDetailActivity extends BaseActivity implements CharacterDe
             layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
             seriesRecyclerView.setLayoutManager(layoutManager);
 
-            seriesAdapter = new CharacterSeriesAdapter(getLayoutInflater(), marvelCharacter.getSeriesContainer().getItems(), this);
+            seriesAdapter = new CharacterSeriesAdapter(getLayoutInflater(), marvelCharacter.getSeriesContainer().getItems(), this, this);
 
             seriesRecyclerView.setAdapter(seriesAdapter);
 
@@ -300,7 +300,7 @@ public class CharacterDetailActivity extends BaseActivity implements CharacterDe
             layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
             storiesRecyclerView.setLayoutManager(layoutManager);
 
-            storiesAdapter = new CharacterStoriesAdapter(getLayoutInflater(), marvelCharacter.getStoryContainer().getItems(), this);
+            storiesAdapter = new CharacterStoriesAdapter(getLayoutInflater(), marvelCharacter.getStoryContainer().getItems(), this, this);
 
             storiesRecyclerView.setAdapter(storiesAdapter);
 
@@ -319,7 +319,7 @@ public class CharacterDetailActivity extends BaseActivity implements CharacterDe
             layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
             eventsRecyclerView.setLayoutManager(layoutManager);
 
-            eventsAdapter = new CharacterEventsAdapter(getLayoutInflater(), marvelCharacter.getEventContainer().getItems(), this);
+            eventsAdapter = new CharacterEventsAdapter(getLayoutInflater(), marvelCharacter.getEventContainer().getItems(), this, this);
 
             eventsRecyclerView.setAdapter(eventsAdapter);
 
@@ -441,11 +441,17 @@ public class CharacterDetailActivity extends BaseActivity implements CharacterDe
                 break;
             case SERIES:
 
+                showSeriesGallery(position);
+
                 break;
             case STORIES:
 
+                showStoriesGallery(position);
+
                 break;
             case EVENTS:
+
+                showEventsGallery(position);
 
                 break;
         }
@@ -456,9 +462,31 @@ public class CharacterDetailActivity extends BaseActivity implements CharacterDe
 
     private void showComicsGallery(int position) {
 
-        showGallery(position + 1, marvelCharacter.getComicContainer().getItems());
+        showGallery(position, marvelCharacter.getComicContainer().getItems());
+
 
     }
+
+
+    private void showSeriesGallery(int position) {
+
+        showGallery(position, marvelCharacter.getSeriesContainer().getItems());
+
+    }
+
+    private void showStoriesGallery(int position) {
+
+        showGallery(position, marvelCharacter.getStoryContainer().getItems());
+
+    }
+
+
+    private void showEventsGallery(int position) {
+
+        showGallery(position, marvelCharacter.getEventContainer().getItems());
+
+    }
+
 
     private void showGallery(int position, List<? extends Summary> summaries) {
 

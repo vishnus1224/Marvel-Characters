@@ -60,6 +60,8 @@ public class CharacterComicsAdapter extends RecyclerView.Adapter<CharacterComics
         //due to view reuse.
         holder.iconImageView.setImageBitmap(null);
 
+        imageLoadDelegate.loadImageData(comicSummary.getResourceURI(), holder.iconImageView);
+
         holder.iconImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,8 +73,6 @@ public class CharacterComicsAdapter extends RecyclerView.Adapter<CharacterComics
                 }
             }
         });
-
-        imageLoadDelegate.loadImageData(comicSummary.getResourceURI(), holder.iconImageView);
 
     }
 

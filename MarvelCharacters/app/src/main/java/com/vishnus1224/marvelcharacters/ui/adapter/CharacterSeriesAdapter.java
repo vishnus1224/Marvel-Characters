@@ -9,7 +9,9 @@ import android.widget.TextView;
 
 import com.vishnus1224.marvelcharacters.R;
 import com.vishnus1224.marvelcharacters.delegate.ImageLoadDelegate;
+import com.vishnus1224.marvelcharacters.listener.OnImageClickListener;
 import com.vishnus1224.marvelcharacters.model.SeriesSummary;
+import com.vishnus1224.marvelcharacters.util.ItemType;
 
 import java.util.List;
 
@@ -24,13 +26,18 @@ public class CharacterSeriesAdapter extends RecyclerView.Adapter<CharacterSeries
 
     private ImageLoadDelegate imageLoadDelegate;
 
-    public CharacterSeriesAdapter(LayoutInflater layoutInflater, List<SeriesSummary> seriesSummaryList, ImageLoadDelegate imageLoadDelegate){
+    private OnImageClickListener onImageClickListener;
+
+    public CharacterSeriesAdapter(LayoutInflater layoutInflater, List<SeriesSummary> seriesSummaryList,
+                                  ImageLoadDelegate imageLoadDelegate, OnImageClickListener onImageClickListener){
 
         this.seriesSummaryList = seriesSummaryList;
 
         this.layoutInflater = layoutInflater;
 
         this.imageLoadDelegate = imageLoadDelegate;
+
+        this.onImageClickListener = onImageClickListener;
     }
 
     @Override
@@ -42,7 +49,7 @@ public class CharacterSeriesAdapter extends RecyclerView.Adapter<CharacterSeries
     }
 
     @Override
-    public void onBindViewHolder(SeriesViewHolder holder, int position) {
+    public void onBindViewHolder(SeriesViewHolder holder, final int position) {
 
         SeriesSummary seriesSummary = seriesSummaryList.get(position);
 
@@ -53,6 +60,19 @@ public class CharacterSeriesAdapter extends RecyclerView.Adapter<CharacterSeries
         holder.iconImageView.setImageBitmap(null);
 
         imageLoadDelegate.loadImageData(seriesSummary.getResourceURI(), holder.iconImageView);
+
+
+        holder.iconImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(onImageClickListener != null){
+
+                    onImageClickListener.onImageClick(position, ItemType.SERIES);
+
+                }
+            }
+        });
     }
 
     @Override

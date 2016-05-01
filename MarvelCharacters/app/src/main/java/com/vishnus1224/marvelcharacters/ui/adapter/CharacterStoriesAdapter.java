@@ -9,7 +9,9 @@ import android.widget.TextView;
 
 import com.vishnus1224.marvelcharacters.R;
 import com.vishnus1224.marvelcharacters.delegate.ImageLoadDelegate;
+import com.vishnus1224.marvelcharacters.listener.OnImageClickListener;
 import com.vishnus1224.marvelcharacters.model.StorySummary;
+import com.vishnus1224.marvelcharacters.util.ItemType;
 
 import java.util.List;
 
@@ -24,13 +26,18 @@ public class CharacterStoriesAdapter extends RecyclerView.Adapter<CharacterStori
 
     private ImageLoadDelegate imageLoadDelegate;
 
-    public CharacterStoriesAdapter(LayoutInflater layoutInflater, List<StorySummary> storiesSummaryList, ImageLoadDelegate imageLoadDelegate){
+    private OnImageClickListener onImageClickListener;
+
+    public CharacterStoriesAdapter(LayoutInflater layoutInflater, List<StorySummary> storiesSummaryList,
+                                   ImageLoadDelegate imageLoadDelegate, OnImageClickListener onImageClickListener){
 
         this.storiesSummaryList = storiesSummaryList;
 
         this.layoutInflater = layoutInflater;
 
         this.imageLoadDelegate = imageLoadDelegate;
+
+        this.onImageClickListener = onImageClickListener;
 
     }
 
@@ -43,7 +50,7 @@ public class CharacterStoriesAdapter extends RecyclerView.Adapter<CharacterStori
     }
 
     @Override
-    public void onBindViewHolder(StoriesViewHolder holder, int position) {
+    public void onBindViewHolder(StoriesViewHolder holder, final int position) {
 
         StorySummary storySummary = storiesSummaryList.get(position);
 
@@ -54,6 +61,19 @@ public class CharacterStoriesAdapter extends RecyclerView.Adapter<CharacterStori
         holder.iconImageView.setImageBitmap(null);
 
         imageLoadDelegate.loadImageData(storySummary.getResourceURI(), holder.iconImageView);
+
+
+        holder.iconImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(onImageClickListener != null){
+
+                    onImageClickListener.onImageClick(position, ItemType.STORIES);
+
+                }
+            }
+        });
     }
 
     @Override
