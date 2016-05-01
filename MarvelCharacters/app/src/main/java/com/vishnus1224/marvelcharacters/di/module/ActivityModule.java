@@ -13,6 +13,7 @@ import com.vishnus1224.marvelcharacters.repository.CharacterRepository;
 import com.vishnus1224.marvelcharacters.repository.CharacterRepositoryImpl;
 import com.vishnus1224.marvelcharacters.usecase.CharacterListUseCase;
 import com.vishnus1224.marvelcharacters.usecase.CharacterSearchUseCase;
+import com.vishnus1224.marvelcharacters.usecase.ImageResourceURIUseCase;
 import com.vishnus1224.marvelcharacters.usecase.UseCase;
 
 import javax.inject.Named;
@@ -113,5 +114,15 @@ public class ActivityModule {
     @Provides @PerActivity
     DisplayMetrics provideDisplayMetrics(Resources resources){
         return resources.getDisplayMetrics();
+    }
+
+    /**
+     * Provide use case for fetching image data from resource URI.
+     * @param imageResourceURIUseCase Instance of ImageResourceURIUseCase.
+     * @return Instance of ImageResourceURIUseCase.
+     */
+    @Provides @PerActivity @Named("ImageResourceURI")
+    UseCase provideImageResourceURIUseCase(ImageResourceURIUseCase imageResourceURIUseCase){
+        return imageResourceURIUseCase;
     }
 }
