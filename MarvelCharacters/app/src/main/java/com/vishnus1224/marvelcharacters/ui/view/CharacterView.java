@@ -59,4 +59,10 @@ public interface CharacterView {
      * @param cursor Cursor containing the data.
      */
     void setSuggestionsAdapter(Cursor cursor);
+
+    /**
+     * Show character details activity.
+     * @param marvelCharacter MarvelCharacter instance.
+     */
+    void showCharacterDetails(MarvelCharacter marvelCharacter);
 }
