@@ -1,6 +1,5 @@
 package com.vishnus1224.marvelcharacters.listener;
 
-import com.vishnus1224.marvelcharacters.model.Summary;
 import com.vishnus1224.marvelcharacters.util.ItemType;
 
 /**
@@ -8,5 +7,5 @@ import com.vishnus1224.marvelcharacters.util.ItemType;
  */
 public interface OnImageClickListener {
 
-    void onImageClick(int position, ItemType itemType, Summary summary);
+    void onImageClick(int position, ItemType itemType);
 }

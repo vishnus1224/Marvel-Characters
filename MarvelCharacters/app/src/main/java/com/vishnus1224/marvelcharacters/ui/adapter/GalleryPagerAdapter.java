@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.vishnus1224.marvelcharacters.R;
+import com.vishnus1224.marvelcharacters.model.Summary;
 
 import java.util.List;
 
@@ -17,19 +18,19 @@ public class GalleryPagerAdapter extends PagerAdapter {
 
     private LayoutInflater layoutInflater;
 
-    private List<String> resourceURIList;
+    private List<Summary> summaries;
 
-    public GalleryPagerAdapter(LayoutInflater layoutInflater, List<String> resourceURIList){
+    public GalleryPagerAdapter(LayoutInflater layoutInflater, List<Summary> summaries){
 
         this.layoutInflater = layoutInflater;
 
-        this.resourceURIList = resourceURIList;
+        this.summaries = summaries;
 
     }
 
     @Override
     public int getCount() {
-        return resourceURIList.size();
+        return summaries.size();
     }
 
     @Override

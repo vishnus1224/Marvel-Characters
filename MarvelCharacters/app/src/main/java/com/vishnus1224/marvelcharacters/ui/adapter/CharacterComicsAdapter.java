@@ -66,7 +66,7 @@ public class CharacterComicsAdapter extends RecyclerView.Adapter<CharacterComics
 
                 if(onImageClickListener != null){
 
-                    onImageClickListener.onImageClick(position, ItemType.COMICS, comicSummary);
+                    onImageClickListener.onImageClick(position, ItemType.COMICS);
 
                 }
             }
