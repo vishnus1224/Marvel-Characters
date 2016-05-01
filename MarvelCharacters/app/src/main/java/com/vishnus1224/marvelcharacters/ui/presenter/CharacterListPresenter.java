@@ -44,13 +44,20 @@ public class CharacterListPresenter {
      */
     private UseCase characterSearchUseCase;
 
+    /**
+     * Use case for getting character details by id.
+     */
+    private UseCase characterSearchByIDUseCase;
+
     @Inject
     public CharacterListPresenter(@Named("CharacterList") UseCase characterListUseCase, @Named("CharacterSearch") UseCase characterSearchUseCase,
-                    CharacterDataOffsetManager characterDataOffsetManager){
+                    @Named("CharacterByID") UseCase characterSearchByIDUseCase, CharacterDataOffsetManager characterDataOffsetManager){
 
         this.characterListUseCase = characterListUseCase;
 
         this.characterSearchUseCase = characterSearchUseCase;
+
+        this.characterSearchByIDUseCase = characterSearchByIDUseCase;
 
         this.characterDataOffsetManager = characterDataOffsetManager;
 
