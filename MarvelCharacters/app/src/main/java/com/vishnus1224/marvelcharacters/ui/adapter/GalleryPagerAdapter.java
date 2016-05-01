@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.vishnus1224.marvelcharacters.R;
+import com.vishnus1224.marvelcharacters.delegate.ImageLoadDelegate;
 import com.vishnus1224.marvelcharacters.model.Summary;
 
 import java.util.List;
@@ -20,11 +21,15 @@ public class GalleryPagerAdapter extends PagerAdapter {
 
     private List<Summary> summaries;
 
-    public GalleryPagerAdapter(LayoutInflater layoutInflater, List<Summary> summaries){
+    private ImageLoadDelegate imageLoadDelegate;
+
+    public GalleryPagerAdapter(LayoutInflater layoutInflater, List<Summary> summaries, ImageLoadDelegate imageLoadDelegate){
 
         this.layoutInflater = layoutInflater;
 
         this.summaries = summaries;
+
+        this.imageLoadDelegate = imageLoadDelegate;
 
     }
 
