@@ -1,10 +1,10 @@
 package com.vishnus1224.marvelcharacters.webservice;
 
 import com.vishnus1224.marvelcharacters.model.CharacterDataWrapper;
-
-import java.util.List;
+import com.vishnus1224.marvelcharacters.model.ImageResourceDataWrapper;
 
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 import rx.Observable;
 
@@ -20,4 +20,7 @@ public interface MarvelWebService {
 
     @GET("v1/public/characters")
     Observable<CharacterDataWrapper> searchMarvelCharacters(@Query("nameStartsWith") String characterName, @Query("limit") int limit);
+
+    @GET("{resourceURI}")
+    Observable<ImageResourceDataWrapper> getImageResourceData(@Path("resourceURI") String resourceURI);
 }
