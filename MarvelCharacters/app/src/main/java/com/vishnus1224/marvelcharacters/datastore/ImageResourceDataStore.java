@@ -12,7 +12,8 @@ public interface ImageResourceDataStore {
 
     /**
      * Get image resource data.
+     * @param resourceURI resourceURI of the image.
      * @return Observable emitting wrapper of image resource data.
      */
-    Observable<ImageResourceDataWrapper> getImageResourceData();
+    Observable<ImageResourceDataWrapper> getImageResourceData(String resourceURI);
 }
