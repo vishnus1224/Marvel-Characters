@@ -1,9 +1,7 @@
 package com.vishnus1224.marvelcharacters.datastore;
 
-import com.vishnus1224.marvelcharacters.api.MarvelRESTAPI;
 import com.vishnus1224.marvelcharacters.api.RESTAPI;
 import com.vishnus1224.marvelcharacters.cache.CharacterCache;
-import com.vishnus1224.marvelcharacters.cache.LruMemoryCharacterCache;
 import com.vishnus1224.marvelcharacters.model.CharacterDataHolder;
 import com.vishnus1224.marvelcharacters.model.CharacterDataWrapper;
 import com.vishnus1224.marvelcharacters.model.MarvelCharacter;
@@ -13,6 +11,8 @@ import static junit.framework.Assert.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +21,7 @@ import rx.Observable;
 import rx.observers.TestSubscriber;
 
 import static org.mockito.Mockito.*;
+import static org.mockito.BDDMockito.given;
 
 
 /**
@@ -28,8 +29,16 @@ import static org.mockito.Mockito.*;
  */
 public class CloudCharacterDataStoreTest {
 
+    private static final int FAKE_OFFSET = 0;
+
+    private static final int FAKE_CHARACTER_ID = 1002;
+    private static final String FAKE_CHARACTER_NAME = "Hulk";
+    private static final String FAKE_CHARACTER_DESCRIPTION = "Strongest of them all";
+
+    @Mock
     private RESTAPI restapi;
 
+    @Mock
     private CharacterCache characterCache;
 
     private CloudCharacterDataStore cloudCharacterDataStore;
@@ -43,9 +52,7 @@ public class CloudCharacterDataStoreTest {
     @Before
     public void setUp() throws Exception {
 
-        restapi = mock(MarvelRESTAPI.class);
-
-        characterCache = mock(LruMemoryCharacterCache.class);
+        MockitoAnnotations.initMocks(this);
 
         cloudCharacterDataStore = new CloudCharacterDataStore(restapi, characterCache);
 
@@ -61,6 +68,7 @@ public class CloudCharacterDataStoreTest {
     @After
     public void tearDown() throws Exception {
 
+
     }
 
     @Test
@@ -68,14 +76,20 @@ public class CloudCharacterDataStoreTest {
 
 
         //return mock observable when the rest api method is called.
-        when(restapi.fetchMarvelCharacters(0)).thenReturn(Observable.just(characterDataWrapper));
+        when(restapi.fetchMarvelCharacters(FAKE_OFFSET)).thenReturn(Observable.just(characterDataWrapper));
 
         //get observable from the rest api.
-        Observable<CharacterDataWrapper> marvelCharacterObservable = restapi.fetchMarvelCharacters(0);
+        Observable<CharacterDataWrapper> marvelCharacterObservable = restapi.fetchMarvelCharacters(FAKE_OFFSET);
 
         TestSubscriber<CharacterDataWrapper> testSubscriber = new TestSubscriber<>();
 
         marvelCharacterObservable.subscribe(testSubscriber);
+
+        //verify that the method is called.
+        verify(restapi).fetchMarvelCharacters(FAKE_OFFSET);
+
+        //verify that the method is called just once.
+        verify(restapi, times(1)).fetchMarvelCharacters(FAKE_OFFSET);
 
         //assert that no errors occurred.
         testSubscriber.assertNoErrors();
@@ -100,23 +114,28 @@ public class CloudCharacterDataStoreTest {
 
         MarvelCharacter hulk = marvelCharacters.get(0);
 
-        assertEquals(hulk.getId(), 1002);
-        assertEquals(hulk.getName(), "Hulk");
-        assertEquals(hulk.getDescription(), "Strongest of them all");
+        assertEquals(hulk.getId(), FAKE_CHARACTER_ID);
+        assertEquals(hulk.getName(), FAKE_CHARACTER_NAME);
+        assertEquals(hulk.getDescription(), FAKE_CHARACTER_DESCRIPTION);
 
     }
 
     @Test
     public void testSearchMarvelCharacters() throws Exception {
 
-        when(restapi.searchMarvelCharacters("Hulk")).thenReturn(Observable.just(characterDataWrapper));
+        when(restapi.searchMarvelCharacters(FAKE_CHARACTER_NAME)).thenReturn(Observable.just(characterDataWrapper));
 
-        Observable<CharacterDataWrapper> characterDataWrapperObservable = restapi.searchMarvelCharacters("Hulk");
+        Observable<CharacterDataWrapper> characterDataWrapperObservable = restapi.searchMarvelCharacters(FAKE_CHARACTER_NAME);
 
         TestSubscriber<CharacterDataWrapper> testSubscriber = new TestSubscriber<>();
 
         characterDataWrapperObservable.subscribe(testSubscriber);
 
+        //verify that the method is called.
+        verify(restapi).searchMarvelCharacters(FAKE_CHARACTER_NAME);
+
+        //verify that the method is called just once.
+        verify(restapi, times(1)).searchMarvelCharacters(FAKE_CHARACTER_NAME);
 
         //assert that no errors occurred.
         testSubscriber.assertNoErrors();
@@ -141,13 +160,34 @@ public class CloudCharacterDataStoreTest {
 
         MarvelCharacter hulk = marvelCharacters.get(0);
 
-        assertEquals(hulk.getId(), 1002);
-        assertEquals(hulk.getName(), "Hulk");
-        assertEquals(hulk.getDescription(), "Strongest of them all");
+        assertEquals(hulk.getId(), FAKE_CHARACTER_ID);
+        assertEquals(hulk.getName(), FAKE_CHARACTER_NAME);
+        assertEquals(hulk.getDescription(), FAKE_CHARACTER_DESCRIPTION);
     }
 
     @Test
     public void testFetchCharacterByID() throws Exception {
+
+        //given that the character id exists in the cache.
+        given(characterCache.containsCharacter(FAKE_CHARACTER_ID)).willReturn(true);
+
+        //when the get method on the cache is called, return the first element in the list.
+        when(characterCache.get(FAKE_CHARACTER_ID)).thenReturn(marvelCharacterList.get(0));
+
+        boolean value = characterCache.containsCharacter(FAKE_CHARACTER_ID);
+        assertEquals(value, true);
+
+        MarvelCharacter marvelCharacter = characterCache.get(FAKE_CHARACTER_ID);
+
+        verify(characterCache).containsCharacter(FAKE_CHARACTER_ID);
+        verify(characterCache, times(1)).containsCharacter(FAKE_CHARACTER_ID);
+        verify(characterCache).get(FAKE_CHARACTER_ID);
+        verify(characterCache, times(1)).get(FAKE_CHARACTER_ID);
+
+        assertNotNull(marvelCharacter);
+        assertEquals(marvelCharacter.getId(), FAKE_CHARACTER_ID);
+        assertEquals(marvelCharacter.getName(), FAKE_CHARACTER_NAME);
+        assertEquals(marvelCharacter.getDescription(), FAKE_CHARACTER_DESCRIPTION);
 
     }
 
@@ -172,7 +212,7 @@ public class CloudCharacterDataStoreTest {
 
         List<MarvelCharacter> marvelCharacters = new ArrayList<>();
 
-        MarvelCharacter hulk = new MarvelCharacter(1002, "Hulk", "Strongest of them all");
+        MarvelCharacter hulk = new MarvelCharacter(FAKE_CHARACTER_ID, FAKE_CHARACTER_NAME, FAKE_CHARACTER_DESCRIPTION);
         marvelCharacters.add(hulk);
 
         MarvelCharacter cyclops = new MarvelCharacter(3904, "Cyclops", "Can kill instantly");
