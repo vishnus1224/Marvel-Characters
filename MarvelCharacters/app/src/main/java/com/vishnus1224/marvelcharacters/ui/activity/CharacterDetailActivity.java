@@ -33,7 +33,6 @@ import com.vishnus1224.marvelcharacters.ui.presenter.CharacterDetailPresenter;
 import com.vishnus1224.marvelcharacters.ui.view.CharacterDetailView;
 import com.vishnus1224.marvelcharacters.util.Constants;
 import com.vishnus1224.marvelcharacters.util.ItemType;
-import com.vishnus1224.marvelcharacters.util.ScreenSizeConversionUtil;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -46,12 +45,6 @@ import javax.inject.Inject;
  * Created by Vishnu on 4/30/2016.
  */
 public class CharacterDetailActivity extends BaseActivity implements CharacterDetailView, View.OnClickListener, ImageLoadDelegate, OnImageClickListener {
-
-    private static final int CHARACTER_IMAGE_WIDTH = 400;
-    private static final int CHARACTER_IMAGE_HEIGHT = 300;
-
-    private static final int RESOURCE_IMAGE_WIDTH = 150;
-    private static final int RESOURCE_IMAGE_HEIGHT = 150;
 
     //View declaration.
     //=========================================
@@ -98,9 +91,6 @@ public class CharacterDetailActivity extends BaseActivity implements CharacterDe
 
     @Inject
     ImageDownloader imageDownloader;
-
-    @Inject
-    ScreenSizeConversionUtil screenSizeConversionUtil;
 
     @Inject
     CharacterDetailPresenter characterDetailPresenter;
@@ -224,8 +214,7 @@ public class CharacterDetailActivity extends BaseActivity implements CharacterDe
         noStoriesAvailableTextView.setText(getResources().getString(R.string.no_stories_available));
         noEventsAvailableTextView.setText(getResources().getString(R.string.no_events_available));
 
-        imageDownloader.downloadImage(marvelCharacter.getThumbnail().getFinalPath(), (int) screenSizeConversionUtil.convertDpToPixels(CHARACTER_IMAGE_WIDTH),
-                (int) screenSizeConversionUtil.convertDpToPixels(CHARACTER_IMAGE_HEIGHT), characterImageView);
+        imageDownloader.downloadImage(marvelCharacter.getThumbnail().getFinalPath(), characterImageView);
 
     }
 
@@ -409,8 +398,7 @@ public class CharacterDetailActivity extends BaseActivity implements CharacterDe
     @Override
     public void loadImage(String imageURL, ImageView imageView) {
 
-        imageDownloader.downloadImage(imageURL, (int) screenSizeConversionUtil.convertDpToPixels(RESOURCE_IMAGE_WIDTH),
-                (int) screenSizeConversionUtil.convertDpToPixels(RESOURCE_IMAGE_HEIGHT), imageView);
+        imageDownloader.downloadImage(imageURL, imageView);
 
     }
 

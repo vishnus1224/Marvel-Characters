@@ -11,7 +11,6 @@ import com.vishnus1224.marvelcharacters.R;
 import com.vishnus1224.marvelcharacters.imageloader.ImageDownloader;
 import com.vishnus1224.marvelcharacters.model.MarvelCharacter;
 import com.vishnus1224.marvelcharacters.model.MarvelCharacterThumbnail;
-import com.vishnus1224.marvelcharacters.util.ScreenSizeConversionUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,33 +37,13 @@ public class CharacterListAdapter extends BaseAdapter {
      */
     private ImageDownloader imageDownloader;
 
-    /**
-     * Used for converting image dimensions.
-     */
-    private ScreenSizeConversionUtil screenSizeConversionUtil;
-
-    /**
-     * Final width of the image in pixels.
-     */
-    private int imageWidth;
-
-    /**
-     * Final height of the image in pixels.
-     */
-    private int imageHeight;
 
     @Inject
-    public CharacterListAdapter(LayoutInflater layoutInflater, ImageDownloader imageDownloader, ScreenSizeConversionUtil screenSizeConversionUtil){
+    public CharacterListAdapter(LayoutInflater layoutInflater, ImageDownloader imageDownloader){
 
         this.layoutInflater = layoutInflater;
 
         this.imageDownloader = imageDownloader;
-
-        this.screenSizeConversionUtil = screenSizeConversionUtil;
-
-        imageWidth = (int) screenSizeConversionUtil.convertDpToPixels(500f);
-
-        imageHeight = (int) screenSizeConversionUtil.convertDpToPixels(200f);
 
     }
 
@@ -115,7 +94,7 @@ public class CharacterListAdapter extends BaseAdapter {
         MarvelCharacterThumbnail thumbnail = marvelCharacter.getThumbnail();
 
         //download the image and set it on the image view.
-        imageDownloader.downloadImage(thumbnail.getFinalPath(), imageWidth, imageHeight, characterImageView);
+        imageDownloader.downloadImage(thumbnail.getFinalPath(), characterImageView);
 
         characterNameTextView.setText(marvelCharacter.getName());
 

@@ -2,7 +2,6 @@ package com.vishnus1224.marvelcharacters.di.module;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.Resources;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 
@@ -10,7 +9,6 @@ import com.vishnus1224.marvelcharacters.datastore.CharacterDataStore;
 import com.vishnus1224.marvelcharacters.datastore.CloudCharacterDataStore;
 import com.vishnus1224.marvelcharacters.datastore.CloudImageResourceDataStore;
 import com.vishnus1224.marvelcharacters.datastore.ImageResourceDataStore;
-import com.vishnus1224.marvelcharacters.di.component.ActivityComponent;
 import com.vishnus1224.marvelcharacters.di.scope.PerActivity;
 import com.vishnus1224.marvelcharacters.repository.CharacterRepository;
 import com.vishnus1224.marvelcharacters.repository.CharacterRepositoryImpl;

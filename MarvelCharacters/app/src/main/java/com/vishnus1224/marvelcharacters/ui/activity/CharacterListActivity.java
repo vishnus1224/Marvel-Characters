@@ -32,7 +32,6 @@ import com.vishnus1224.marvelcharacters.ui.adapter.CharacterSearchSuggestionsAda
 import com.vishnus1224.marvelcharacters.ui.presenter.CharacterListPresenter;
 import com.vishnus1224.marvelcharacters.ui.view.CharacterView;
 import com.vishnus1224.marvelcharacters.util.Constants;
-import com.vishnus1224.marvelcharacters.util.ScreenSizeConversionUtil;
 
 import java.util.List;
 
@@ -62,12 +61,6 @@ public class CharacterListActivity extends BaseActivity implements CharacterView
      */
     @Inject
     ImageDownloader imageDownloader;
-
-    /**
-     * Inject conversion util for passing to the suggestions adapter.
-     */
-    @Inject
-    ScreenSizeConversionUtil screenSizeConversionUtil;
 
     /**
      * Inject layout inflater for inflating the list view footer.
@@ -156,7 +149,7 @@ public class CharacterListActivity extends BaseActivity implements CharacterView
 
         //create the suggestions adapter and set it on the search view.
         characterSearchSuggestionsAdapter = new CharacterSearchSuggestionsAdapter(this, R.layout.adapter_character_search, null,
-                Constants.SUGGESTIONS_ADAPTER_COLUMNS, null, 0, imageDownloader, screenSizeConversionUtil);
+                Constants.SUGGESTIONS_ADAPTER_COLUMNS, null, 0, imageDownloader);
 
         searchView.setSuggestionsAdapter(characterSearchSuggestionsAdapter);
 

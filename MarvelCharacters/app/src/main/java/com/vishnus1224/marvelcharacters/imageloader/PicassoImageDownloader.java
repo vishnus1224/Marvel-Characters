@@ -22,13 +22,9 @@ public class PicassoImageDownloader implements ImageDownloader {
     }
 
     @Override
-    public void downloadImage(String imageURL, int finalWidth, int finalHeight, ImageView imageView) {
+    public void downloadImage(String imageURL, ImageView imageView) {
 
-        if(finalWidth <= 0 || finalHeight <= 0){
-            throw new IllegalStateException("Width or height should be greater than 0");
-        }
-
-        picasso.load(imageURL).resize(finalWidth, finalHeight).error(R.mipmap.ic_launcher).into(imageView);
+        picasso.load(imageURL).fit().error(R.mipmap.ic_launcher).into(imageView);
 
     }
 }

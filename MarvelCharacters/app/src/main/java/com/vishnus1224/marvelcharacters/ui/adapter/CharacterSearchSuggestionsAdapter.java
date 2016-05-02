@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.vishnus1224.marvelcharacters.R;
 import com.vishnus1224.marvelcharacters.imageloader.ImageDownloader;
 import com.vishnus1224.marvelcharacters.util.Constants;
-import com.vishnus1224.marvelcharacters.util.ScreenSizeConversionUtil;
 
 /**
  * Created by Vishnu on 4/30/2016.
@@ -19,15 +18,11 @@ public class CharacterSearchSuggestionsAdapter extends SimpleCursorAdapter{
 
     private ImageDownloader imageDownloader;
 
-    private int imageDimension;
-
-    public CharacterSearchSuggestionsAdapter(Context context, int layout, Cursor c, String[] from, int[] to, int flags, ImageDownloader imageDownloader
-                                ,ScreenSizeConversionUtil screenSizeConversionUtil) {
+    public CharacterSearchSuggestionsAdapter(Context context, int layout, Cursor c, String[] from, int[] to, int flags, ImageDownloader imageDownloader) {
         super(context, layout, c, from, to, flags);
 
         this.imageDownloader = imageDownloader;
 
-        imageDimension = (int) screenSizeConversionUtil.convertDpToPixels(50f);
     }
 
     @Override
@@ -43,7 +38,7 @@ public class CharacterSearchSuggestionsAdapter extends SimpleCursorAdapter{
 
         characterNameTextView.setText(characterName);
 
-        imageDownloader.downloadImage(characterIconURL, imageDimension, imageDimension, characterImageView);
+        imageDownloader.downloadImage(characterIconURL, characterImageView);
 
     }
 }

@@ -11,10 +11,8 @@ public interface ImageDownloader {
     /**
      * Load the image from the URL into the image view resizing it if necessary.
      * @param imageURL Image URL.
-     * @param finalWidth Final width of the image to be displayed.
-     * @param finalHeight Final height of the image to be displayed.
      * @param imageView ImageView reference to load the image into.
      */
-    void downloadImage(String imageURL, int finalWidth, int finalHeight, ImageView imageView);
+    void downloadImage(String imageURL, ImageView imageView);
 
 }
