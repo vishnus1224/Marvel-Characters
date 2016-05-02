@@ -109,6 +109,41 @@ public class CloudCharacterDataStoreTest {
     @Test
     public void testSearchMarvelCharacters() throws Exception {
 
+        when(restapi.searchMarvelCharacters("Hulk")).thenReturn(Observable.just(characterDataWrapper));
+
+        Observable<CharacterDataWrapper> characterDataWrapperObservable = restapi.searchMarvelCharacters("Hulk");
+
+        TestSubscriber<CharacterDataWrapper> testSubscriber = new TestSubscriber<>();
+
+        characterDataWrapperObservable.subscribe(testSubscriber);
+
+
+        //assert that no errors occurred.
+        testSubscriber.assertNoErrors();
+
+        //assert the number of observables emitted.
+        testSubscriber.assertValueCount(1);
+
+        //assert that the observable completed successfully.
+        testSubscriber.assertCompleted();
+
+        testSubscriber.assertValue(characterDataWrapper);
+
+        List<CharacterDataWrapper> characterDataWrapperList = testSubscriber.getOnNextEvents();
+
+        assertEquals(characterDataWrapperList.get(0).getCharacterDataHolder(), characterDataHolder);
+
+        assertEquals(characterDataWrapperList.get(0).getCharacterDataHolder().getMarvelCharacters(), marvelCharacterList);
+
+        List<MarvelCharacter> marvelCharacters = characterDataWrapperList.get(0).getCharacterDataHolder().getMarvelCharacters();
+
+        assertNotNull(marvelCharacters);
+
+        MarvelCharacter hulk = marvelCharacters.get(0);
+
+        assertEquals(hulk.getId(), 1002);
+        assertEquals(hulk.getName(), "Hulk");
+        assertEquals(hulk.getDescription(), "Strongest of them all");
     }
 
     @Test
