@@ -76,7 +76,7 @@ public class CloudCharacterDataStoreTest {
 
 
         //return mock observable when the rest api method is called.
-        when(restapi.fetchMarvelCharacters(FAKE_OFFSET)).thenReturn(Observable.just(characterDataWrapper));
+        when(restapi.fetchMarvelCharacters(anyInt())).thenReturn(Observable.just(characterDataWrapper));
 
         //get observable from the rest api.
         Observable<CharacterDataWrapper> marvelCharacterObservable = restapi.fetchMarvelCharacters(FAKE_OFFSET);
@@ -123,7 +123,7 @@ public class CloudCharacterDataStoreTest {
     @Test
     public void testSearchMarvelCharacters() throws Exception {
 
-        when(restapi.searchMarvelCharacters(FAKE_CHARACTER_NAME)).thenReturn(Observable.just(characterDataWrapper));
+        when(restapi.searchMarvelCharacters(anyString())).thenReturn(Observable.just(characterDataWrapper));
 
         Observable<CharacterDataWrapper> characterDataWrapperObservable = restapi.searchMarvelCharacters(FAKE_CHARACTER_NAME);
 
@@ -169,7 +169,7 @@ public class CloudCharacterDataStoreTest {
     public void testFetchCharacterByID() throws Exception {
 
         //given that the character id exists in the cache.
-        given(characterCache.containsCharacter(FAKE_CHARACTER_ID)).willReturn(true);
+        given(characterCache.containsCharacter(anyInt())).willReturn(true);
 
         //when the get method on the cache is called, return the first element in the list.
         when(characterCache.get(FAKE_CHARACTER_ID)).thenReturn(marvelCharacterList.get(0));
