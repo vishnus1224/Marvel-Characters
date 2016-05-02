@@ -33,16 +33,6 @@ public class ListViewScrollDelegate implements AbsListView.OnScrollListener {
     }
 
     /**
-     * Reset the last item position. Will be used if an error occurs while fetching data.
-     * If it is not reset, then the delegate will no signal that scroll has reached its bottom.
-     */
-    public void resetLastItemPosition(){
-
-        lastItemPosition = 0;
-
-    }
-
-    /**
      * Add count to the totalItemCount.
      * @param count Count value.
      */
