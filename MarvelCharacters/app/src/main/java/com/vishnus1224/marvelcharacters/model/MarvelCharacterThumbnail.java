@@ -24,6 +24,10 @@ public class MarvelCharacterThumbnail implements Parcelable{
      */
     private static StringBuilder stringBuilder = new StringBuilder();
 
+    public MarvelCharacterThumbnail(){
+
+    }
+
     protected MarvelCharacterThumbnail(Parcel in) {
         path = in.readString();
         extension = in.readString();
