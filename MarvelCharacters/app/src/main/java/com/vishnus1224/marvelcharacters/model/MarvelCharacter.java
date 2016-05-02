@@ -42,6 +42,12 @@ public class MarvelCharacter implements Parcelable{
     @SerializedName("series")
     private SeriesContainer seriesContainer;
 
+    public MarvelCharacter(int id, String name, String description){
+        this.id = id;
+        this.name = name;
+        this.description = description;
+    }
+
     protected MarvelCharacter(Parcel in) {
         id = in.readInt();
         name = in.readString();
@@ -95,6 +101,38 @@ public class MarvelCharacter implements Parcelable{
 
     public SeriesContainer getSeriesContainer() {
         return seriesContainer;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setThumbnail(MarvelCharacterThumbnail thumbnail) {
+        this.thumbnail = thumbnail;
+    }
+
+    public void setComicContainer(ComicContainer comicContainer) {
+        this.comicContainer = comicContainer;
+    }
+
+    public void setStoryContainer(StoryContainer storyContainer) {
+        this.storyContainer = storyContainer;
+    }
+
+    public void setEventContainer(EventContainer eventContainer) {
+        this.eventContainer = eventContainer;
+    }
+
+    public void setSeriesContainer(SeriesContainer seriesContainer) {
+        this.seriesContainer = seriesContainer;
     }
 
     @Override

@@ -25,4 +25,16 @@ public class CharacterDataWrapper {
     public CharacterDataHolder getCharacterDataHolder() {
         return characterDataHolder;
     }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setCharacterDataHolder(CharacterDataHolder characterDataHolder) {
+        this.characterDataHolder = characterDataHolder;
+    }
 }
