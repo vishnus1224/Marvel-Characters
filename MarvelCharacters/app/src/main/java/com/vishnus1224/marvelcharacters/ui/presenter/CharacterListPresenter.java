@@ -123,7 +123,7 @@ public class CharacterListPresenter {
 
                 }else {
 
-                    characterView.showError(e.getMessage());
+                    characterView.showRetryOption("An error occurred");
 
                 }
             }
