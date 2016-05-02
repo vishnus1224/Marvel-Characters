@@ -10,6 +10,10 @@ public class CharacterImageResource {
     @SerializedName("thumbnail")
     private CharacterResourceThumbnail characterResourceThumbnail;
 
+    public void setCharacterResourceThumbnail(CharacterResourceThumbnail characterResourceThumbnail) {
+        this.characterResourceThumbnail = characterResourceThumbnail;
+    }
+
     public CharacterResourceThumbnail getCharacterResourceThumbnail() {
         return characterResourceThumbnail;
     }

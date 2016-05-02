@@ -25,4 +25,16 @@ public class ImageResourceDataWrapper {
     public ImageResourceDataHolder getImageResourceDataHolder() {
         return imageResourceDataHolder;
     }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setImageResourceDataHolder(ImageResourceDataHolder imageResourceDataHolder) {
+        this.imageResourceDataHolder = imageResourceDataHolder;
+    }
 }

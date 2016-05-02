@@ -27,4 +27,16 @@ public class ImageResourceDataHolder {
     public List<CharacterImageResource> getCharacterImageResource() {
         return characterImageResource;
     }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
+    }
+
+    public void setCharacterImageResource(List<CharacterImageResource> characterImageResource) {
+        this.characterImageResource = characterImageResource;
+    }
 }
