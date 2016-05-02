@@ -174,15 +174,22 @@ public class CloudCharacterDataStoreTest {
         //when the get method on the cache is called, return the first element in the list.
         when(characterCache.get(FAKE_CHARACTER_ID)).thenReturn(marvelCharacterList.get(0));
 
-        boolean value = characterCache.containsCharacter(FAKE_CHARACTER_ID);
-        assertEquals(value, true);
+        Observable<MarvelCharacter> marvelCharacterObservable = cloudCharacterDataStore.fetchCharacterByID(FAKE_CHARACTER_ID);
 
-        MarvelCharacter marvelCharacter = characterCache.get(FAKE_CHARACTER_ID);
+        TestSubscriber<MarvelCharacter> marvelCharacterTestSubscriber = new TestSubscriber<>();
+
+        marvelCharacterObservable.subscribe(marvelCharacterTestSubscriber);
 
         verify(characterCache).containsCharacter(FAKE_CHARACTER_ID);
         verify(characterCache, times(1)).containsCharacter(FAKE_CHARACTER_ID);
         verify(characterCache).get(FAKE_CHARACTER_ID);
         verify(characterCache, times(1)).get(FAKE_CHARACTER_ID);
+
+        marvelCharacterTestSubscriber.assertNoErrors();
+        marvelCharacterTestSubscriber.assertCompleted();
+        marvelCharacterTestSubscriber.assertValueCount(1);
+
+        MarvelCharacter marvelCharacter = marvelCharacterTestSubscriber.getOnNextEvents().get(0);
 
         assertNotNull(marvelCharacter);
         assertEquals(marvelCharacter.getId(), FAKE_CHARACTER_ID);
