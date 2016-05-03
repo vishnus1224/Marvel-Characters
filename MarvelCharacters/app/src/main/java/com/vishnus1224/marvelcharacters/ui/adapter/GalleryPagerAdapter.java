@@ -67,4 +67,9 @@ public class GalleryPagerAdapter extends PagerAdapter {
         container.removeView((View) object);
 
     }
+
+    @Override
+    public float getPageWidth(int position) {
+        return 0.9f;
+    }
 }
