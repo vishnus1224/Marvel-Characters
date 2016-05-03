@@ -16,6 +16,14 @@ public class CharacterResourceThumbnail {
      */
     private String extension;
 
+    public CharacterResourceThumbnail() {
+    }
+
+    public CharacterResourceThumbnail(String path, String extension) {
+        this.path = path;
+        this.extension = extension;
+    }
+
     /**
      * String builder instance for generating final image path.
      */

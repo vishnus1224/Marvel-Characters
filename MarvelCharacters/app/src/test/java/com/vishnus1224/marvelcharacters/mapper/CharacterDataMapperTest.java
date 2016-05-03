@@ -1,13 +1,11 @@
 package com.vishnus1224.marvelcharacters.mapper;
 
 import android.database.Cursor;
-import android.database.MatrixCursor;
 
 import com.vishnus1224.marvelcharacters.model.CharacterDataHolder;
 import com.vishnus1224.marvelcharacters.model.CharacterDataWrapper;
 import com.vishnus1224.marvelcharacters.model.MarvelCharacter;
 import com.vishnus1224.marvelcharacters.model.MarvelCharacterThumbnail;
-import com.vishnus1224.marvelcharacters.util.Constants;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -16,8 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
-import static org.mockito.BDDMockito.given;
 
 /**
  * Created by Vishnu on 5/3/2016.
