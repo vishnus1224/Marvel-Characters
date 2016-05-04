@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/characterDetailImage"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/value_300dp"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:scaleType="fitXY" />
+
+            <TextView
+                android:id="@+id/characterDetailName"
+                android:layout_alignParentBottom="true"
+                android:paddingBottom="@dimen/value_10dp"
+                style="@style/CharacterDetailTextViewStyle"
+                android:textColor="@android:color/white"/>
+            
+            <include layout="@layout/layout_back_button" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/characterDescriptionTitle"
+            style="@style/CharacterDetailTextViewStyle"
+            android:text="@string/description_title"
+            android:textColor="@android:color/holo_red_dark" />
+
+        <TextView
+            android:id="@+id/characterDescription"
+            style="@style/CharacterDetailTextViewStyle"
+            android:textColor="@android:color/white" />
+
+        <include
+            android:id="@+id/characterComicsLayout"
+            layout="@layout/layout_character_details" />
+
+        <include
+            android:id="@+id/characterSeriesLayout"
+            layout="@layout/layout_character_details" />
+
+        <include
+            android:id="@+id/characterStoriesLayout"
+            layout="@layout/layout_character_details" />
+
+        <include
+            android:id="@+id/characterEventsLayout"
+            layout="@layout/layout_character_details" />
+
+        <include
+            android:id="@+id/characterRelatedLinksLayout"
+            layout="@layout/layout_character_related_links" />
+
+    </LinearLayout>
+
+</ScrollView>

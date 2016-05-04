@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
+
+    <ImageButton
+        android:id="@+id/galleryCloseButton"
+        android:layout_width="@dimen/value_30dp"
+        android:layout_height="@dimen/value_30dp"
+        android:layout_alignParentRight="true"
+        android:layout_margin="@dimen/value_10dp"
+        android:background="@drawable/ic_clear" />
+
+    <LinearLayout
+        android:id="@+id/galleryImageNumberIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/value_5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/galleryImageNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:text=" / "
+            android:textColor="@android:color/white"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/galleryTotalImageCount"
+            android:textColor="@android:color/white"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/galleryImageTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/galleryImageNumberIndicator"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/value_5dp"
+        android:gravity="center"
+        android:maxLines="1"
+        android:textColor="@android:color/white" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/galleryViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/value_30dp"
+        android:paddingRight="@dimen/value_30dp"
+        android:layout_above="@id/galleryImageTitle"
+        android:layout_below="@id/galleryCloseButton">
+
+    </android.support.v4.view.ViewPager>
+
+
+</RelativeLayout>
