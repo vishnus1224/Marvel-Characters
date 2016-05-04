@@ -31,6 +31,10 @@ public class SeriesContainer implements Parcelable{
      */
     private List<SeriesSummary> items;
 
+    public SeriesContainer(){
+
+    }
+
     protected SeriesContainer(Parcel in) {
         available = in.readInt();
         returned = in.readInt();

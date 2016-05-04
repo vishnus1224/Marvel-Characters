@@ -30,6 +30,10 @@ public class EventContainer implements Parcelable{
      */
     private List<EventSummary> items;
 
+    public EventContainer(){
+
+    }
+
     protected EventContainer(Parcel in) {
         available = in.readInt();
         returned = in.readInt();

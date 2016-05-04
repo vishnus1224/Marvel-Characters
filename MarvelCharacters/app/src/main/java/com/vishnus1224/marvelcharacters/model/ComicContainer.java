@@ -35,6 +35,10 @@ public class ComicContainer implements Parcelable{
      */
     private List<ComicSummary> items;
 
+    public ComicContainer(){
+
+    }
+
     protected ComicContainer(Parcel in) {
         available = in.readInt();
         returned = in.readInt();

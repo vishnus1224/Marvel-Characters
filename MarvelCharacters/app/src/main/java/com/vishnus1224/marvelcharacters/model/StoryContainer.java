@@ -33,6 +33,10 @@ public class StoryContainer implements Parcelable {
      */
     private List<StorySummary> items;
 
+    public StoryContainer(){
+
+    }
+
     protected StoryContainer(Parcel in) {
         available = in.readInt();
         returned = in.readInt();
