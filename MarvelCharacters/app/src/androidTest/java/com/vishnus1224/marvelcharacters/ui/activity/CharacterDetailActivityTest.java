@@ -1,11 +1,9 @@
 package com.vishnus1224.marvelcharacters.ui.activity;
 
 import android.content.Intent;
-import android.support.test.espresso.action.ViewActions;
 import android.support.test.rule.ActivityTestRule;
 
 import com.vishnus1224.marvelcharacters.R;
-import com.vishnus1224.marvelcharacters.model.CharacterResourceThumbnail;
 import com.vishnus1224.marvelcharacters.model.ComicContainer;
 import com.vishnus1224.marvelcharacters.model.ComicSummary;
 import com.vishnus1224.marvelcharacters.model.EventContainer;
@@ -48,7 +46,7 @@ public class CharacterDetailActivityTest {
     @Test
     public void displayCharacterNameTest(){
 
-        MarvelCharacter marvelCharacter = createFakeCharacter();
+        MarvelCharacter marvelCharacter = createFakeCharacter(FAKE_CHARACTER_ID, FAKE_CHARACTER_NAME, FAKE_CHARACTER_DESCRIPTION);
 
         Intent intent = new Intent();
         intent.putExtra(Constants.KEY_CHARACTER, marvelCharacter);
@@ -56,14 +54,16 @@ public class CharacterDetailActivityTest {
         activityTestRule.launchActivity(intent);
 
         //check if the correct text is displayed on the view.
-        onView(withId(R.id.characterDetailName)).check(matches(withText(FAKE_CHARACTER_NAME)));
+        onView(withId(R.id.characterDetailName))
+                .check(matches(withText(FAKE_CHARACTER_NAME)))
+                .check(matches(isDisplayed()));
 
     }
 
     @Test
     public void displayCharacterDescriptionTest(){
 
-        MarvelCharacter marvelCharacter = createFakeCharacter();
+        MarvelCharacter marvelCharacter = createFakeCharacter(FAKE_CHARACTER_ID, FAKE_CHARACTER_NAME, FAKE_CHARACTER_DESCRIPTION);
 
         Intent intent = new Intent();
         intent.putExtra(Constants.KEY_CHARACTER, marvelCharacter);
@@ -71,10 +71,82 @@ public class CharacterDetailActivityTest {
         activityTestRule.launchActivity(intent);
 
         //check if the description displayed on the view is the one specified when creating the character.
-        onView(withId(R.id.characterDescription)).check(matches(withText(FAKE_CHARACTER_DESCRIPTION)));
+        onView(withId(R.id.characterDescription))
+                .check(matches(withText(FAKE_CHARACTER_DESCRIPTION)))
+                .check(matches(isDisplayed()));
     }
 
-    private MarvelCharacter createFakeCharacter(){
+    @Test
+    public void displayNoDescriptionAvailableTest(){
+
+        MarvelCharacter marvelCharacter = createFakeCharacter(FAKE_CHARACTER_ID, FAKE_CHARACTER_NAME, "");
+
+        Intent intent = new Intent();
+        intent.putExtra(Constants.KEY_CHARACTER, marvelCharacter);
+
+        activityTestRule.launchActivity(intent);
+
+        onView(withId(R.id.characterDescription))
+                .check(matches(withText(R.string.no_description_available)))
+                .check(matches(isDisplayed()));
+
+    }
+
+    @Test
+    public void displayNoComicsAvailableTest(){
+
+        MarvelCharacter marvelCharacter = createFakeCharacter(FAKE_CHARACTER_ID, FAKE_CHARACTER_NAME, FAKE_CHARACTER_DESCRIPTION);
+
+        Intent intent = new Intent();
+        intent.putExtra(Constants.KEY_CHARACTER, marvelCharacter);
+
+        activityTestRule.launchActivity(intent);
+
+        onView(withText(R.string.no_comics_available)).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void displayNoSeriesAvailableTest(){
+
+        MarvelCharacter marvelCharacter = createFakeCharacter(FAKE_CHARACTER_ID, FAKE_CHARACTER_NAME, FAKE_CHARACTER_DESCRIPTION);
+
+        Intent intent = new Intent();
+        intent.putExtra(Constants.KEY_CHARACTER, marvelCharacter);
+
+        activityTestRule.launchActivity(intent);
+
+        onView(withText(R.string.no_series_available)).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void displayNoEventsAvailableTest(){
+
+        MarvelCharacter marvelCharacter = createFakeCharacter(FAKE_CHARACTER_ID, FAKE_CHARACTER_NAME, FAKE_CHARACTER_DESCRIPTION);
+
+        Intent intent = new Intent();
+        intent.putExtra(Constants.KEY_CHARACTER, marvelCharacter);
+
+        activityTestRule.launchActivity(intent);
+
+        onView(withText(R.string.no_events_available)).perform(scrollTo()).check(matches(isDisplayed()));
+
+    }
+
+    @Test
+    public void displayNoStoriesAvailableTest(){
+
+        MarvelCharacter marvelCharacter = createFakeCharacter(FAKE_CHARACTER_ID, FAKE_CHARACTER_NAME, FAKE_CHARACTER_DESCRIPTION);
+
+
+        Intent intent = new Intent();
+        intent.putExtra(Constants.KEY_CHARACTER, marvelCharacter);
+
+        activityTestRule.launchActivity(intent);
+
+        onView(withText(R.string.no_stories_available)).perform(scrollTo()).check(matches(isDisplayed()));
+    }
+
+    private MarvelCharacter createFakeCharacter(int id, String name, String description){
 
         ComicContainer comicContainer = new ComicContainer();
         comicContainer.setItems(new ArrayList<ComicSummary>());
@@ -90,7 +162,7 @@ public class CharacterDetailActivityTest {
 
         MarvelCharacterThumbnail marvelCharacterThumbnail = new MarvelCharacterThumbnail(FAKE_PATH, FAKE_EXTENSION);
 
-        MarvelCharacter marvelCharacter = new MarvelCharacter(FAKE_CHARACTER_ID, FAKE_CHARACTER_NAME, FAKE_CHARACTER_DESCRIPTION);
+        MarvelCharacter marvelCharacter = new MarvelCharacter(id, name, description);
 
         marvelCharacter.setThumbnail(marvelCharacterThumbnail);
         marvelCharacter.setComicContainer(comicContainer);
