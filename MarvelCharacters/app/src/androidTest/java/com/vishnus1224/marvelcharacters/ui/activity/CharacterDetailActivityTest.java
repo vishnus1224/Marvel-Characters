@@ -48,10 +48,7 @@ public class CharacterDetailActivityTest {
 
         MarvelCharacter marvelCharacter = createFakeCharacter(FAKE_CHARACTER_ID, FAKE_CHARACTER_NAME, FAKE_CHARACTER_DESCRIPTION);
 
-        Intent intent = new Intent();
-        intent.putExtra(Constants.KEY_CHARACTER, marvelCharacter);
-
-        activityTestRule.launchActivity(intent);
+        startCharacterDetailActivity(marvelCharacter);
 
         //check if the correct text is displayed on the view.
         onView(withId(R.id.characterDetailName))
@@ -65,10 +62,7 @@ public class CharacterDetailActivityTest {
 
         MarvelCharacter marvelCharacter = createFakeCharacter(FAKE_CHARACTER_ID, FAKE_CHARACTER_NAME, FAKE_CHARACTER_DESCRIPTION);
 
-        Intent intent = new Intent();
-        intent.putExtra(Constants.KEY_CHARACTER, marvelCharacter);
-
-        activityTestRule.launchActivity(intent);
+        startCharacterDetailActivity(marvelCharacter);
 
         //check if the description displayed on the view is the one specified when creating the character.
         onView(withId(R.id.characterDescription))
@@ -81,10 +75,7 @@ public class CharacterDetailActivityTest {
 
         MarvelCharacter marvelCharacter = createFakeCharacter(FAKE_CHARACTER_ID, FAKE_CHARACTER_NAME, "");
 
-        Intent intent = new Intent();
-        intent.putExtra(Constants.KEY_CHARACTER, marvelCharacter);
-
-        activityTestRule.launchActivity(intent);
+        startCharacterDetailActivity(marvelCharacter);
 
         onView(withId(R.id.characterDescription))
                 .check(matches(withText(R.string.no_description_available)))
@@ -97,10 +88,7 @@ public class CharacterDetailActivityTest {
 
         MarvelCharacter marvelCharacter = createFakeCharacter(FAKE_CHARACTER_ID, FAKE_CHARACTER_NAME, FAKE_CHARACTER_DESCRIPTION);
 
-        Intent intent = new Intent();
-        intent.putExtra(Constants.KEY_CHARACTER, marvelCharacter);
-
-        activityTestRule.launchActivity(intent);
+        startCharacterDetailActivity(marvelCharacter);
 
         onView(withText(R.string.no_comics_available)).check(matches(isDisplayed()));
     }
@@ -110,10 +98,7 @@ public class CharacterDetailActivityTest {
 
         MarvelCharacter marvelCharacter = createFakeCharacter(FAKE_CHARACTER_ID, FAKE_CHARACTER_NAME, FAKE_CHARACTER_DESCRIPTION);
 
-        Intent intent = new Intent();
-        intent.putExtra(Constants.KEY_CHARACTER, marvelCharacter);
-
-        activityTestRule.launchActivity(intent);
+        startCharacterDetailActivity(marvelCharacter);
 
         onView(withText(R.string.no_series_available)).check(matches(isDisplayed()));
     }
@@ -123,10 +108,7 @@ public class CharacterDetailActivityTest {
 
         MarvelCharacter marvelCharacter = createFakeCharacter(FAKE_CHARACTER_ID, FAKE_CHARACTER_NAME, FAKE_CHARACTER_DESCRIPTION);
 
-        Intent intent = new Intent();
-        intent.putExtra(Constants.KEY_CHARACTER, marvelCharacter);
-
-        activityTestRule.launchActivity(intent);
+        startCharacterDetailActivity(marvelCharacter);
 
         onView(withText(R.string.no_events_available)).perform(scrollTo()).check(matches(isDisplayed()));
 
@@ -137,13 +119,40 @@ public class CharacterDetailActivityTest {
 
         MarvelCharacter marvelCharacter = createFakeCharacter(FAKE_CHARACTER_ID, FAKE_CHARACTER_NAME, FAKE_CHARACTER_DESCRIPTION);
 
+        startCharacterDetailActivity(marvelCharacter);
+
+        onView(withText(R.string.no_stories_available)).perform(scrollTo()).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void backButtonClickTest(){
+
+        MarvelCharacter marvelCharacter = createFakeCharacter(FAKE_CHARACTER_ID, FAKE_CHARACTER_NAME, FAKE_CHARACTER_DESCRIPTION);
+
+        startCharacterDetailActivity(marvelCharacter);
+
+        onView(withId(R.id.backButton)).perform(click());
+    }
+
+    @Test
+    public void displayRelatedLinksListViewTest(){
+
+        MarvelCharacter marvelCharacter = createFakeCharacter(FAKE_CHARACTER_ID, FAKE_CHARACTER_NAME, FAKE_CHARACTER_DESCRIPTION);
+
+        startCharacterDetailActivity(marvelCharacter);
+
+        onView(withId(R.id.listViewRelatedLinks)).perform(scrollTo()).check(matches(isDisplayed()));
+
+    }
+
+    private void startCharacterDetailActivity(MarvelCharacter marvelCharacter){
+
 
         Intent intent = new Intent();
         intent.putExtra(Constants.KEY_CHARACTER, marvelCharacter);
 
         activityTestRule.launchActivity(intent);
 
-        onView(withText(R.string.no_stories_available)).perform(scrollTo()).check(matches(isDisplayed()));
     }
 
     private MarvelCharacter createFakeCharacter(int id, String name, String description){
